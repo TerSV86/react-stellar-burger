@@ -3,16 +3,16 @@
     width: 100%;
     max-width: 1282px;
     display: grid;
-    grid-template-columns: 1fr 1fr  1fr;    
+    grid-template-rows: 1fr;
+    grid-template-columns: minmax(380px, 383px) 1fr minmax(380px, 383px);
     align-items: center;
-    justify-items: center;
-    margin: 21px 0;
+    justify-items: center;   
     box-sizing: border-box;
 }
 
-.logoContainer {
-    /* grid-column: 2; */
+/* .logoContainer {
+    grid-column: 2;
     display: flex;
     justify-content: center;
     
-}
+} */

@@ -1,0 +1,11 @@
+.ProductsContainer {
+    border: 1px solid rgb(31, 138, 21);
+    box-sizing: border-box;
+    width: 100%;
+    /* max-height: calc(100vh - 40px - 324px); */
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    column-gap: 24px;
+    row-gap: 32px;      
+}

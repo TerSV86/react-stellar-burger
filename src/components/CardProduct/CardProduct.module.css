@@ -1,0 +1,11 @@
+.CardProduct {
+    border: 1px solid white;
+    width: 100%;
+    max-width: 272px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;    
+}

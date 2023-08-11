@@ -1,0 +1,9 @@
+.Content {
+    border: 1px solid blueviolet;
+    width: 100%;
+    max-width: 1240px;
+    height: 100%;
+    display: flex;
+    justify-content: row;
+    gap: 40px;
+}
