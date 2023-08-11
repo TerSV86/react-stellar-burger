@@ -33,7 +33,7 @@ const Products = () => {
     const filtredMains = productData.filter((el) => el.type === 'main')
     const filtredSauce = productData.filter((el) => el.type === 'sauce')
     return (
-        <div className={styles.Products}>
+        <div className={`${styles.Products} custom-scroll`}>
             <TypeProduct type={'Булки'}  />
             <ProductsContainer product={filtredBuns} />
 
