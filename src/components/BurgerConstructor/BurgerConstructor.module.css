@@ -1,10 +1,10 @@
-.CardProduct {
+.BurgerConstructor {
+    box-sizing: border-box;
     width: 100%;
-    max-width: 272px;
+    max-height: calc(100vh - 10vh);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    gap: 16px;
     position: relative;
-    text-align: center;
 }

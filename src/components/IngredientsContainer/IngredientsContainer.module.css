@@ -1,0 +1,16 @@
+.IngredientsContainer {
+    width: 100%;
+    max-width: 868px;
+    max-height: calc(100vh - 43vh);
+    overflow-y: scroll;
+    overflow-x: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-sizing: border-box;
+}
+
+.IngredientsContainer.Button {
+    align-self: flex-end;
+}

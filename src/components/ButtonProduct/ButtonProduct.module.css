@@ -6,6 +6,5 @@
     justify-content: center;
     align-items: center;
     color: #8585AD;
-
-    border-bottom: 2px solid #4C4CFF;/* Перенести для акивного элемента */
+    border-bottom: 2px solid #4C4CFF;/* Для акивного элемента */
 }

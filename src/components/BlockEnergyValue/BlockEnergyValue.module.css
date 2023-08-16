@@ -1,10 +1,8 @@
-.CardProduct {
-    width: 100%;
-    max-width: 272px;
+.BlockEnergyValue{
+    width: 100%;    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
-    text-align: center;
+    gap: 8px
 }

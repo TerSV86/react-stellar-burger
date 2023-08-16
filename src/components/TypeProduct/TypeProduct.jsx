@@ -1,4 +1,4 @@
-import CardProduct from '../CardProduct/CardProduct'
+/* import CardProduct from '../CardProduct/CardProduct'
 import TitleTypeProduct from '../TitleTypeProduct/TitleTypeProduct'
 import style from './TypeProduct.module.css'
 
@@ -12,4 +12,4 @@ const TypeProduct = ({type}) => {
     )
 }
 
-export default TypeProduct
+export default TypeProduct */

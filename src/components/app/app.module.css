@@ -1,5 +1,4 @@
 .app {
-  border: 1px solid red;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -9,4 +8,5 @@
   background-color: #131316;
   color: #f2f2f3;
   box-sizing: border-box;
-  }
+  position: relative;
+}

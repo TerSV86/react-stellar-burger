@@ -4,23 +4,25 @@ import ProductImage from '../ProductImage/ProductImage'
 import ProductPrice from '../ProductPrice/ProductPrice'
 import ProductName from '../ProductName/ProductName'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
+import { cardProductPropType } from '../../utils/prop-types'
 
+const CardProduct = ({ link, name, price, onClick}) => {
+    const [count, setCount] = useState(1);
 
-const CardProduct = ({ link, name, price }) => {
-    const [count, setCount] = useState(0);
-
-    const handleClickProduct = () => {
+    /* const handleClickProduct = () => {
         setCount(count + 1);
-    }
+    } */
 
     return (
-        <div className={`${styles.CardProduct} `} onClick={handleClickProduct}>
+        <article className={`${styles.CardProduct} `} /* onClick={handleClickProduct} */ onClick={onClick} >
             <ProductImage link={link} />
-            <ProductPrice prise={price} />
+            <ProductPrice price={price} />
             <ProductName name={name} />
             {(count === 0) ? null : <Counter count={count} size="default" extraClass="m-1" />}
-        </div>
+        </article>
     )
 }
+
+CardProduct.propType = cardProductPropType;
 
 export default CardProduct
