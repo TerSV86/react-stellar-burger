@@ -11,6 +11,6 @@ const ProductsContainer = ({ product, onClick }) => {
     )
 }
 
-ProductsContainer.propType = productsContainerPropType;
+ProductsContainer.propTypes = productsContainerPropType;
 
 export default ProductsContainer

@@ -6,6 +6,6 @@ const ProductImage = ({link, name}) => {
     )
 }
 
-ProductImage.propType = productImagePropType;
+ProductImage.propTypes = productImagePropType;
 
 export default ProductImage

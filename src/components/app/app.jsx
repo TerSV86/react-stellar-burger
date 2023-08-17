@@ -24,7 +24,7 @@ function App() {
         const res = await fetch(url);
         const data = await res.json();
         if (!res.ok) {
-          console.error(`Ошибка выполнения запроса. Статус: $${res.status}`);
+          return Promise.reject(`Ошибка ${res.status}`);
         }
         setState((prevState) => ({
           ...prevState,
@@ -43,33 +43,27 @@ function App() {
     setIsOpen(true)
   }
 
-  const handleClickCloseModal = (e) => {
+  const handleClickCloseModal = () => {
     setIsClickButtonOrsder(false)
     setIsOpen(false)
     setDataModal({})
   }
-
   const { productData } = state;
-
+  if (!productData || productData.length === 0) {
+    return null;
+  }
+  
   return (
     <div className={`${styles.app} pb-10`}>
       <AppHeader />
       <Content productData={productData} onClick={handleClickOpenModal} />
-      <ModalOverlay open={isOpen} onClick={(e) => handleClickCloseModal(e)}>
-        <Modal onClick={handleClickCloseModal} clickButtonOreder={isClickButtonOrder}>
-          {
-            isClickButtonOrder ?
-              <OrderDetails /> :
-              <IngredientDetails
-                link={dataModal.image_large}
-                name={dataModal.name}
-                carbs={dataModal.carbohydrates}
-                cal={dataModal.calories}
-                fat={dataModal.fat}
-                proteins={dataModal.proteins} />
-          }
-        </Modal>
-      </ModalOverlay>
+      {isOpen && (<Modal onClick={handleClickCloseModal} title={isClickButtonOrder ? null : "Детали ингредиента"}>
+        {
+          isClickButtonOrder ?
+            <OrderDetails /> :
+            <IngredientDetails ingredient={dataModal} />
+        }
+      </Modal>)}
     </div>
   );
 }

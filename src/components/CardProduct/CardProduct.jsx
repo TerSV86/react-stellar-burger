@@ -23,6 +23,6 @@ const CardProduct = ({ link, name, price, onClick}) => {
     )
 }
 
-CardProduct.propType = cardProductPropType;
+CardProduct.propTypes = cardProductPropType;
 
 export default CardProduct

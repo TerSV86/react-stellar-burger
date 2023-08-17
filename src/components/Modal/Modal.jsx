@@ -1,17 +1,37 @@
 import styles from './Modal.module.css'
-import React from 'react'
+import ReactDOM from 'react-dom'
 import ModalHeader from '../ModalHeader/ModalHeader';
+import ModalOverlay from '../ModalOverlay/ModalOverlay';
+import { reactModals } from '../../utils/data'
+import { useEffect } from 'react';
+import { modalPropType } from '../../utils/prop-types';
 
-class Modal extends React.Component {
-    render() {
-        const { children, onClick, clickButtonOreder } = this.props;
-        return  (
-            <div className={`${styles.Modal} `} onClick={(e) => e.stopPropagation()}>
-                <ModalHeader onClick={onClick}>{clickButtonOreder ? null : "Детали ингредиента"}</ModalHeader>
+
+export default function Modal({  onClick, children, title }) {
+    
+     useEffect(() => {
+        function closeByEscape(evt) {
+            if (evt.key === 'Escape') {
+                onClick();
+            }
+        }
+        document.addEventListener('keydown', closeByEscape);
+        return () => {
+            document.removeEventListener('keydown', closeByEscape);
+        }
+
+    }, [])   
+   
+    return ReactDOM.createPortal((
+        <>
+            <ModalOverlay onClick={onClick} />
+            <div className={`${styles.Modal} `} onClick={(e) => e.stopPropagation()} >
+                <ModalHeader onClick={onClick}>{title}</ModalHeader>
                 {children}
             </div>
-        )
-    }
+        </>
+    ), reactModals
+    )
 }
 
-export default Modal
+Modal.propTypes = modalPropType;

@@ -6,6 +6,6 @@ const ProductName = ({name}) => {
     )
 }
 
-ProductName.propType = productNamePropType;
+ProductName.propTypes = productNamePropType;
 
 export default ProductName

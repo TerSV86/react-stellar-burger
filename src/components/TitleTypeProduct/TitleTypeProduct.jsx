@@ -6,6 +6,6 @@ const TitleTypeProduct = ({ type }) => {
     )
 }
 
-TitleTypeProduct.propType = titleTypeProductPropType;
+TitleTypeProduct.propTypes = titleTypeProductPropType;
 
 export default TitleTypeProduct

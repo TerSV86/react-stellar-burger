@@ -1,23 +1,15 @@
-
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { modalOverlayPropType } from '../../utils/prop-types'
 import styles from './ModalOverlay.module.css'
 
-const reactModals = document.getElementById('react-modals')
 
-class ModalOverlay extends React.Component {
-    render() {
-        const {children, open, onClick} = this.props;
-        if (!open) return null
-        return ReactDOM.createPortal(
-            (
-            <div className={`${styles.ModalOverlay}`} onClick={onClick}>
-                {children}
-            </div>
-            ), reactModals
-        );
-    }
+export default function ModalOverlay({onClick}) {
+    
+    return (
+        <div className={`${styles.ModalOverlay}`} onClick={onClick}/>       
+    )
 }
 
-export default ModalOverlay
+ModalOverlay.propTypes = modalOverlayPropType;
+
+
 

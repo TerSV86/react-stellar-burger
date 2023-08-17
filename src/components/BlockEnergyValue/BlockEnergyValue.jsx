@@ -1,3 +1,4 @@
+import { blockEnergyValuePropType } from '../../utils/prop-types'
 import styles from './BlockEnergyValue.module.css'
 
 const BlockEnergyValue = ({name, value}) =>{
@@ -8,5 +9,7 @@ const BlockEnergyValue = ({name, value}) =>{
         </div>
     )
 }
+
+BlockEnergyValue.propTypes = blockEnergyValuePropType;
 
 export default BlockEnergyValue

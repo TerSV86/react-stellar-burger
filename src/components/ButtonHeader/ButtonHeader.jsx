@@ -1,5 +1,5 @@
 import styles from './ButtonHeader.module.css'
-/* import { buttonHeaderPropType } from '../../utils/prop-types' */
+import { buttonHeaderPropType } from '../../utils/prop-types'
 
 const ButtonHeader = ({ style, name, icon }) => {
 
@@ -11,6 +11,6 @@ const ButtonHeader = ({ style, name, icon }) => {
     )
 }
 
-/* ButtonHeader.propTypes = buttonHeaderPropType; */
+ButtonHeader.propTypes = buttonHeaderPropType;
 
 export default ButtonHeader

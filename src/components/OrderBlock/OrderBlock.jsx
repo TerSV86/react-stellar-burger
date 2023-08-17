@@ -1,3 +1,4 @@
+import { orderBlockPropType } from '../../utils/prop-types'
 import styles from './OrderBlock.module.css'
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -13,5 +14,7 @@ const OrderBlock = ({onClick}) => {
 
     )
 }
+
+OrderBlock.propTypes = orderBlockPropType;
 
 export default OrderBlock

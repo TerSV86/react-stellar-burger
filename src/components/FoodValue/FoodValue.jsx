@@ -1,3 +1,4 @@
+import { foodValuePropType } from '../../utils/prop-types'
 import BlockEnergyValue from '../BlockEnergyValue/BlockEnergyValue'
 import styles from './FoodValue.module.css'
 
@@ -11,5 +12,7 @@ const FoodValue = ({carbs, cal, fat, proteins}) => {
         </div>
     )
 }
+
+FoodValue.propTypes = foodValuePropType;
 
 export default FoodValue

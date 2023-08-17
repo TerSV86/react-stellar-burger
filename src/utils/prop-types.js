@@ -1,172 +1,104 @@
 import PropTypes from "prop-types";
-import TypeProduct from "../components/TypeProduct/TypeProduct";
+import { ingredientPropType } from "./types";
 
-export const ingredientPropType = PropTypes.shape({
-  //укажите здесь prop-types для ингридиента
-});
 
-/* export const appPropType = PropTypes.shape({
-  productData: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      image_large: PropTypes.string.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      calories: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      proteins: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-}) */
-
-export const buttonHeaderPropType = PropTypes.shape({
+export const buttonHeaderPropType = {
   style: PropTypes.shape({
-    maxWidth: PropTypes.string.isRequired,
-    gridColumn: PropTypes.string.isRequired,
-    gridRow: PropTypes.string.isRequired,
+    maxWidth: PropTypes.number.isRequired,
+    gridColumn: PropTypes.string,
+    gridRow: PropTypes.string,
     justifySelf: PropTypes.string.isRequired
   }),
   name: PropTypes.string.isRequired,
-  icon: PropTypes.elementType.isRequired,
-})
+  icon: PropTypes.element.isRequired,
+}
 
-export const contentPropType = PropTypes.shape({
-  productData: PropTypes.arrayOf(
-    PropTypes.shape({
-      calories: PropTypes.number,
-      carbohydrates:PropTypes.number, 
-      fat:PropTypes.number,
-      image:PropTypes.string.isRequired,
-      image_large:PropTypes.string,
-      image_mobile:PropTypes.string,
-      name:PropTypes.string.isRequired,
-      price:PropTypes.number,
-      proteins:PropTypes.number,
-      type:PropTypes.string.isRequired,
-      __v:PropTypes.number,
-      _id:PropTypes.string.isRequired
-    })
-  ),
-  onClick: PropTypes.func.isRequired 
-})
+export const contentPropType = {
+  productData: PropTypes.arrayOf(ingredientPropType),
+  onClick: PropTypes.func.isRequired
+}
 
-export const burgerIngredientsPropType = PropTypes.shape({
-  productData: PropTypes.arrayOf(
-    PropTypes.shape({
-      calories: PropTypes.number,
-      carbohydrates:PropTypes.number, 
-      fat:PropTypes.number,
-      image:PropTypes.string.isRequired,
-      image_large:PropTypes.string,
-      image_mobile:PropTypes.string,
-      name:PropTypes.string.isRequired,
-      price:PropTypes.number,
-      proteins:PropTypes.number,
-      type:PropTypes.string.isRequired,
-      __v:PropTypes.number,
-      _id:PropTypes.string.isRequired
-    })
-  ),
-  onClick: PropTypes.func.isRequired 
-})
 
-export const productPropType = PropTypes.shape({
-  productData: PropTypes.arrayOf(
-    PropTypes.shape({
-      calories: PropTypes.number,
-      carbohydrates:PropTypes.number, 
-      fat:PropTypes.number,
-      image:PropTypes.string.isRequired,
-      image_large:PropTypes.string,
-      image_mobile:PropTypes.string,
-      name:PropTypes.string.isRequired,
-      price:PropTypes.number,
-      proteins:PropTypes.number,
-      type:PropTypes.string.isRequired,
-      __v:PropTypes.number,
-      _id:PropTypes.string.isRequired
-    })
-  ),
-  onClick: PropTypes.func.isRequired 
-})
+export const burgerIngredientsPropType = {
+  productData: PropTypes.arrayOf(ingredientPropType),
+  onClick: PropTypes.func.isRequired
+}
 
-export const titleTypeProductPropType = PropTypes.string;
+export const buttonProductPropType = {
+  name: PropTypes.string.isRequired
+}
 
-export const productsContainerPropType = PropTypes.shape({
-  productData: PropTypes.arrayOf(
-    PropTypes.shape({
-      calories: PropTypes.number,
-      carbohydrates:PropTypes.number, 
-      fat:PropTypes.number,
-      image:PropTypes.string.isRequired,
-      image_large:PropTypes.string,
-      image_mobile:PropTypes.string,
-      name:PropTypes.string.isRequired,
-      price:PropTypes.number,
-      proteins:PropTypes.number,
-      type:PropTypes.string.isRequired,
-      __v:PropTypes.number,
-      _id:PropTypes.string.isRequired
-    })
-  ),
-  onClick: PropTypes.func.isRequired 
-})
+export const productPropType = {
+  productData: PropTypes.arrayOf(ingredientPropType),
+  onClick: PropTypes.func.isRequired
+}
 
-export const cardProductPropType = PropTypes.shape({
+export const titleTypeProductPropType = { title: PropTypes.string };
+
+export const productsContainerPropType = {
+  productData: PropTypes.arrayOf(ingredientPropType),
+  onClick: PropTypes.func.isRequired
+}
+
+export const cardProductPropType = {
   link: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired
-})
+}
 
-export const productImagePropType = PropTypes.shape ({
-  link: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-})
+export const productImagePropType = {
+  link: PropTypes.string,
+  name: PropTypes.string,
+}
 
-export const productPricePropType = PropTypes.shape({
+export const productPricePropType = {
   price: PropTypes.number.isRequired,
-})
+}
 
-export const productNamePropType = PropTypes.shape({
+export const productNamePropType = {
   name: PropTypes.string.isRequired
-})
+}
 
-export const burgerConstructorPropType = PropTypes.shape({
-  productData: PropTypes.arrayOf(
-    PropTypes.shape({
-      calories: PropTypes.number,
-      carbohydrates:PropTypes.number, 
-      fat:PropTypes.number,
-      image:PropTypes.string.isRequired,
-      image_large:PropTypes.string,
-      image_mobile:PropTypes.string,
-      name:PropTypes.string.isRequired,
-      price:PropTypes.number,
-      proteins:PropTypes.number,
-      type:PropTypes.string.isRequired,
-      __v:PropTypes.number,
-      _id:PropTypes.string.isRequired
-    })
-  ),
-  onClick: PropTypes.func.isRequired 
-})
+export const burgerConstructorPropType = {
+  productData: PropTypes.arrayOf(ingredientPropType),
+  onClick: PropTypes.func.isRequired
+}
 
-export const ingredientsContainerPropType = PropTypes.shape({
-  productData: PropTypes.arrayOf(
-    PropTypes.shape({
-      calories: PropTypes.number,
-      carbohydrates:PropTypes.number, 
-      fat:PropTypes.number,
-      image:PropTypes.string.isRequired,
-      image_large:PropTypes.string,
-      image_mobile:PropTypes.string,
-      name:PropTypes.string.isRequired,
-      price:PropTypes.number,
-      proteins:PropTypes.number,
-      type:PropTypes.string.isRequired,
-      __v:PropTypes.number,
-      _id:PropTypes.string.isRequired
-    })
-  )
-})
+export const ingredientsContainerPropType = {
+  productData: PropTypes.arrayOf(ingredientPropType)
+}
+
+export const orderBlockPropType = {
+  onClick: PropTypes.func.isRequired
+}
+
+export const modalPropType = {
+  open: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.element,
+  title: PropTypes.string
+}
+
+export const modalOverlayPropType = { onClick: PropTypes.func.isRequired }
+
+export const modalHeaderPropType = {
+  children: PropTypes.string,
+  onClick: PropTypes.func.isRequired
+}
+
+export const ingredientDetailsPropType = {
+  ingredient: ingredientPropType
+}
+
+export const foodValuePropType = {
+  carbs: PropTypes.number,
+  cal: PropTypes.number,
+  fat: PropTypes.number,
+  proteins: PropTypes.number
+}
+
+export const blockEnergyValuePropType = {
+  name: PropTypes.string,
+  value: PropTypes.number
+}

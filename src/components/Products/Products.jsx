@@ -19,7 +19,7 @@ const Products = ({ productData, onClick }) => {
     )
 }
 
-Products.propType = productPropType;
+Products.propTypes = productPropType;
 
 export default Products
 

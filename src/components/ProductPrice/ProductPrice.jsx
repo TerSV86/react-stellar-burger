@@ -1,3 +1,4 @@
+import { productPricePropType } from '../../utils/prop-types'
 import styles from './ProductPrice.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -10,6 +11,6 @@ const ProductPrice = ({price}) => {
     )
 }
 
-
+ProductPrice.propTypes = productPricePropType
 
 export default ProductPrice
