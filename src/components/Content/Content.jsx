@@ -3,12 +3,12 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 import { contentPropType } from '../../utils/prop-types'
 
-const Content = ({  onClick }) => {
-        
+const Content = () => {
+
     return (
         <main className={styles.Content}>
-            <BurgerIngredients  />
-            <BurgerConstructor   />
+            <BurgerIngredients />
+            <BurgerConstructor />
         </main>
     )
 }

@@ -3,8 +3,9 @@ import doneImage from '../../images/done.svg'
 import { CheckMarkIcon, CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useContext } from 'react';
 import { SelectIngredient } from '../../services/appContext';
+import { useSelector } from 'react-redux';
 const OrderDetails = () => {
-  const{order} = useContext(SelectIngredient);
+  const order = useSelector(store => store.openModalOrder.numberOrder);
   
     return (
         <div className={`${styles.OrderDetails} pt-4`}>
