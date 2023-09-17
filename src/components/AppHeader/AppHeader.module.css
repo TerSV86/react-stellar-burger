@@ -1,0 +1,11 @@
+.AppHeader {
+    width: 100%;
+    max-width: 1282px;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: minmax(380px, 383px) 1fr minmax(380px, 383px);
+    align-items: center;
+    justify-items: center;
+    box-sizing: border-box;
+}
+
