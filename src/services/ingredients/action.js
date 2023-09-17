@@ -10,7 +10,7 @@ export const ADD_BUN = 'ADD_BUN';
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 
 
-export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
+
 
 
 /* export const PROCESSING_ORDER = 'PROCESSING_ORDER'; */
@@ -20,6 +20,9 @@ export const INGREDIENTS_LOAD_SUCCESS = 'INGREDIENTS_LOAD_SUCCESS'
 
 export const OPEN_MODAL_ORDER_SUCCESS = 'OPEN_MODAL_ORDER_SUCCESS'
 
+export const OPEN_MODAL_INGREDIENT = 'OPEN_MODAL_INGREDIENT'
+
+export const CLOSE_MODAL = 'CLOSE_MODAL'
 
 export const addBunIngredient = (element) => ({
     type: ADD_BUN,
@@ -37,22 +40,19 @@ export const addIngredientOther = (element) => ({
     }
 })
 
-export const deleteIngredientOther = (id) => ({
-    type: DELETE_INGREDIENT,
-    id
-})
-
 export const loadIngredients = () => (dispatch) => {    
     return getProductData().then(res => {        
+        res.data.map(element => element.board = 'default') 
+            
         dispatch({
             type: INGREDIENTS_LOAD_SUCCESS,
-            payload: res
+            payload: res             
         })
     })
 }
 
 export const openModalOrder = (selectIngredient) => (dispatch) => {
-    console.log('open');
+    
     return getNumberOrder(selectIngredient).then(res => {
         dispatch({
             type: OPEN_MODAL_ORDER_SUCCESS,
@@ -60,3 +60,12 @@ export const openModalOrder = (selectIngredient) => (dispatch) => {
         })
     })
 }
+
+export const openModalIngredient = (ingredient) =>  ({    
+    type: OPEN_MODAL_INGREDIENT,
+    payload: ingredient    
+})
+
+export const closeModal = () => ({
+    type: CLOSE_MODAL
+})

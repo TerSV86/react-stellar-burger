@@ -1,34 +1,27 @@
+import { CLOSE_MODAL, OPEN_MODAL_INGREDIENT } from "./action";
+
 const initialState = {
     ingredients: [],
     selectIngredient: [],
 };
 
 export const reducer = (state = initialState, action) => {
-    
+   
     switch (action.type) {
-        /* case 'INGREDIENTS':
-            return {
-                ...state,
-                ingredients: action.payload
-            } */
-        case 'INGREDIENTS_LOAD_SUCCESS':
-            console.log(action.payload.data)
-            return {                
-                ...state,
-                ingredients: [... action.payload.data]
-            }
-        case 'ADD_BUN':
-            const newState = state.selectIngredient.filter((ingredient) =>
-                ingredient.ingredient.type !== 'bun')
 
+        case 'INGREDIENTS_LOAD_SUCCESS':
             return {
                 ...state,
-                selectIngredient: [...newState, action.payload]
+                ingredients: [...action.payload.data]
             }
+
         case 'ADD_INGREDIENT':
+            console.log('addIng');
+            const newStateDelBun = state.selectIngredient.filter(ingredient => ingredient.type !== 'bun')
+            console.log(newStateDelBun);
             return {
                 ...state,
-                selectIngredient: [...state.selectIngredient, action.payload]
+                selectIngredient: [...newStateDelBun, action.payload]
             }
         case 'DELETE_INGREDIENT':
             console.log(action.element);
@@ -38,21 +31,41 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 selectIngredient: [...newProduct]
             }
-        case 'PROCESSING_ORDER':
+
+        case 'OPEN_MODAL_ORDER_SUCCESS':
+            console.log(action.payload.order.number);
             return {
                 ...state,
-                order: action.order.order.number
-            }
-            case 'OPEN_MODAL_ORDER_SUCCESS':
-                console.log(action.payload.order.number);
-                return {
-                    ...state,
-                    openModalOrder: {
-                        isOpen: !state.isOpen,
-                        numberOrder: action.payload.order.number,
-                        isClickButtonOrder: !state.isClickButtonOrder,                        
-                    }
+                openModalOrder: {
+                    isOpen: !state.isOpen,
+                    numberOrder: action.payload.order.number,
+                    isClickButtonOrder: !state.isClickButtonOrder,
                 }
+            }
+
+        case OPEN_MODAL_INGREDIENT:
+            console.log('OPEN_MODAL_INGREDIENT')
+            console.log(action);
+            return {
+                ...state,
+                openModalOrder: {
+                    ...state.openModalOrder,
+                    isOpen: !state.isOpen
+                },
+                openModalIngredient: action.payload
+
+            }
+        case CLOSE_MODAL:
+            return {
+                ...state,
+                openModalOrder: {
+                    ...state.openModalOrder,
+                    isOpen: false,
+                    numberOrder: 0,
+                    isClickButtonOrder: false
+                },
+                openModalIngredient: null
+            }
         default:
             return state;
     }

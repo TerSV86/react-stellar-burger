@@ -8,13 +8,18 @@ import { Provider } from "react-redux";
 
 const store = configureStore(
   {
-    ingredients: [],
-    selectIngredient: [],
-    openModalOrder: {
-      isOpen: false,
-      numberOrder: 0,
-      isClickButtonOrder: false,      
+    ingredients: {
+      ingredients: [],
+      selectIngredient: [],
+      openModalOrder: {
+        isOpen: false,
+        numberOrder: 0,
+        isClickButtonOrder: false,
+      },
+      openModalIngredient:  null,      
     }
+
+
   }
 )
 

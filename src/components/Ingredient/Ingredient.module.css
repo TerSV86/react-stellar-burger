@@ -1,0 +1,10 @@
+.Ingredient {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 565px;
+    height: 40%;
+    box-sizing: border-box;
+}

@@ -19,8 +19,7 @@ export const getProductData = () => {
 }
 
 
-export const getNumberOrder = (selectIngredient) => {
-    console.log('get');
+export const getNumberOrder = (selectIngredient) => {   
     return fetch(`${burgerApiConfig.baseUrl}orders`, {
         method: "POST",
         headers: burgerApiConfig.headers,

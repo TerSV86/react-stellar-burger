@@ -1,45 +1,49 @@
 
 import styles from './IngredientsContainer.module.css'
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ingredientsContainerPropType } from '../../utils/prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteIngredientOther} from '../../services/ingredients/action'
+import { UPDATE_TYPE } from '../../services/dnd/actions/draggable-ingredient'
+import { useDrop } from 'react-dnd'
+import Ingredient from '../Ingredient/Ingredient'
 
-const IngredientsContainer = () => {
-    const selectIngredient = useSelector(store => store.selectIngredient)
-    const dispatch = useDispatch()
-    console.log(selectIngredient);
 
-    function deleteIngredient(id) {
-        
-        dispatch(deleteIngredientOther(id))
+const IngredientsContainer = () => {  
+    const board="burgerIngredient"; 
+    const selectIngredient = useSelector(store => store.ingredientList.sortIngredient)
+    const dispatch = useDispatch()  
+    const [{ isHover }, drop] = useDrop({
+        accept: 'ingredient',
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        }),
+        drop(itemId) {            
+            dispatch({
+                type: UPDATE_TYPE,
+                ...itemId,
+                board
+            })
+        }
+    })   
 
-    }
-
+    // const boardClass = board === 'default' ? styles.IngredientsContainer : styles.ingredient //пока не нужно
+    
+    const borderColor = isHover ? styles.lightgreen : 'transparent'
+   /*  const borderColor = isHover ? console.log('true') : console.log('false'); */
     return (
-        <div className={`${styles.IngredientsContainer} custom-scroll ml-4`}>
-            {selectIngredient.map((el) => {
-                console.log(el);
-                
-                if (!(el.ingredient.type === 'bun')) {
-                    return (
-                        <div key={Math.random()} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '8px', width: "100%", maxWidth: '565px', height: '40%', boxSizing: 'border-box' }}  >
-                            <DragIcon type="primary" />
-
-                            <ConstructorElement
-                                text={el.ingredient.name}
-                                price={el.ingredient.price}
-                                thumbnail={el.ingredient.image}
-                                handleClose={() => { deleteIngredient(el.id) }}
-                            />
-                        </div>
-                    )
-                }
-            })}
+        <div className={`${styles.IngredientsContainer} ${borderColor} custom-scroll ml-4`} ref={drop} >
+            {selectIngredient
+                .filter(el => el.board === board)
+                .map((el, index) => {
+                    if (!(el.type === 'bun')) {
+                        return (
+                            <Ingredient el={el} index={index}/>                            
+                        )
+                    }
+                })}
         </div>
     )
 }
 
-IngredientsContainer.propTypes = ingredientsContainerPropType;
+
 
 export default IngredientsContainer
+

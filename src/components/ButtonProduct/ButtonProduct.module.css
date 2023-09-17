@@ -5,6 +5,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #8585AD;
-    border-bottom: 2px solid #4C4CFF;/* Для акивного элемента */
+    color: #8585AD;    
+}
+
+.active {
+    color: #f4f4f4;
+    border-bottom: 2px solid #4C4CFF;
 }

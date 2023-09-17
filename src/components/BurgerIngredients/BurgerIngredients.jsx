@@ -1,7 +1,7 @@
 import NavbarProduts from '../NavbarProduts/NavbarProduts'
 import Products from '../Products/Products'
 import styles from './BurgerIngredients.module.css'
-import { burgerIngredientsPropType } from '../../utils/prop-types'
+
 
 const BurgerIngredients = () => {
     
@@ -14,6 +14,6 @@ const BurgerIngredients = () => {
     )
 }
 
-BurgerIngredients.propTypes = burgerIngredientsPropType;
+
 
 export default BurgerIngredients
