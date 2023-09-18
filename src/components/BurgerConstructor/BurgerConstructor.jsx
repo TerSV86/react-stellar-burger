@@ -5,6 +5,8 @@ import OrderBlock from '../OrderBlock/OrderBlock'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDrop } from 'react-dnd'
 import { UPDATE_TYPE } from '../../services/dnd/actions/draggable-ingredient'
+import {v4 as uuidv4} from 'uuid'
+import { addIngredientSort } from '../../services/dnd/actions/draggable-ingredient'
 
 
 
@@ -19,12 +21,12 @@ const BurgerConstructor = () => {
         collect: monitor => ({
             isHover: monitor.isOver(),
         }),
-        drop(itemId) {            
-            dispatch({
+        drop(product) {            
+            dispatch(/* {
                 type: UPDATE_TYPE,
                 ...itemId,
                 board
-            })
+            } */ addIngredientSort(product, board))
         }
     })
    
@@ -39,7 +41,7 @@ const BurgerConstructor = () => {
                         if (el.type === 'bun') {
                             return (
                                 <ConstructorElement
-                                    key={Math.random()}
+                                    key={uuidv4()}
                                     type="top"
                                     isLocked={true}
                                     text={`${el.name} (верх)`}
@@ -55,8 +57,8 @@ const BurgerConstructor = () => {
                 .filter(el => el.board === board)
                 .map((el) => {
                     if (el.type === 'bun') {
-                        return (<div><ConstructorElement
-                            key={Math.random()}
+                        return (<div key={uuidv4}><ConstructorElement
+                            
                             type="bottom"
                             isLocked={true}
                             text={`${el.name} (низ)`}

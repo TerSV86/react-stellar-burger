@@ -8,36 +8,33 @@ const initialState = {
 }
 
 export const draggableIngredientReducer = (state = initialState, action) => {
-
+;
     switch (action.type) {
-        case UPDATE_TYPE: {
-            const addIngredient = state.ingredients.find(ingredient => ingredient._id === action.id)
-            let newStateSelectIngerdient;
+        case UPDATE_TYPE: {             
+            let newStateSelectIngerdient;            
             let newSortIngredient;
-            if (addIngredient.type === 'bun') {
+            if (action.product.type === 'bun') {
                 newStateSelectIngerdient = state.selectIngredient.filter(ingredient => ingredient.type !== 'bun');
                 newSortIngredient = state.selectIngredient.filter(ingredient => ingredient.type !== 'bun')
             } else {
                 newStateSelectIngerdient = state.selectIngredient;
-                newSortIngredient = [...state.sortIngredient, addIngredient];                
+                newSortIngredient = [...state.sortIngredient, action.product];                
             }
+            
             return {
                 ...state,
                 ingredients: state.ingredients.filter(ingredient => ingredient._id === action.id ? {
                     ...ingredient.board = action.board
                 } : ingredient),
-
-                selectIngredient: [...newStateSelectIngerdient, addIngredient],
-
+                selectIngredient: [...newStateSelectIngerdient, action.product],
                 sortIngredient: newSortIngredient,
-
             }
         }
 
-        case ITEM_TYPE: {
-            const item = state.sortIngredient[action.dragIndex.index]
-            const newItems = state.sortIngredient.filter((i, idx) => idx !== action.dragIndex.index);
-            newItems.splice(action.hoverIndex, 0, item)
+        case ITEM_TYPE: {            
+            const item = state.sortIngredient[action.dragIndexIngredient.index]
+            const newItems = state.sortIngredient.filter((i, idx) => idx !== action.dragIndexIngredient.index);
+            newItems.splice(action.hoverIndexIngredient, 0, item)
             return {
                 ...state,
                 sortIngredient: newItems
@@ -48,12 +45,18 @@ export const draggableIngredientReducer = (state = initialState, action) => {
                 ...state,
                 ingredients: [...action.payload.data]
             }
-
-        case 'DELETE_INGREDIENT':
+        case 'OPEN_MODAL_ORDER_SUCCESS':
             return {
                 ...state,
-                selectIngredient: state.selectIngredient.filter(ingredient => ingredient._id !== action.id),
-                sortIngredient: state.sortIngredient.filter(ingredient => ingredient._id !== action.id)
+                selectIngredient: []
+            }
+
+        case 'DELETE_INGREDIENT':
+            
+            return {
+                ...state,
+                selectIngredient: state.selectIngredient.filter(ingredient => ingredient.randomId !== action.id),
+                sortIngredient: state.sortIngredient.filter(ingredient => ingredient.randomId !== action.id)
             }
         default:
             return state;

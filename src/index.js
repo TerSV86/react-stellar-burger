@@ -6,6 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "./services/store";
 import { Provider } from "react-redux";
 
+
+
 const store = configureStore(
   {
     ingredients: {
@@ -16,8 +18,10 @@ const store = configureStore(
         numberOrder: 0,
         isClickButtonOrder: false,
       },
-      openModalIngredient:  null,      
-    }
+      openModalIngredient: null,
+      error: null
+    },
+    
 
 
   }

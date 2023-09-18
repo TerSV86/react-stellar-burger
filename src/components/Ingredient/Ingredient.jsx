@@ -1,48 +1,57 @@
 import { useDrag, useDrop } from 'react-dnd'
-import styles from './Ingredient.module.css'
+/* import styles from './Ingredient.module.css' */
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useRef } from 'react'
 import { ITEM_TYPE } from '../../services/dnd/actions/draggable-ingredient'
 import { useDispatch } from 'react-redux'
 import { deleteIngredientOther } from '../../services/dnd/actions/draggable-ingredient'
+import React from 'react'
 
-const Ingredient = ({ el, index }) => {
-    const dispatch = useDispatch()
-    const ref = useRef(null);
-    let dragIndex = el.id;
-    const hoverIndex = index;
+
+const Ingredient = React.memo(({ el, index }) => {
+      const dispatch = useDispatch()
+
+    let dragIndexIngredient;
+    let hoverIndexIngredient;
+
     const [, drop] = useDrop({
         accept: 'ingredientSort',
         hover(dragIndex, monitor) {
+            const hoverIndex = index;           
 
-            if (dragIndex !== index) {
-                dispatch({
-                    type: ITEM_TYPE,
-                    dragIndex,
-                    hoverIndex
-                })
-                dragIndex = hoverIndex;
+            if (dragIndex !== index) {               
+                dragIndexIngredient = dragIndex;
+                hoverIndexIngredient = hoverIndex;               
+            }
 
+            if (dragIndex === index) {
+                return
             }
 
         },
-        
+        drop() {
+            dispatch({
+                type: ITEM_TYPE,
+                dragIndexIngredient,
+                hoverIndexIngredient
+            })
+        }
+
     })
 
     const [{ isDragging }, drag] = useDrag({
         type: 'ingredientSort',
-        item: { ...el, index },
+        item: { ...el._id, index },
         collect: monitor => ({
             isDragging: monitor.isDragging()
         })
     })
 
-    function deleteIngredient() {
-        dispatch(deleteIngredientOther(el._id))
-    }   
+    function deleteIngredient() {        
+        dispatch(deleteIngredientOther(el.randomId))
+    }
 
     return (
-        <div key={Math.random()} ref={(node) => (drag(drop(node)))}>
+        <div ref={(node) => (drag(drop(node)))}>
             <DragIcon type="primary" />
             <ConstructorElement
                 text={el.name}
@@ -52,6 +61,6 @@ const Ingredient = ({ el, index }) => {
             />
         </div>
     )
-}
+})
 
 export default Ingredient

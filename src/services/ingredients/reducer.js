@@ -3,20 +3,33 @@ import { CLOSE_MODAL, OPEN_MODAL_INGREDIENT } from "./action";
 const initialState = {
     ingredients: [],
     selectIngredient: [],
+    error: null,
+    loading: false
 };
 
 export const reducer = (state = initialState, action) => {
-   
+
     switch (action.type) {
 
         case 'INGREDIENTS_LOAD_SUCCESS':
             return {
                 ...state,
-                ingredients: [...action.payload.data]
+                ingredients: [...action.payload.data],
+                loading: false //*
             }
 
+        case 'LOADING':
+            return {
+                ...state,
+                loading: true,
+                error: null
+            }
+        case 'ERROR':
+            return {
+                ...state,
+                error: action.payload,
+            }
         case 'ADD_INGREDIENT':
-            console.log('addIng');
             const newStateDelBun = state.selectIngredient.filter(ingredient => ingredient.type !== 'bun')
             console.log(newStateDelBun);
             return {
@@ -24,28 +37,24 @@ export const reducer = (state = initialState, action) => {
                 selectIngredient: [...newStateDelBun, action.payload]
             }
         case 'DELETE_INGREDIENT':
-            console.log(action.element);
             const newProduct = state.selectIngredient.filter((ingr) => ingr.id !== action.id)
-            console.log(newProduct);
             return {
                 ...state,
                 selectIngredient: [...newProduct]
             }
 
         case 'OPEN_MODAL_ORDER_SUCCESS':
-            console.log(action.payload.order.number);
             return {
                 ...state,
                 openModalOrder: {
                     isOpen: !state.isOpen,
                     numberOrder: action.payload.order.number,
                     isClickButtonOrder: !state.isClickButtonOrder,
-                }
+                },               
             }
 
         case OPEN_MODAL_INGREDIENT:
-            console.log('OPEN_MODAL_INGREDIENT')
-            console.log(action);
+
             return {
                 ...state,
                 openModalOrder: {
