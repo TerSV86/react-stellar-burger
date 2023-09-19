@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { UPDATE_TYPE, addIngredientSort } from '../../services/dnd/actions/draggable-ingredient'
 import { useDrop } from 'react-dnd'
 import Ingredient from '../Ingredient/Ingredient'
-import { v4 as uuidv4 } from 'uuid'
-/* import { addIngredientSort } from '../../services/dnd/actions/draggable-ingredient' */
+
+
 
 
 const IngredientsContainer = () => {
@@ -33,7 +33,7 @@ const IngredientsContainer = () => {
                 .map((el, index) => {
                     if (!(el.type === 'bun')) {
                         return (
-                            <Ingredient key={uuidv4()} el={el} index={index} />
+                            <Ingredient key={el.randomId} el={el} index={index} />
                         )
                     }
                 })}

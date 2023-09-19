@@ -1,3 +1,4 @@
+import {v4 as uuid4} from 'uuid'
 export const UPDATE_TYPE = 'UPDATE_TYPE';
 
 export const ITEM_TYPE = 'ITEM_TYPE'
@@ -11,7 +12,7 @@ export const deleteIngredientOther = (id) => ({
 
 export const addIngredientSort = ( product, board) => (dispatch) => {
     
-    const randomId = Math.random();
+    const randomId = uuid4();
     const updatedProduct = { ...product, randomId, board };
     product.board = board
     dispatch({

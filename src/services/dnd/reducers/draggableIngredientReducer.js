@@ -48,7 +48,8 @@ export const draggableIngredientReducer = (state = initialState, action) => {
         case 'OPEN_MODAL_ORDER_SUCCESS':
             return {
                 ...state,
-                selectIngredient: []
+                selectIngredient: [],
+                sortIngredient: []
             }
 
         case 'DELETE_INGREDIENT':

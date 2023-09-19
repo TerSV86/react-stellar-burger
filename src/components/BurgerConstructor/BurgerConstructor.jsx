@@ -4,15 +4,13 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import OrderBlock from '../OrderBlock/OrderBlock'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDrop } from 'react-dnd'
-import { UPDATE_TYPE } from '../../services/dnd/actions/draggable-ingredient'
-import {v4 as uuidv4} from 'uuid'
 import { addIngredientSort } from '../../services/dnd/actions/draggable-ingredient'
 
 
 
 const BurgerConstructor = () => {
-    const dispatch = useDispatch()   
-    const selectIngredient = useSelector(store => store.ingredientList.selectIngredient)    
+    const dispatch = useDispatch()
+    const selectIngredient = useSelector(store => store.ingredientList.selectIngredient)
     const sum = selectIngredient.reduce((acc, ingr) => acc + ingr.price + ((ingr.type === 'bun') ? ingr.price : 0), 0)
     const board = 'burgerBunIngredient';
 
@@ -21,17 +19,13 @@ const BurgerConstructor = () => {
         collect: monitor => ({
             isHover: monitor.isOver(),
         }),
-        drop(product) {            
-            dispatch(/* {
-                type: UPDATE_TYPE,
-                ...itemId,
-                board
-            } */ addIngredientSort(product, board))
+        drop(product) {
+            dispatch(addIngredientSort(product, board))
         }
     })
-   
+
     const borderColor = isHover ? styles.lightgreen : null
-       
+
     return (
         <section className={`${styles.BurgerConstructor}  pt-25 `}  >
             <div className={`${styles.BurgerConstructorBun} ${borderColor}`} board='burgerBunIngredient' ref={drop}>
@@ -41,7 +35,7 @@ const BurgerConstructor = () => {
                         if (el.type === 'bun') {
                             return (
                                 <ConstructorElement
-                                    key={uuidv4()}
+                                    key={el.randomId}
                                     type="top"
                                     isLocked={true}
                                     text={`${el.name} (верх)`}
@@ -52,13 +46,13 @@ const BurgerConstructor = () => {
                         }
                     })}
             </div>
-            < IngredientsContainer  />
+            < IngredientsContainer />
             {selectIngredient
                 .filter(el => el.board === board)
                 .map((el) => {
                     if (el.type === 'bun') {
-                        return (<div key={uuidv4}><ConstructorElement
-                            
+                        return (<div key={el.randomId}><ConstructorElement
+
                             type="bottom"
                             isLocked={true}
                             text={`${el.name} (низ)`}

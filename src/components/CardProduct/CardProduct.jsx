@@ -25,8 +25,8 @@ const CardProduct = ({ product }) => {
 
     const [{ isDrag }, dragRef] = useDrag({
         type: product.type !== 'bun' ? 'ingredient' : 'ingredientBun',
-        /* item: { id }, */
-        item: product/* ._id */,
+        
+        item: product,
     })
 
     const handleClickIngredient = () => {
