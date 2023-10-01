@@ -1,13 +1,18 @@
+import { useDispatch } from 'react-redux'
 import { modalHeaderPropType } from '../../utils/prop-types'
 import styles from './ModalHeader.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { closeModal } from '../../services/ingredients/action'
 
-const ModalHeader = ({ children, onClick }) => {
-
+const ModalHeader = ({ children}) => {
+    const dispatch = useDispatch()
+    function handleClickCloseModal() {
+        dispatch(closeModal())       
+      }
     return (
         <div className={`${styles.ModalHeader} pt-15 `} onClick={(e) => e.stopPropagation()}>
             <h2 className="text text_type_main-large">{children}</h2>
-            <CloseIcon type="primary" onClick={onClick} />
+            <CloseIcon type="primary" onClick={handleClickCloseModal} />
         </div>
     )
 }

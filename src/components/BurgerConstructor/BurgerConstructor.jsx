@@ -2,44 +2,71 @@ import IngredientsContainer from '../IngredientsContainer/IngredientsContainer'
 import styles from './BurgerConstructor.module.css'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderBlock from '../OrderBlock/OrderBlock'
-import { burgerConstructorPropType } from '../../utils/prop-types'
+import { useDispatch, useSelector } from 'react-redux'
+import { useDrop } from 'react-dnd'
+import { addIngredientSort } from '../../services/dnd/actions/draggable-ingredient'
 
-const BurgerConstructor = ({ productData, onClick }) => {
+
+
+const BurgerConstructor = () => {
+    const dispatch = useDispatch()
+    const selectIngredient = useSelector(store => store.ingredientList.selectIngredient)
+    const sum = selectIngredient.reduce((acc, ingr) => acc + ingr.price + ((ingr.type === 'bun') ? ingr.price : 0), 0)
+    const board = 'burgerBunIngredient';
+
+    const [{ isHover }, drop] = useDrop({
+        accept: 'ingredientBun',
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        }),
+        drop(product) {
+            dispatch(addIngredientSort(product, board))
+        }
+    })
+
+    const borderColor = isHover ? styles.lightgreen : null
 
     return (
-        <section className={`${styles.BurgerConstructor} pt-25 `}>
-            {productData.map((el) => {
-                if (el.type === 'bun' && el._id === '643d69a5c3f7b9001cfa093c') {
-                    return (<ConstructorElement
-                        key={'2'}
-                        type="top"
-                        isLocked={true}
-                        text={`${el.name} (верх)`}
-                        price={el.price}
-                        thumbnail={el.image}
-                        extraClass='ml-9'
-                    />);
-                }
-            })}
-            < IngredientsContainer product={productData} />
-            {productData.map((el) => {
-                if (el.type === 'bun' && el._id === '643d69a5c3f7b9001cfa093c') {
-                    return (<ConstructorElement
-                        key={'1'}
-                        type="bottom"
-                        isLocked={true}
-                        text={`${el.name} (низ)`}
-                        price={el.price}
-                        thumbnail={el.image}
-                        extraClass='ml-9'
-                    />);
-                }
-            })}
-            <OrderBlock onClick={onClick} />
+        <section className={`${styles.BurgerConstructor}  pt-25 `}  >
+            <div className={`${styles.BurgerConstructorBun} ${borderColor}`} board='burgerBunIngredient' ref={drop}>
+                {selectIngredient
+                    .filter(el => el.board === board)
+                    .map((el) => {
+                        if (el.type === 'bun') {
+                            return (
+                                <ConstructorElement
+                                    key={el.randomId}
+                                    type="top"
+                                    isLocked={true}
+                                    text={`${el.name} (верх)`}
+                                    price={el.price}
+                                    thumbnail={el.image}
+                                    extraClass='ml-9'
+                                />);
+                        }
+                    })}
+            </div>
+            < IngredientsContainer />
+            {selectIngredient
+                .filter(el => el.board === board)
+                .map((el) => {
+                    if (el.type === 'bun') {
+                        return (<div key={el.randomId}><ConstructorElement
+
+                            type="bottom"
+                            isLocked={true}
+                            text={`${el.name} (низ)`}
+                            price={el.price}
+                            thumbnail={el.image}
+                            extraClass='ml-9'
+
+                        /></div>);
+                    }
+                })}
+            <OrderBlock sum={sum} />
         </section>
     )
 }
 
-BurgerConstructor.propTypes = burgerConstructorPropType;
-
 export default BurgerConstructor
+

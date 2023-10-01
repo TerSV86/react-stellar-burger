@@ -1,70 +1,51 @@
 import styles from "./app.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import Content from "../Content/Content";
-import { useState, useEffect } from 'react'
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import { useEffect } from 'react'
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { url } from "../../utils/data";
+import { loadIngredients } from "../../services/ingredients/action";
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { closeModal } from "../../services/ingredients/action";
 
 
 
 function App() {
-  const [state, setState] = useState({
-    productData: []
-  });
-  const [isOpen, setIsOpen] = useState(false);
-  const [isClickButtonOrder, setIsClickButtonOrsder] = useState(false);
-  const [dataModal, setDataModal] = useState({})
+  const dispatch = useDispatch();
+  const { isOpen, isClickButtonOrder } = useSelector(store => store.ingredients.openModalOrder)
+  const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient)
+  const {error, loading} = useSelector(store => store.ingredients)
 
   useEffect(() => {
-    try {
-      const getProductData = async () => {
-        const res = await fetch(url);
-        const data = await res.json();
-        if (!res.ok) {
-          return Promise.reject(`Ошибка ${res.status}`);
-        }
-        setState((prevState) => ({
-          ...prevState,
-          productData: data.data
-        }))
-      }
-      getProductData();
-    } catch (err) {
-      console.error(`Ошибка. Запрос не выполнен:`, err)
-    }
+    dispatch(loadIngredients())
   }, [])
 
-  const handleClickOpenModal = (e, el) => {
-    (e.target.id === 'buttonOrder') && setIsClickButtonOrsder(true);
-    (el) && setDataModal(el)
-    setIsOpen(true)
-  }
-
-  const handleClickCloseModal = () => {
-    setIsClickButtonOrsder(false)
-    setIsOpen(false)
-    setDataModal({})
-  }
-  const { productData } = state;
-  if (!productData || productData.length === 0) {
-    return null;
+ if (loading) {
+    return <h2>Загрузка...</h2>
   }
   
+  if (error && !loading) {
+    return <h2>{`Ошибка. Запрос не выполнен: ${error}`}</h2>
+  }
+ 
+
   return (
     <div className={`${styles.app} pb-10`}>
-      <AppHeader />
-      <Content productData={productData} onClick={handleClickOpenModal} />
-      {isOpen && (<Modal onClick={handleClickCloseModal} title={isClickButtonOrder ? null : "Детали ингредиента"}>
-        {
-          isClickButtonOrder ?
-            <OrderDetails /> :
-            <IngredientDetails ingredient={dataModal} />
-        }
-      </Modal>)}
-    </div>
+      <DndProvider backend={HTML5Backend}>
+        <AppHeader />
+        <Content />
+        {isOpen && (<Modal title={isClickButtonOrder ? null : "Детали ингредиента"}>
+          {
+            isClickButtonOrder ?
+              <OrderDetails /> :
+              <IngredientDetails ingredient={ingredientDetails} />
+          }
+        </Modal>)}
+      </DndProvider>
+    </div >
   );
 }
 
