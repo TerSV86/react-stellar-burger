@@ -1,0 +1,15 @@
+.Form {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+      
+}
+
+h1,
+h2 {
+    padding: 0;
+    margin: 0;
+}

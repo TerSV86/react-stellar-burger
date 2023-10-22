@@ -1,0 +1,15 @@
+.ProfilePage {
+    display: flex;
+    flex-direction: row;
+    align-self: start;
+    padding-left: 48px;    
+    
+}
+
+.Form {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    
+}

@@ -21,9 +21,6 @@ const store = configureStore(
       openModalIngredient: null,
       error: null
     },
-    
-
-
   }
 )
 
