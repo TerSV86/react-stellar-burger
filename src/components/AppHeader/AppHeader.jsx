@@ -4,46 +4,29 @@ import ButtonHeader from '../ButtonHeader/ButtonHeader';
 import { ProfileIcon, BurgerIcon, ListIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 import { NavLink } from 'react-router-dom';
 
+
 const AppHeader = () => {
 
     return (
         <header className={`${styles.AppHeader} mb-4 mt-4`}>
-            <ButtonHeader
-                style={{
-                    maxWidth: 180,
-                    gridColumn: '1',
-                    gridRow: "1",
-                    justifySelf: "start"
-                }}
-                name={"Конструктор"}
-                icon={<BurgerIcon type={'secondary'} />} />
+            <NavLink to='/' className={({ isActive }) => isActive ? (`${styles.LinkConstructor} ${styles.Link} ${styles.active}`) : `${styles.LinkConstructor} ${styles.Link}`} >
+                {<BurgerIcon type='secondary' />}
+                <span className='text text_type_main-default'>Конструктор</span>
+            </NavLink>
 
-            <ButtonHeader
-                style={{
-                    maxWidth: 200,
-                    gridColumn: '1',
-                    gridRow: "1",
-                    justifySelf: "end"
-                }}
-                name={"Лента заказов"}
-                icon={<ListIcon type='secondary' />} />
+            <NavLink className={`${styles.Link} ${styles.LinkListOrder}`}>
+                {<ListIcon type='secondary' />}
+                <span className='text text_type_main-default'>Лента заказов</span>
+            </NavLink>
 
             <Logo />
 
-            <NavLink to='profile' className={styles.Link} style={{
-                maxWidth: 208,
-                justifySelf: "end"
-            }} >
+            <NavLink to={{ pathname: '/profile' }} className={({ isActive }) => isActive ? `${styles.Link} ${styles.LinkProfile} ${styles.active}` : `${styles.Link} ${styles.LinkProfile}`} >
                 {<ProfileIcon type='secondary' />}
                 <span className="text text_type_main-default">Личный кабинет</span>
             </NavLink>
 
-            {/* <NavLink className={`${styles.Link}`} to = '/profile' 
-            style={{ 
-                maxWidth: 208, 
-                justifySelf: "end" }} 
-            
-            icon={<ProfileIcon type='secondary'/>} >  Личный кабинет </NavLink> */}
+
         </header>
     )
 }

@@ -7,36 +7,47 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getUser } from '../../services/auth/actions/actions'
 import { getUserApi, userApi } from '../../utils/burger-api'
 import { ButtonsProfile } from '../../components/ButtonsProfile/ButtonsProfile'
+import { Outlet, useLocation } from 'react-router-dom'
 
 
 const ProfilePage = () => {
     const dispatch = useDispatch()
     /*   const userData = useSelector(store => store.auth.user) */
+    const location = useLocation()
+    console.log(location.pathname);
 
     const [isEditLogin, setEditLogin] = useState(false)
     const [isEditEmail, setEditEmail] = useState(false)
     const [isEditPassword, setEditPassword] = useState(false)
 
-    const [form, setValue] = useState({ name: '', email: '', password: '' })
+    const [form, setValue] = useState({})
+    console.log(form);
     const { name, email, password } = form
 
-    useEffect(() => {        
+    useEffect(() => {
         getUserApi()
             .then((res) => {
                 console.log(res.user.name);
-                setValue({ ...form, name: res.user.name, email: res.user.email })                
+                setValue({ ...form, name: res.user.name, email: res.user.email })
+
             })
 
-    }, [])
+    }, [isEditEmail, isEditLogin, isEditPassword])
 
     const onChange = e => {
         console.log(e.target.name, e.target.value);
-        setValue({ ...form, [e.target.name]: e.target.value })
+        setValue((prevForm) => ({
+            ...prevForm,
+            [e.target.name]: e.target.value
+        }))
     }
 
-
-
-
+    const handleClickButtonSave = () => {
+        console.log('handleClickSave-ProfilePage');
+        setEditLogin(false)
+        setEditEmail(false)
+        setEditPassword(false)
+    }
 
     const handleClickEdit = (e) => {
         const elementName = e.target.closest('.input').querySelector('.input__textfield').getAttribute('name');
@@ -56,11 +67,12 @@ const ProfilePage = () => {
         }
     }
 
-console.log(form);
+
+    console.log(form);
     return (
         <main className={`${styles.ProfilePage} pt-30`}>
             <ProfileNavigation />
-            <Form >
+            {location.pathname === '/profile' && <Form >
                 {isEditLogin ? (<Input
                     onChange={onChange}
                     value={name}
@@ -114,8 +126,9 @@ console.log(form);
                         extraClass='mb-6'
                         icon="EditIcon"
                         onIconClick={(e) => handleClickEdit(e)} />)}
-                {(isEditLogin || isEditEmail || isEditPassword) ? <ButtonsProfile data={form}/> : null}
-            </Form>
+                {(isEditLogin || isEditEmail || isEditPassword) ? <ButtonsProfile onClickSave={handleClickButtonSave} data={form} /> : null}
+            </Form>}
+            {location.pathname === '/profile/order' && <Outlet />}
         </main>
     )
 }

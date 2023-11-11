@@ -116,7 +116,7 @@ export const logoutApi = () => {
 }
 
 export const userApi = (data) => {
-    console.log('userApi');
+    console.log('userApi: ', data);
     return fetch(`${burgerApiConfig.baseUrl}auth/user`, {
         method: 'PATCH',
         mode: 'cors',
@@ -126,10 +126,9 @@ export const userApi = (data) => {
             'Content-Type': 'application/json',            
             Authorization: 'Bearer ' + getCookie('token')
         },
-        body: JSON.stringify({
-           
-            "name": data.name
-        }),       
+        body: JSON.stringify(           
+            data
+        ),       
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
     }).then(getRespons)

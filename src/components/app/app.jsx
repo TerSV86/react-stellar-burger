@@ -9,8 +9,7 @@ import { loadIngredients } from "../../services/ingredients/action";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { closeModal } from "../../services/ingredients/action";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, Outlet } from 'react-router-dom';
 import LoginPage from '../../pages/LoginPage/LoginPage'
 import PasswordRecoveryPage from "../../pages/PasswordRecoveryPage/PasswordRecoveryPage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
@@ -18,16 +17,21 @@ import ResetPasswordPage from '../../pages/ResetPasswordPage/ResetPasswordPage'
 import ProfilePage from '../../pages/ProfilePage/ProfilePage'
 import { burgerApiConfig } from "../../utils/burger-api";
 import { ProtectedRouterElement } from "../ProtectedRouterElement/ProtectedRouterElement";
+import IngredientPage from "../../pages/IngredientPage/IngredientPage";
+import HistoryOrder from "../HistoryOrder/HistoryOrder";
+import { getUser, getUser1 } from "../../services/auth/actions/actions";
 
 
 
 function App() {
+  console.log('app');
   const dispatch = useDispatch();
-  const { isOpen, isClickButtonOrder } = useSelector(store => store.ingredients.openModalOrder)
-  const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient)
+  const { /*isOpen,*/ isClickButtonOrder } = useSelector(store => store.ingredients.openModalOrder)
+  //const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient)
   const { error, loading } = useSelector(store => store.ingredients)
 
   useEffect(() => {
+
     setInterval(() => {
       console.log(localStorage.refreshToken);
       if (localStorage.refreshToken) {
@@ -50,10 +54,13 @@ function App() {
           })
       }
     }, 1200000)
+
   }, [])
 
   useEffect(() => {
+    console.log('get');
     dispatch(loadIngredients())
+    dispatch(getUser1())
   }, [])
 
   if (loading) {
@@ -67,24 +74,27 @@ function App() {
   return (
     <div className={`${styles.app} pb-10`}>
       <DndProvider backend={HTML5Backend}>
-        <Router>
-          <AppHeader />
-          <Routes>
-            <Route path='/' element={<ConstructorPage />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/forgot-password' element={<PasswordRecoveryPage />} />
-            <Route path='/register' element={<RegistrationPage />} />
-            <Route path='/reset-password' element={<ResetPasswordPage />} />
-            <Route path='/profile' element = {<ProtectedRouterElement  element={<ProfilePage />} />}/>
-          </Routes>
-        </Router>
 
-        {isOpen && (<Modal title={isClickButtonOrder ? null : "Детали ингредиента"}>
+        <AppHeader />
+        <Routes>
+          <Route path='/' exact element={<ConstructorPage />} >
+            <Route path='ingredient/:id' element={<IngredientPage />} />
+          </Route>
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/forgot-password' element={<PasswordRecoveryPage />} />
+          <Route path='/register' element={<RegistrationPage />} />
+          <Route path='/reset-password' element={<ResetPasswordPage />} />
+          <Route path='/profile' element={<ProtectedRouterElement element={<ProfilePage />} />}>
+            <Route path='order' exact element={<HistoryOrder />} />
+            <Route path='order/:id' element={<h2>Заказ</h2>} />
+          </Route>
+
+        </Routes>
+
+
+        {isClickButtonOrder && (<Modal title={"Детали ингредиента"}>
           {
-            isClickButtonOrder ?
-              <OrderDetails /> :
-              <IngredientDetails ingredient={ingredientDetails} />
-          }
+            <OrderDetails />}
         </Modal>)}
       </DndProvider>
     </div >

@@ -7,8 +7,10 @@ import { cardProductPropType } from '../../utils/prop-types'
 import { useDrag } from 'react-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 import { openModalIngredient } from '../../services/ingredients/action'
+import { Navigate, useNavigate } from 'react-router-dom'
 
-const CardProduct = ({ product }) => {
+const CardProduct = ({ product, index }) => {
+    const navigate = useNavigate()
     const id = product._id;
     const dispatch = useDispatch()
     const selectIngredient = useSelector(store => store.ingredientList.selectIngredient)
@@ -25,12 +27,14 @@ const CardProduct = ({ product }) => {
 
     const [{ isDrag }, dragRef] = useDrag({
         type: product.type !== 'bun' ? 'ingredient' : 'ingredientBun',
-        
+
         item: product,
     })
 
     const handleClickIngredient = () => {
+        console.log(index);
         dispatch(openModalIngredient(product))
+        navigate(`/ingredient/${index}`)
     }
 
     return (

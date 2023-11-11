@@ -1,5 +1,7 @@
-.BlockEnergyValue{
-    width: 100%;    
+.BlockEnergyValue {
+    border: 1px solid firebrick;
+    width: 100%;
+    max-width: 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;

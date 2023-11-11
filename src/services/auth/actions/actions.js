@@ -1,4 +1,4 @@
-import { loginApi, userRegister, logoutApi, userApi } from "../../../utils/burger-api";
+import { loginApi, userRegister, logoutApi, userApi, getUserApi } from "../../../utils/burger-api";
 import { setCookie } from "../../../utils/cookie";
 
 export const REGISTER_SEND = 'AUTH/REGISTER_SEND'
@@ -46,7 +46,7 @@ export const login = ({ email, password }) => (dispatch) => {
                 payload: res
             })
             const token = res.accessToken.split('Bearer ')[1]
-            setCookie('token', token, { expires: 10 })
+            setCookie('token', token, { expires: 1000 })
             localStorage.setItem('refreshToken', res.refreshToken)
         })
         .catch((err) => {
@@ -70,15 +70,27 @@ export const logout = () => (dispatch) => {
 }
 
 export const getUser = (data) => (dispatch) => {
-    console.log('getUser',data);
-        return userApi(data)
-    .then((res) => {
-        console.log(res.user);
-        dispatch({
-            type: SET_USER,
-            payload: res.user
+    console.log('getUser', data);
+    return userApi(data)
+        .then((res) => {
+            console.log(res.user);
+            dispatch({
+                type: SET_USER,
+                payload: res.user
+            })
         })
-    })
+}
+
+export const getUser1 = () => (dispatch) => {
+    console.log('getUserStart');
+    return getUserApi()
+        .then((res) => {
+            console.log('Получение пользователя ', res);
+            dispatch({
+                type: SET_USER,
+                payload: res.user
+            })
+        })
 }
 
 
