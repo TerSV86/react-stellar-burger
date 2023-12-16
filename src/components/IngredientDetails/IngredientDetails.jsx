@@ -2,8 +2,14 @@ import styles from './IngredientDetails.module.css'
 import ProductImage from '../ProductImage/ProductImage'
 import FoodValue from '../FoodValue/FoodValue'
 import { ingredientDetailsPropType } from '../../utils/prop-types';
+import { useLocation, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const IngredientDetails = ({ ingredient }) => {
+const IngredientDetails = () => {
+const ingredients = useSelector(store => store.ingredients.ingredients)
+    const location = useLocation()
+    const idIngredient = useParams()
+    const ingredient = ingredients.find((ingr)=> ingr._id === idIngredient.ingredientId)
     
     return (
         <div className={`${styles.IngredientDetails}`}>
@@ -15,6 +21,6 @@ const IngredientDetails = ({ ingredient }) => {
     )
 }
 
-IngredientDetails.propTypes = ingredientDetailsPropType;
+/* IngredientDetails.propTypes = ingredientDetailsPropType; */
 
 export default IngredientDetails

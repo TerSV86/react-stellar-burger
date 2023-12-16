@@ -7,9 +7,13 @@ import { cardProductPropType } from '../../utils/prop-types'
 import { useDrag } from 'react-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 import { openModalIngredient } from '../../services/ingredients/action'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 const CardProduct = ({ product, index }) => {
+
+    const location = useLocation();
+    const ingredientId = product['_id']
+
     const navigate = useNavigate()
     const id = product._id;
     const dispatch = useDispatch()
@@ -27,23 +31,28 @@ const CardProduct = ({ product, index }) => {
 
     const [{ isDrag }, dragRef] = useDrag({
         type: product.type !== 'bun' ? 'ingredient' : 'ingredientBun',
-
         item: product,
     })
 
     const handleClickIngredient = () => {
-        console.log(index);
+        console.log(product);
         dispatch(openModalIngredient(product))
-        navigate(`/ingredient/${index}`)
+        /* navigate(`/ingredient/${index}`) */
     }
 
     return (
-        !isDrag && <article className={`${styles.CardProduct} `} ref={dragRef} onClick={handleClickIngredient}>
-            <ProductImage link={product.image} name={product.name} />
-            <ProductPrice price={product.price} />
-            <ProductName name={product.name} />
-            {count === 0 ? null : <Counter count={count} size="default" extraClass="m-1" />}
-        </article>
+        <Link key={ingredientId}
+            to={`/ingredient/${ingredientId}`}
+            state={{ background: location }}
+            className={styles.link}
+            >
+            {(!isDrag) && <article className={`${styles.CardProduct} pb-6`} ref={dragRef} onClick={handleClickIngredient}>
+                <ProductImage link={product.image} name={product.name} />
+                <ProductPrice price={product.price} />
+                <ProductName name={product.name} />
+                {count === 0 ? null : <Counter count={count} size="default" extraClass="m-1" />}
+            </article>}
+        </Link>
     )
 }
 

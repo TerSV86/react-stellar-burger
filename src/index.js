@@ -24,7 +24,7 @@ const store = configureStore(
     },
   }
 )
-console.log('init');
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

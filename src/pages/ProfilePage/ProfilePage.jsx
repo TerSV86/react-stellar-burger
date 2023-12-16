@@ -5,16 +5,18 @@ import Form from '../../components/Form/Form'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getUser } from '../../services/auth/actions/actions'
-import { getUserApi, userApi } from '../../utils/burger-api'
+import { getUserApi, userApi, getUserRefresh, fetchWithRefresh, burgerApiConfig } from '../../utils/burger-api'
 import { ButtonsProfile } from '../../components/ButtonsProfile/ButtonsProfile'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, useParams } from 'react-router-dom'
 
 
 const ProfilePage = () => {
+    console.log('ProfilePage');
     const dispatch = useDispatch()
     /*   const userData = useSelector(store => store.auth.user) */
     const location = useLocation()
-    console.log(location.pathname);
+    const { number } = useParams()
+    console.log(number, location);
 
     const [isEditLogin, setEditLogin] = useState(false)
     const [isEditEmail, setEditEmail] = useState(false)
@@ -26,8 +28,21 @@ const ProfilePage = () => {
 
     useEffect(() => {
         getUserApi()
+        /* dispatch(getUserRefresh()) */
+        /* fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.accessToken // 'Bearer ' + getCookie('token') 
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer'
+        }) */
             .then((res) => {
-                console.log(res.user.name);
+                console.log('profile ',res.user.name);
                 setValue({ ...form, name: res.user.name, email: res.user.email })
 
             })
@@ -66,9 +81,12 @@ const ProfilePage = () => {
                 break;
         }
     }
+    console.log('location ', location.pathname);
+    if (location.pathname.includes(`/profile/order/`)) {
+        console.log('render', <Outlet/>);
+        return (<Outlet />)
+    }
 
-
-    console.log(form);
     return (
         <main className={`${styles.ProfilePage} pt-30`}>
             <ProfileNavigation />
@@ -128,8 +146,9 @@ const ProfilePage = () => {
                         onIconClick={(e) => handleClickEdit(e)} />)}
                 {(isEditLogin || isEditEmail || isEditPassword) ? <ButtonsProfile onClickSave={handleClickButtonSave} data={form} /> : null}
             </Form>}
-            {location.pathname === '/profile/order' && <Outlet />}
+            {console.log('jkjlkj') || location.pathname === '/profile/order' && <Outlet />}
         </main>
+
     )
 }
 

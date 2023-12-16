@@ -4,8 +4,9 @@ import { CheckMarkIcon, CloseIcon } from "@ya.praktikum/react-developer-burger-u
 
 import { useSelector } from 'react-redux';
 const OrderDetails = () => {
-  const order = useSelector(store => store.ingredients.openModalOrder.numberOrder);
   
+  const order = useSelector(store => store.ingredients.openModalOrder.numberOrder);
+  console.log('Click Button Order', order);
     return (
         <div className={`${styles.OrderDetails} pt-4`}>
             

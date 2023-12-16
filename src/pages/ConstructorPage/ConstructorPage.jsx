@@ -26,7 +26,6 @@ const ConstructorPage = () => {
             <main className={`${styles.ConstructorPage}`}>
                 <BurgerIngredients />
                 <BurgerConstructor />
-
             </main>
         )
     }

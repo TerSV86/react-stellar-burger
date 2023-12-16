@@ -31,7 +31,7 @@ const LoginPage = () => {
         console.log('login');
 
         if (user) {
-            navigate(-1)
+            navigate('/profile')
         }
     }, [user])
 

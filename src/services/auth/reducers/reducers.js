@@ -6,11 +6,12 @@ const initialState = {
     registerSending: false,
     registerError: null,
     loginSending: false,
-    loginError: null
+    loginError: null,
+    isAuthChecked: false, //*
 }
 
 export const authReducer = (state = initialState, action) => {
-    console.log(action.payload);
+    
     switch (action.type) {
         case REGISTER_SEND:
             return {
@@ -39,6 +40,7 @@ export const authReducer = (state = initialState, action) => {
                 loginError: false
             }
         case LOGIN_SUCCESS:
+           console.log('LoginSuccess',action.payload);
             return {
                 ...state,
                 loginSending: false,
@@ -53,7 +55,7 @@ export const authReducer = (state = initialState, action) => {
                 loginError: action.payload
             }
         case LOGOUT:
-            console.log('logout');
+            
             return {
                 ...state,
                 user: null,
@@ -65,12 +67,14 @@ export const authReducer = (state = initialState, action) => {
                 loginError: null
             }
         case SET_USER:
+           
             return {
                 ...state,
                 user: {
                     ...state,
-                    user: action.payload
-                }
+                    user: action.payload,                    
+                },
+                isAuthChecked: true, //*
             }
         default:
             return state

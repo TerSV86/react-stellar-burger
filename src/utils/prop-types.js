@@ -19,12 +19,12 @@ export const buttonProductPropType = {
   name: PropTypes.string.isRequired
 }
 
-export const productsContainerPropType = {  
-  product: PropTypes.arrayOf(ingredientPropType),  
+export const productsContainerPropType = {
+  product: PropTypes.arrayOf(ingredientPropType),
 }
 
-export const cardProductPropType = { 
-  product: ingredientPropType.isRequired,  
+export const cardProductPropType = {
+  product: ingredientPropType.isRequired,
 }
 
 export const productImagePropType = {
@@ -56,12 +56,12 @@ export const modalPropType = {
 
 
 export const modalHeaderPropType = {
-  children: PropTypes.string,  
+  children: PropTypes.string,
 }
-
-export const ingredientDetailsPropType = {
+// prop удален
+/* export const ingredientDetailsPropType = {
   ingredient: ingredientPropType
-}
+} */
 
 export const foodValuePropType = {
   carbs: PropTypes.number,
@@ -73,4 +73,18 @@ export const foodValuePropType = {
 export const blockEnergyValuePropType = {
   name: PropTypes.string,
   value: PropTypes.number
+}
+
+export const orderIngredientPricePropType = {
+  price: PropTypes.number,
+  count: PropTypes.number
+}
+
+export const orderIngredientPropType = {
+  product: PropTypes.arrayOf(ingredientPropType),
+  count: PropTypes.number
+}
+
+export const orderIngredientListPropType = {
+  burgerIngr: PropTypes.array
 }

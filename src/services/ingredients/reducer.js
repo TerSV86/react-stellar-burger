@@ -1,4 +1,5 @@
-import { CLOSE_MODAL, OPEN_MODAL_INGREDIENT } from "./action";
+import { CLOSE_MODAL, OPEN_MODAL_INGREDIENT, SEND_ORDER_BURGER } from "./action";
+
 
 const initialState = {
     ingredients: [],
@@ -52,6 +53,11 @@ export const reducer = (state = initialState, action) => {
                     isClickButtonOrder: !state.isClickButtonOrder,
                 },               
             }
+            /* case SEND_ORDER_BURGER:
+                return {
+                    ...state,
+                    selectIngredient: [1, 2, 3]                    
+                } */
 
         case OPEN_MODAL_INGREDIENT:
 

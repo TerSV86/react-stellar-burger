@@ -12,8 +12,8 @@ import IngredientDetails from '../../components/IngredientDetails/IngredientDeta
 const IngredientPage = () => {
     console.log('ingrPage');
 
-    const { isOpen, isClickButtonOrder } = useSelector(store => store.ingredients.openModalOrder)
-    const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient)
+    //const { isOpen, isClickButtonOrder } = useSelector(store => store.ingredients.openModalOrder)
+    //const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient)
     const location = useLocation()
     const { id } = useParams()
 
@@ -24,10 +24,10 @@ const IngredientPage = () => {
     if (!ingredient) {
         return <h2>Loading ...</h2>
     }
-    console.log(isOpen);
+    
     return (
         <div className={`${styles.IngredientPage}`}>
-            {(!isOpen) && (location.pathname === `/ingredient/${id}`) && (<>
+            {/* (!isOpen) && */ (location.pathname === `/ingredient/${id}`) && (<>
                 <h2>Я сработал</h2>
                 <ProductImage link={ingredient.image_large} name={ingredient.name} />
                 <p className="text text_type_main-medium pt-4 pb-8">{ingredient.name}</p>
@@ -35,11 +35,11 @@ const IngredientPage = () => {
                 } fat={ingredient.fat} proteins={ingredient.proteins} />
             </>)}
 
-            {isOpen && (<Modal title={'Детали ингредиента'}>
+            {/* {isOpen && (<Modal title={'Детали ингредиента'}>
                 {
                     <IngredientDetails ingredient={ingredientDetails} />
                 }
-            </Modal>)}
+            </Modal>)} */}
         </div>
     )
 

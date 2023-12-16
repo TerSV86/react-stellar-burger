@@ -5,14 +5,19 @@ export const burgerApiConfig = {
     baseUrl: 'https://norma.nomoreparties.space/api/',
     headers: {
         "Content-Type": "application/json",
+        "authorization": /* 'Bearer ' + getCookie('token') */localStorage.accessToken,
     },
 }
 
 const getRespons = (res) => {
+    console.log(res);
+    /*  res.ok ? res.json() : res.json().then((err) => Promise.reject(err)); */
     if (res.ok) {
+
         return res.json();
     }
-    return Promise.reject(`Ошибка ${res.status}`);
+
+    return /* Promise.reject(`Ошибка ${res.status}: ${res.json()}`); */console.log(res.message) || res.json().then((err) => Promise.reject(err));
 }
 
 export const getProductData = () => {
@@ -23,6 +28,7 @@ export const getProductData = () => {
 
 
 export const getNumberOrder = (selectIngredient) => {
+    console.log("getCookie", localStorage.getItem('accessToken'));
     return fetch(`${burgerApiConfig.baseUrl}orders`, {
         method: "POST",
         headers: burgerApiConfig.headers,
@@ -102,7 +108,7 @@ export const loginApi = ({ email, password }) => {
 }
 
 export const logoutApi = () => {
-    console.log('logoutApi');
+    console.log('logoutApi', localStorage.getItem('accessToken'));
     return fetch(`${burgerApiConfig.baseUrl}auth/logout`, {
         method: "POST",
         headers: {
@@ -123,28 +129,98 @@ export const userApi = (data) => {
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json',            
+            'Content-Type': 'application/json',
             Authorization: 'Bearer ' + getCookie('token')
         },
-        body: JSON.stringify(           
-            data
-        ),       
+        body: JSON.stringify(data),
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
     }).then(getRespons)
 }
 
 export const getUserApi = () => {
+    console.log('getUserApi', localStorage, getCookie('token'));
+
     return fetch(`${burgerApiConfig.baseUrl}auth/user`, {
         method: 'GET',
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json',            
-            Authorization: 'Bearer ' + getCookie('token')
-        },        
+            'Content-Type': 'application/json',
+            Authorization: localStorage.accessToken/* 'Bearer ' + getCookie('token') */
+        },
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
-    }).then(getRespons) 
+    }).then(getRespons)
+        .catch(getRespons)
+
+
 }
+
+/* export const sendBurgerApi = (data) => {
+    console.log('api ', JSON.stringify(data));
+    return fetch(`${burgerApiConfig.baseUrl}orders`, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'applicotion/json',
+            Authorization: 'Bearer '+ getCookie('token')
+        },
+        body: JSON.stringify(data),
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer'
+    }).then(getRespons)
+} */
+
+
+
+
+export const checkReponse = (res) => {
+    console.log('checkReponse', res);
+    return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};
+
+export const refreshToken = () => {
+    console.log('refresh', localStorage.getItem("refreshToken"));
+    return fetch(`${burgerApiConfig.baseUrl}auth/token`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+            token: localStorage.getItem("refreshToken"),
+        })
+    }).then(checkReponse);
+};
+
+export const fetchWithRefresh = async (url, options) => {
+    console.log('fetchWithRefresh', url);
+    try {
+        const res = await fetch(url, options);
+        return await checkReponse(res);
+    } catch (err) {
+       
+        if (err.message === "jwt expired") {
+            console.log('tyt');
+            const refreshData = await refreshToken(); //обновляем токен
+            console.log('refreshData', refreshData.accessToken);
+            if (!refreshData.success) {
+
+                return Promise.reject(refreshData);
+            }
+            console.log('fetch in refresh', );
+            localStorage.setItem("refreshToken", refreshData.refreshToken);
+            localStorage.setItem("accessToken", refreshData.accessToken);
+            console.log(options.headers.authorization);
+            options.headers.authorization = refreshData.accessToken;
+            const res = await fetch(url, options); //повторяем запрос
+            console.log('fetch in refresh');
+            return await checkReponse(res);
+        } else {
+            return Promise.reject(err);
+        }
+    }
+};

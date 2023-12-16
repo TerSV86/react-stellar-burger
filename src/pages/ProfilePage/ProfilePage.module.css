@@ -1,9 +1,11 @@
 .ProfilePage {
+    border: 1px solid greenyellow;
+    width: 100%;
+    max-width: 1240px;
     display: flex;
     flex-direction: row;
-    align-self: start;
+    justify-content: start;    
     padding-left: 48px;    
-    
 }
 
 .Form {
@@ -11,5 +13,5 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    
+
 }

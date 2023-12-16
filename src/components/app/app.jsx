@@ -9,61 +9,64 @@ import { loadIngredients } from "../../services/ingredients/action";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import LoginPage from '../../pages/LoginPage/LoginPage'
 import PasswordRecoveryPage from "../../pages/PasswordRecoveryPage/PasswordRecoveryPage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
 import ResetPasswordPage from '../../pages/ResetPasswordPage/ResetPasswordPage'
 import ProfilePage from '../../pages/ProfilePage/ProfilePage'
 import { burgerApiConfig } from "../../utils/burger-api";
-import { ProtectedRouterElement } from "../ProtectedRouterElement/ProtectedRouterElement";
+import { AnonymousRoute, ProtectedRouter } from "../ProtectedRouterElement/ProtectedRouterElement";
 import IngredientPage from "../../pages/IngredientPage/IngredientPage";
 import HistoryOrder from "../HistoryOrder/HistoryOrder";
 import { getUser, getUser1 } from "../../services/auth/actions/actions";
+import OrderFeedPage from "../../pages/OrderFeedPage/OrderFeedPage";
+import OrderInfo from "../../pages/OrderInfo/OrderInfo";
+import { disconnect, connect } from "../../services/orderfeed/actions/wsActions";
+import { connectHistoryOrder } from '../../services/historyorder/actions/wsHistoryOrdersActions'
+import { getUserRefresh } from "../../services/auth/actions/actions";
 
-
+const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
+const wsUrlHistoryOrders = 'wss://norma.nomoreparties.space/orders';
 
 function App() {
-  console.log('app');
+
   const dispatch = useDispatch();
-  const { /*isOpen,*/ isClickButtonOrder } = useSelector(store => store.ingredients.openModalOrder)
-  //const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient)
+  const location = useLocation();
+  const navigate = useNavigate();
+  const background = location.state && location.state.background;
+  
+  const handleModalClose = () => {
+    navigate(-1);
+  };
+
+  const { isOpen, isClickButtonOrder } = useSelector(store => store.ingredients.openModalOrder)
+  const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient)
   const { error, loading } = useSelector(store => store.ingredients)
 
+  
   useEffect(() => {
 
-    setInterval(() => {
-      console.log(localStorage.refreshToken);
-      if (localStorage.refreshToken) {
-        fetch(`${burgerApiConfig.baseUrl}auth/token`, {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            authorization: localStorage.getItem('accessToken')
-          },
-          body: JSON.stringify({
-            "token": localStorage.refreshToken,
-          })
-        })
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            localStorage.access = data.accessToken;
-            localStorage.refreshToken = data.refreshToken;
-          })
-      }
-    }, 1200000)
-
+    dispatch(loadIngredients())
+    dispatch(connect(wsUrl))
+    /* dispatch(getUser1()) */
+   /* dispatch(getUserRefresh()) */
   }, [])
 
+
+  /* useEffect(() => {
+
+    dispatch(connect(wsUrl))
+
+  }, []) */
+
   useEffect(() => {
-    console.log('get');
-    dispatch(loadIngredients())
-    dispatch(getUser1())
+   
+    dispatch(connectHistoryOrder(wsUrlHistoryOrders))
   }, [])
 
   if (loading) {
+
     return <h2>Загрузка...</h2>
   }
 
@@ -71,34 +74,90 @@ function App() {
     return <h2>{`Ошибка. Запрос не выполнен: ${error}`}</h2>
   }
 
+  /*  if (!(location.pathname == '/feed')) {
+     console.log('close');
+     const ws = new WebSocket('wss://norma.nomoreparties.space/orders/all')
+     ws.close()
+ } */
+
   return (
     <div className={`${styles.app} pb-10`}>
       <DndProvider backend={HTML5Backend}>
-
         <AppHeader />
-        <Routes>
-          <Route path='/' exact element={<ConstructorPage />} >
-            <Route path='ingredient/:id' element={<IngredientPage />} />
-          </Route>
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/forgot-password' element={<PasswordRecoveryPage />} />
-          <Route path='/register' element={<RegistrationPage />} />
-          <Route path='/reset-password' element={<ResetPasswordPage />} />
-          <Route path='/profile' element={<ProtectedRouterElement element={<ProfilePage />} />}>
-            <Route path='order' exact element={<HistoryOrder />} />
-            <Route path='order/:id' element={<h2>Заказ</h2>} />
-          </Route>
+        <Routes location={background || location}>
+          <Route path='/' element={<AnonymousRoute element={<ConstructorPage />} />} />           
+          <Route path='ingredient/:ingredientId' element={<AnonymousRoute element={<IngredientDetails />}/>}/>
+          <Route path='/login' element={<AnonymousRoute element={<LoginPage />} />} />
+          <Route path='/forgot-password' element={<AnonymousRoute element={<PasswordRecoveryPage />} />} />
+          <Route path='/register' element={<AnonymousRoute element={<RegistrationPage />} />} />
+          <Route path='/reset-password' element={<AnonymousRoute element={<LoginPage />} />} />
+          <Route path='/profile' element={<ProtectedRouter element={<ProfilePage />} />} exact>
+            <Route path='order' element={<ProtectedRouter element={ <HistoryOrder />} />} exact/>
+            <Route path='order/:number' element={<ProtectedRouter element={<OrderInfo />} />} />
 
+
+          </Route>
+          <Route path='/feed' element={<AnonymousRoute element={<OrderFeedPage />} />}>
+            <Route path=':number' element={<AnonymousRoute element={<OrderInfo />} />} />
+          </Route>
+          {/* <Route path='/feed/:number' element={<AnonymousRoute element={<OrderInfo />} />} /> */}
+          {/* <Route path="*" element={<NotFound404 />} /> */}
         </Routes>
-
-
-        {isClickButtonOrder && (<Modal title={"Детали ингредиента"}>
+        {/* {isClickButtonOrder && (<Modal title={"Детали ингредиента"}>
           {
             <OrderDetails />}
-        </Modal>)}
+        </Modal>)} */}
+        {/* {isOpen && (<Modal title={isClickButtonOrder ? null : "Детали ингредиента"}>
+          {
+            isClickButtonOrder ?
+              <OrderDetails /> :
+              <IngredientDetails ingredient={ingredientDetails} />
+          }
+        </Modal>)} */}
+
+        {background && (
+          <Routes>
+            <Route
+              path='/ingredient/:ingredientId'
+              element={
+                <Modal title={isClickButtonOrder ? null : "Детали ингредиента"} onClose={handleModalClose}>
+                  { isClickButtonOrder ?
+                    <OrderDetails /> :
+                    <IngredientDetails /* ingredient={ingredientDetails} */ />
+                  }
+                </Modal>
+              }
+            />
+            <Route
+              path='/'
+              element={
+                <Modal onClose={handleModalClose}>
+                  <OrderDetails />
+                </Modal>
+              }
+            />
+            <Route
+              path='/feed/:number'
+              element={
+                <Modal onClose={handleModalClose}>
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+            <Route
+              path='profile/order/:number'
+              element={
+                <Modal onClose={handleModalClose}>
+                 {console.log('order/:number') || <OrderInfo />}
+                </Modal>
+              }
+            />
+          </Routes>
+        )}
       </DndProvider>
     </div >
   );
 }
+
 
 export default App;
