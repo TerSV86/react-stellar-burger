@@ -1,13 +1,10 @@
 import styles from './OrderFeedBlockHeader.module.css'
 import { getRelativeTimeString } from '../../utils/burger';
+import { orderFeedBlockHeaderPropType } from '../../utils/prop-types';
+import React from 'react'
 
 const OrderFeedBlockHeader = ({ date, number }) => {
-    
-    
-
-    const dayOrder = (getRelativeTimeString(date, 'ru'));
-
-   
+    const dayOrder = (getRelativeTimeString(date, 'ru'));   
     const dateUTC = new Date(date)
     const hours = dateUTC.getHours()
     const minutes = dateUTC.getMinutes()
@@ -21,4 +18,6 @@ const OrderFeedBlockHeader = ({ date, number }) => {
     )
 }
 
-export default OrderFeedBlockHeader
+OrderFeedBlockHeader.propTypes = orderFeedBlockHeaderPropType;
+
+export default React.memo(OrderFeedBlockHeader)

@@ -3,7 +3,6 @@
     margin: 0;
     width: 100%;
     max-width: 844px;
-    border: 1px solid orange;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

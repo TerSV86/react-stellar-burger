@@ -7,21 +7,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { connect } from '../../services/historyorder/actions/wsHistoryOrdersActions'
 
 const OrderBlock = ({ sum }) => {
-
     const location = useLocation();
-
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const selectIngredient = useSelector(store => store.ingredientList.selectIngredient)
     const user = useSelector(store => store.auth.user)
     const error = useSelector(store => store.ingredients.error)
-    const idSelectIngredient = selectIngredient.map((ingredient) => ingredient._id)
-    console.log(idSelectIngredient);
+    const idSelectIngredient = selectIngredient.map((ingredient) => ingredient._id)   
 
-    const handleClickButtonOrder = () => {
-        console.log('OrderBlock');
-
+    const handleClickButtonOrder = () => { 
         (!user) ? navigate('/login') : dispatch(openModalOrder(/* selectIngredient */idSelectIngredient));
         /* dispatch(sendOrderBurger(idSelectIngredient)) */
     }

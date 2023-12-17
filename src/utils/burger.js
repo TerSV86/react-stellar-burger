@@ -4,14 +4,6 @@ export const WebSocketStatus = {
     OFFLINE: 'OFFLINE'
 }
 
-/* export const BurgerActionType = { 
-    DATA: 'data',
-    INSERT: 'insert',
-    DELETE: 'delete',
-    UPDATE: 'update',
-    MOVE: 'move'
-} */
-
 export function getRelativeTimeString(date, lang) {
     const timeMs = new Date(date)
     const deltaSeconds = Math.round((timeMs - Date.now()) / 1000)
@@ -28,3 +20,16 @@ export function getRelativeTimeString(date, lang) {
             (day == '2 дня назад') ? 'Вчера' : day
     )
 }
+
+export const statusOrder = (data) => {
+    switch (data) {
+        case 'done':
+            return data = 'Выполнен'
+        case 'created':
+            return data = 'Создан'
+        case 'pending':
+            return data = 'Готовится'
+        default:
+            return null
+    }
+} 

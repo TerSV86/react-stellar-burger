@@ -1,6 +1,7 @@
 import styles from './ProductsContainer.module.css'
 import CardProduct from '../CardProduct/CardProduct'
 import { productsContainerPropType } from '../../utils/prop-types';
+import React from 'react'
 
 
 
@@ -15,4 +16,4 @@ const ProductsContainer = ({ product }) => {
 
 ProductsContainer.propTypes = productsContainerPropType;
 
-export default ProductsContainer
+export default React.memo(ProductsContainer)

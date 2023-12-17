@@ -11,7 +11,7 @@ const ModalHeader = ({ children }) => {
 
     function handleClickCloseModal() {
         dispatch(closeModal())
-        navigation('/')
+        navigation(-1)
     }
     return (
         <div className={`${styles.ModalHeader} pt-15 `} onClick={(e) => e.stopPropagation()}>

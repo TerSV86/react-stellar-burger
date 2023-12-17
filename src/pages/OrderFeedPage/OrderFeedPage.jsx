@@ -13,15 +13,13 @@ const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
 const OrderFeedPage = () => {
     const dispatch = useDispatch()
     const location = useLocation()
-    const {number} = useParams()
-    console.log(location);
+    const { number } = useParams()
 
     useEffect(() => {
         dispatch(connect(wsUrl))
     }, [])
-console.log(location.pathname == `/feed/${number}`, location.pathname, `/feed/${number}` );
+
     if (location.pathname === `/feed/${number}`) {
-        console.log('ryr');
         return (
             <Outlet />
         )

@@ -21,6 +21,4 @@ const ingredients = useSelector(store => store.ingredients.ingredients)
     )
 }
 
-/* IngredientDetails.propTypes = ingredientDetailsPropType; */
-
 export default IngredientDetails

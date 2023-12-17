@@ -1,7 +1,8 @@
 import styles from './OrderFeedBlockIngredientsBurger.module.css'
 import OrderFeedBlockIngredientsList from '../OrderFeedBlockIngredientsList/OrderFeedBlockIngredientsList'
 import OrderFeedBlockBurgerPrice from '../OrderFeedBlockBurgerPrice/OrderFeedBlockBurgerPrice'
-
+import { orderFeedBlockIngredientsPropType } from '../../utils/prop-types';
+import React from 'react'
 
 const OrderFeedBlockIngredientsBurger = ({ingredients}) => {
     
@@ -13,4 +14,6 @@ const OrderFeedBlockIngredientsBurger = ({ingredients}) => {
     )
 }
 
-export default OrderFeedBlockIngredientsBurger
+OrderFeedBlockIngredientsBurger.propTypes = orderFeedBlockIngredientsPropType;
+
+export default React.memo(OrderFeedBlockIngredientsBurger)

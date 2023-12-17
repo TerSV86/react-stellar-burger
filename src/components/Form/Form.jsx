@@ -1,3 +1,4 @@
+import { formPropType } from '../../utils/prop-types';
 import styles from './Form.module.css';
 
 const Form = ({ title, children }) => {
@@ -8,5 +9,7 @@ const Form = ({ title, children }) => {
         </form>
     )
 }
+
+Form.propTypes = formPropType;
 
 export default Form;

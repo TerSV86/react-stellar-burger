@@ -53,11 +53,7 @@ export const reducer = (state = initialState, action) => {
                     isClickButtonOrder: !state.isClickButtonOrder,
                 },               
             }
-            /* case SEND_ORDER_BURGER:
-                return {
-                    ...state,
-                    selectIngredient: [1, 2, 3]                    
-                } */
+            
 
         case OPEN_MODAL_INGREDIENT:
 

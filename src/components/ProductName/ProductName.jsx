@@ -1,4 +1,5 @@
 import { productNamePropType } from "../../utils/prop-types"
+import React from 'react'
 
 const ProductName = ({name}) => {
     return (
@@ -8,4 +9,4 @@ const ProductName = ({name}) => {
 
 ProductName.propTypes = productNamePropType;
 
-export default ProductName
+export default React.memo(ProductName)

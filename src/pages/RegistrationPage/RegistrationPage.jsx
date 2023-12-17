@@ -15,17 +15,14 @@ const RegistrationPage = () => {
     const onChange = e => {
         setValue({ ...form, [e.target.name]: e.target.value })
     }
-
     const handleClickButtonRegister = () => {
         dispatch(register({ login, password, email }))
     }
 
-
     if (user.user) {
         return <Navigate to='/' replace />
     }
-
-
+    
     return (
         <main className={styles.RegistrationPage}>
             <Form title={'Регистрация'}>

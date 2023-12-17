@@ -8,6 +8,7 @@ import { useDrag } from 'react-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 import { openModalIngredient } from '../../services/ingredients/action'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import React from 'react'
 
 const CardProduct = ({ product, index }) => {
 
@@ -58,4 +59,4 @@ const CardProduct = ({ product, index }) => {
 
 CardProduct.propTypes = cardProductPropType;
 
-export default CardProduct
+export default React.memo(CardProduct)

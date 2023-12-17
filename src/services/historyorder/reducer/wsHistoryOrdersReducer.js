@@ -10,8 +10,7 @@ const initialState = {
 export const wsHistoryOrdersReducer = (state = initialState, action) => {
     
     switch (action.type) {
-        case HISTORY_ORDERS_WS_CONNECTING:
-            
+        case HISTORY_ORDERS_WS_CONNECTING:            
             return {
                 ...state,
                 status: WebSocketStatus.ONLINE

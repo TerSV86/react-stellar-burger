@@ -10,55 +10,50 @@ import { ButtonsProfile } from '../../components/ButtonsProfile/ButtonsProfile'
 import { Outlet, useLocation, useParams } from 'react-router-dom'
 
 
-const ProfilePage = () => {
-    console.log('ProfilePage');
-    const dispatch = useDispatch()
-    /*   const userData = useSelector(store => store.auth.user) */
+const ProfilePage = () => {    
     const location = useLocation()
     const { number } = useParams()
-    console.log(number, location);
-
     const [isEditLogin, setEditLogin] = useState(false)
     const [isEditEmail, setEditEmail] = useState(false)
     const [isEditPassword, setEditPassword] = useState(false)
-
-    const [form, setValue] = useState({})
-    console.log(form);
+    const [form, setValue] = useState({name: '', email: '', password: ''})   
     const { name, email, password } = form
 
     useEffect(() => {
         getUserApi()
-        /* dispatch(getUserRefresh()) */
-        /* fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: localStorage.accessToken // 'Bearer ' + getCookie('token') 
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer'
-        }) */
-            .then((res) => {
-                console.log('profile ',res.user.name);
+            .then((res) => {                
                 setValue({ ...form, name: res.user.name, email: res.user.email })
-
+            })
+            .catch((err) => {
+                console.error('Ошибка', err)
+                fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {                    
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            authorization: localStorage.accessToken
+                        },
+                        /* body: JSON.stringify({token: localStorage.getItem('refreshToken')}), */
+                        redirect: 'follow',
+                        referrerPolicy: 'no-referrer'
+                })
+            })
+            .finally(()=> {
+               console.log("Обработка данных завершина"); 
             })
 
     }, [isEditEmail, isEditLogin, isEditPassword])
 
-    const onChange = e => {
-        console.log(e.target.name, e.target.value);
+    const onChange = e => {        
         setValue((prevForm) => ({
             ...prevForm,
             [e.target.name]: e.target.value
         }))
     }
 
-    const handleClickButtonSave = () => {
-        console.log('handleClickSave-ProfilePage');
+    const handleClickButtonSave = () => {        
         setEditLogin(false)
         setEditEmail(false)
         setEditPassword(false)
@@ -66,7 +61,6 @@ const ProfilePage = () => {
 
     const handleClickEdit = (e) => {
         const elementName = e.target.closest('.input').querySelector('.input__textfield').getAttribute('name');
-
         switch (elementName) {
             case 'name':
                 setEditLogin((prevState) => !prevState);
@@ -81,9 +75,10 @@ const ProfilePage = () => {
                 break;
         }
     }
-    console.log('location ', location.pathname);
-    if (location.pathname.includes(`/profile/order/`)) {
-        console.log('render', <Outlet/>);
+    if (isEditEmail) {
+        return <h2>Загрузка </h2>
+    }
+    if (location.pathname.includes(`/profile/order/`)) {        
         return (<Outlet />)
     }
 
@@ -146,7 +141,7 @@ const ProfilePage = () => {
                         onIconClick={(e) => handleClickEdit(e)} />)}
                 {(isEditLogin || isEditEmail || isEditPassword) ? <ButtonsProfile onClickSave={handleClickButtonSave} data={form} /> : null}
             </Form>}
-            {console.log('jkjlkj') || location.pathname === '/profile/order' && <Outlet />}
+            {location.pathname === '/profile/order' && <Outlet />}
         </main>
 
     )

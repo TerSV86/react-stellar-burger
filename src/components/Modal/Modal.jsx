@@ -11,10 +11,12 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Modal({ children, title }) {
+    console.log("Modal");
     const dispatch = useDispatch()
     const navigate = useNavigate()
     useEffect(() => {
         function closeByEscape(evt) {
+            console.log('Esc');
             if (evt.key === 'Escape') {
                 dispatch(closeModal());
             }

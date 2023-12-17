@@ -8,11 +8,9 @@ import { getMassegeForRecoveryPassword } from '../../utils/burger-api'
 const   PasswordRecoveryPage = () => {
     const navigate = useNavigate()
     const [value, setValue] = useState('')
-    const onChange = e => {
-        console.log(e.target.value);
+    const onChange = e => {        
         setValue(e.target.value)
     }
-
         const handlerClickButtonRecovery = () => {        
         getMassegeForRecoveryPassword(value).then(res => console.log(res)); //Как это использовать?
         navigate('/reset-password', {replace: true})

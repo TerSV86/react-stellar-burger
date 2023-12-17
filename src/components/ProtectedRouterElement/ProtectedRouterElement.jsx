@@ -31,7 +31,7 @@ export const ProtectedRouterElement = ({ anonymous = false, element }) => {
     } */
 
     if (!ingredients) {
-        return <p>Загрузка ингредиентов ingredient...</p>
+        return <p>Загрузка ингредиентов ...</p>
     }
 
     /* if (!user && !anonymous) {
@@ -39,8 +39,11 @@ export const ProtectedRouterElement = ({ anonymous = false, element }) => {
         return <Navigate to='/login' replace />
     } */
     if (!orders) {
-        console.log("protected");
-        return <p>Загрузка ингредиентов orders ...</p>
+        
+        return <p>Загрузка заказов ...</p>
+    }
+    if(!userOrders && user) {
+        return <p>Загрузка заказов пользователя</p>
     }
 
     /* if(!userOrders && user ) {

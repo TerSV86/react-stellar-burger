@@ -9,27 +9,16 @@ import { login } from '../../services/auth/actions/actions'
 const LoginPage = () => {
     const dispatch = useDispatch()
     const user = useSelector(store => store.auth.user)
-    const navigate = useNavigate()
-    console.log(user);
+    const navigate = useNavigate()    
     const [form, setValue] = useState({ email: '', password: '' })
     const { email, password } = form;
-    console.log(email);
-
     const onChange = e => {
         setValue({ ...form, [e.target.name]: e.target.value })
     }
-
     const handleClickButtonRegister = () => {
         dispatch(login({ email, password }))
-    }
-
-    /*if (user.user) {  //работает плохо. Нужно как-нибудь по другому
-        navigate(-1)
-
-    }*/
-    useEffect(() => {
-        console.log('login');
-
+    }    
+    useEffect(() => { 
         if (user) {
             navigate('/profile')
         }

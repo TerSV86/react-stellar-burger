@@ -88,3 +88,30 @@ export const orderIngredientPropType = {
 export const orderIngredientListPropType = {
   burgerIngr: PropTypes.array
 }
+
+export const formPropType = {
+  title: PropTypes.string,
+  children: PropTypes.array
+}
+
+export const historyOrderBlockPropType = {
+  ingredients: PropTypes.array,
+  number: PropTypes.number,
+  name: PropTypes.string,
+  date: PropTypes.string,
+  status: PropTypes.string
+}
+
+export const orderFeedBlockHeaderPropType = {
+  date: PropTypes.string,
+  number: PropTypes.number
+}
+
+export const orderFeedBlockTitlePropType = {
+  name: PropTypes.string
+}
+
+export const orderFeedBlockIngredientsPropType = {
+  ingredients: PropTypes.array
+}
+

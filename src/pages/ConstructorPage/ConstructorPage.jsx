@@ -9,15 +9,10 @@ const ConstructorPage = () => {
     const ingredients = useSelector((store) => store.ingredients.ingredients)
     const location = useLocation()
     const { id } = useParams()
-    console.log(location.pathname, id);
-    console.log(`/ingredient/${id}`);
-    console.log('massiv ', ingredients);
-    if (!ingredients) {
-        return <h2>Loading ...</h2>
-    }
+
     if (location.pathname === `/ingredient/${id}`) {
         return (
-            <main className={`${styles.ConstructorPage}`}>
+            <main className={`${styles.ingredientInfoPage}`}>
                 <Outlet context={ingredients[id]} />
             </main>
         )

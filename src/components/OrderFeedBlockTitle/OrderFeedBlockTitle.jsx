@@ -1,4 +1,6 @@
+import { orderFeedBlockTitlePropType } from '../../utils/prop-types'
 import styles from './OrderFeedBlockTitle.module.css'
+import React from 'react'
 
 const OrderFeedBlockTitle = ({name}) => {
     return (
@@ -6,4 +8,6 @@ const OrderFeedBlockTitle = ({name}) => {
     )
 }
 
-export default OrderFeedBlockTitle
+OrderFeedBlockTitle.propTypes = orderFeedBlockTitlePropType
+
+export default React.memo(OrderFeedBlockTitle)
