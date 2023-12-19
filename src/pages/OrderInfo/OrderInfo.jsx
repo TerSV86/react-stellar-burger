@@ -32,7 +32,7 @@ const OrderInfo = () => {
     order ? (data = order) : (data = userOrder)
     
     return (
-        console.log('tyt') || <div className={`${styles.OrderInfo}`}>
+        <div className={`${styles.OrderInfo}`}>
             <p className='text text_type_digits-default pb-10'>{`#${data.number}`}</p>
             <p className="text text_type_main-medium pb-3">{`${data.name}`}</p>
             <p className="text text_type_main-default pb-15">{statusOrder(`${data.status}`)}</p>

@@ -55,7 +55,8 @@ export const loadIngredients = () => (dispatch) => {
 }
 
 export const openModalOrder = (selectIngredient) => (dispatch) => {
-    return getNumberOrder(selectIngredient).then(res => {
+    return getNumberOrder(selectIngredient)
+    .then(res => {
         dispatch({
             type: OPEN_MODAL_ORDER_SUCCESS,
             payload: res

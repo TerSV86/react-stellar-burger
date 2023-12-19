@@ -19,7 +19,7 @@ import { burgerApiConfig } from "../../utils/burger-api";
 import { AnonymousRoute, ProtectedRouter } from "../ProtectedRouterElement/ProtectedRouterElement";
 import IngredientPage from "../../pages/IngredientPage/IngredientPage";
 import HistoryOrder from "../HistoryOrder/HistoryOrder";
-import { getUser, getUser1 } from "../../services/auth/actions/actions";
+import { checkAutoLogin, getUser, getUser1 } from "../../services/auth/actions/actions";
 import OrderFeedPage from "../../pages/OrderFeedPage/OrderFeedPage";
 import OrderInfo from "../../pages/OrderInfo/OrderInfo";
 import { disconnect, connect } from "../../services/orderfeed/actions/wsActions";
@@ -47,13 +47,15 @@ function App() {
   const { error, loading } = useSelector(store => store.ingredients)
   const user = useSelector(store => store.auth.user)
 
+  useEffect(() => {
+    dispatch(checkAutoLogin())
+  }, [])
 
   useEffect(() => {
-
     dispatch(loadIngredients())
     dispatch(connect(wsUrl))
+    
     if (user) {
-      console.log('swUserOrders');
       dispatch(connectHistoryOrder(wsUrlHistoryOrders))
     }
     /* dispatch(getUser1()) */
@@ -89,48 +91,50 @@ function App() {
           <Route path="*" element={<AnonymousRoute element={<NotFound404 />} />} />
         </Routes>
 
-        {background && isOpen && (
+        {background && (
           <Routes>
             <Route
-              path='/ingredient/:ingredientId' element={<AnonymousRoute
-                element={
-                  <Modal title={isClickButtonOrder ? null : "Детали ингредиента"} onClose={handleModalClose}>
-                    {
+              path='/ingredient/:ingredientId'
+              element={
+                <AnonymousRoute
+                  element={
+                    <Modal title={"Детали ингредиента"} onClose={handleModalClose}>
                       <IngredientDetails ingredient={ingredientDetails} />
-                    }
-                  </Modal>
-                }
-              />}
+                    </Modal>}
+                />}
             />
             <Route
               path='/feed/:number'
-              element={<AnonymousRoute
-                element={
-                  <Modal onClose={handleModalClose}>
-                    <OrderInfo />
-                  </Modal>
-                } />}
+              element={
+                <AnonymousRoute
+                  element={
+                    <Modal onClose={handleModalClose}>
+                      <OrderInfo />
+                    </Modal>}
+                />}
             />
             <Route
               path='profile/order/:number'
-              element={<ProtectedRouter element={
-                <Modal onClose={handleModalClose}>
-                  {<OrderInfo />}
-                </Modal>
-              } />}
+              element={
+                <ProtectedRouter element={
+                  <Modal onClose={handleModalClose}>
+                    {<OrderInfo />}
+                  </Modal>}
+                />}
             />
           </Routes>
         )}
         {isOpen && (
           <Routes>
-            <Route path='/' element={<ProtectedRouter element={
-              <Modal onClose={handleModalClose}>
-                {<OrderDetails />}
-              </Modal>
-            } />} />
+            <Route
+              path='/'
+              element={<ProtectedRouter element={
+                <Modal onClose={handleModalClose}>
+                  <OrderDetails />
+                </Modal>
+              } />} />
           </Routes>)
         }
-
       </DndProvider>
     </div >
   );

@@ -1,22 +1,16 @@
-import { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation, useParams } from "react-router-dom";
-import { getUserRefresh } from "../../services/auth/actions/actions";
 
-export const ProtectedRouterElement = ({ anonymous = false, element }) => {
-    const dispatch = useDispatch()
+
+export const ProtectedRouterElement = ({ anonymous = false, element }) => {    
     const location = useLocation()
-    const user = useSelector(store => store.auth.user)
-    const isAuthChecked = useSelector(store => store.auth.isAuthChecked)
+    const user = useSelector(store => store.auth.user)   
     const ingredients = useSelector(store => store.ingredients.ingredients)
-    const orders = useSelector(store => store.orders.burgers.orders)
-    const status = useSelector(store => store.orders.status)
+    const orders = useSelector(store => store.orders.burgers.orders)    
     const userOrders = useSelector(store => store.userOrders.userOrders.orders)
 
 
-    if (!user && !anonymous) {
-        
+    if (!user && !anonymous) {        
         return <Navigate to='/login' state={{ from: location }} />
     }
 
@@ -26,7 +20,6 @@ export const ProtectedRouterElement = ({ anonymous = false, element }) => {
     }
 
     if (!orders) {
-
         return <p>Загрузка заказов ...</p>
     }
     if (!userOrders && user) {

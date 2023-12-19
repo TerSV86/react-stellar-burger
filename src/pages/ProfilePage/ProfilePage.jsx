@@ -33,9 +33,8 @@ const ProfilePage = () => {
                         credentials: 'same-origin',
                         headers: {
                             'Content-Type': 'application/json',
-                            authorization: localStorage.accessToken
-                        },
-                        /* body: JSON.stringify({token: localStorage.getItem('refreshToken')}), */
+                            'authorization': localStorage.accessToken
+                        },                        
                         redirect: 'follow',
                         referrerPolicy: 'no-referrer'
                 })

@@ -38,9 +38,8 @@ export const register = ({ login, password, email }) => (dispatch) => {
         })
 }
 
-export const 
-login = ({ email, password }) => (dispatch) => {
-    
+export const login = ({ email, password }) => (dispatch) => {
+
     dispatch({ type: LOGIN_SEND });
     return loginApi({ email, password })
         .then((res) => {
@@ -112,7 +111,7 @@ export const getUser1 = () => (dispatch) => {
     }) */
 }
 
-export const getUserRefresh = () => (dispatch) => {
+/* export const getUserRefresh = () => (dispatch) => {
     console.log(localStorage.accessToken);
     return fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {
         method: 'GET',
@@ -121,7 +120,7 @@ export const getUserRefresh = () => (dispatch) => {
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: localStorage.accessToken/* 'Bearer ' + getCookie('token') */
+            Authorization: localStorage.accessToken //'Bearer ' + getCookie('token') 
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
@@ -133,6 +132,35 @@ export const getUserRefresh = () => (dispatch) => {
                 payload: res.user
             })
         })
+} */
+
+export const checkAutoLogin = () => (dispatch) => {
+    
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+        return;
+    }
+    fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': localStorage.accessToken
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer'
+    }).then((res) => {
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res
+        })        
+    }
+    )
+
+
+
 }
 
 
