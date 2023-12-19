@@ -58,7 +58,7 @@ function App() {
     }
     /* dispatch(getUser1()) */
     /* dispatch(getUserRefresh()) */
-  }, [user])  
+  }, [user])
 
   if (loading) {
     return <h2>Загрузка...</h2>
@@ -66,7 +66,7 @@ function App() {
 
   if (error && !loading) {
     return <h2>{`Ошибка. Запрос не выполнен: ${error}`}</h2>
-  }  
+  }
 
   return (
     <div className={`${styles.app} pb-10`}>
@@ -74,7 +74,7 @@ function App() {
         <AppHeader />
         <Routes location={background || location}>
           <Route path='/' element={<AnonymousRoute element={<ConstructorPage />} />} />
-          <Route path='ingredient/:ingredientId' element={<AnonymousRoute element={<IngredientDetails />} />} />
+          <Route path='/ingredient/:ingredientId' element={<AnonymousRoute element={<IngredientDetails />} />} />
           <Route path='/login' element={<AnonymousRoute element={<LoginPage />} />} />
           <Route path='/forgot-password' element={<AnonymousRoute element={<PasswordRecoveryPage />} />} />
           <Route path='/register' element={<AnonymousRoute element={<RegistrationPage />} />} />
@@ -89,45 +89,48 @@ function App() {
           <Route path="*" element={<AnonymousRoute element={<NotFound404 />} />} />
         </Routes>
 
-        {background && (
+        {background && isOpen && (
           <Routes>
             <Route
-              path='/ingredient/:ingredientId'
-              element={
-                <Modal title={isClickButtonOrder ? null : "Детали ингредиента"} onClose={handleModalClose}>
-                  {isClickButtonOrder ?
-                    <OrderDetails /> :
-                    <IngredientDetails /* ingredient={ingredientDetails} */ />
-                  }
-                </Modal>
-              }
-            />
-            <Route
-              path='/'
-              element={
-                <Modal onClose={handleModalClose}>
-                  <OrderDetails />
-                </Modal>
-              }
+              path='/ingredient/:ingredientId' element={<AnonymousRoute
+                element={
+                  <Modal title={isClickButtonOrder ? null : "Детали ингредиента"} onClose={handleModalClose}>
+                    {
+                      <IngredientDetails ingredient={ingredientDetails} />
+                    }
+                  </Modal>
+                }
+              />}
             />
             <Route
               path='/feed/:number'
-              element={
-                <Modal onClose={handleModalClose}>
-                  <OrderInfo />
-                </Modal>
-              }
+              element={<AnonymousRoute
+                element={
+                  <Modal onClose={handleModalClose}>
+                    <OrderInfo />
+                  </Modal>
+                } />}
             />
             <Route
               path='profile/order/:number'
-              element={
+              element={<ProtectedRouter element={
                 <Modal onClose={handleModalClose}>
                   {<OrderInfo />}
                 </Modal>
-              }
+              } />}
             />
           </Routes>
         )}
+        {isOpen && (
+          <Routes>
+            <Route path='/' element={<ProtectedRouter element={
+              <Modal onClose={handleModalClose}>
+                {<OrderDetails />}
+              </Modal>
+            } />} />
+          </Routes>)
+        }
+
       </DndProvider>
     </div >
   );

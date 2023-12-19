@@ -72,7 +72,7 @@ export const reducer = (state = initialState, action) => {
                 openModalOrder: {
                     ...state.openModalOrder,
                     isOpen: false,
-                    numberOrder: 0,
+                    numberOrder: "Заказ обрабатывается",
                     isClickButtonOrder: false
                 },
                 openModalIngredient: null

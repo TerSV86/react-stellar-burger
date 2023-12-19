@@ -7,8 +7,7 @@ const ButtonHeader = ({ style, name, icon }) => {
    const handleClickLink = () => {
     console.log('1');
     if (name === 'Личный кабинет') {
-        navigate('/profile')
-        
+        navigate('/profile')        
     }
    }
 

@@ -2,10 +2,10 @@ import { setCookie, getCookie } from "./cookie";
 
 
 export const burgerApiConfig = {
-    baseUrl: 'https://norma.nomoreparties.space/api/',
+       baseUrl: 'https://norma.nomoreparties.space/api/',
     headers: {
         "Content-Type": "application/json",
-        "authorization": /* 'Bearer ' + getCookie('token') */localStorage.accessToken,
+        "authorization": localStorage.getItem('accessToken') /* 'Bearer ' + getCookie('token') */,
     },
 }
 
@@ -27,7 +27,7 @@ export const getProductData = () => {
 
 
 export const getNumberOrder = (selectIngredient) => {
-
+console.log('getNumber Orders', localStorage.accessToken);
     return fetch(`${burgerApiConfig.baseUrl}orders`, {
         method: "POST",
         headers: burgerApiConfig.headers,

@@ -7,26 +7,29 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../services/auth/actions/actions'
 
 const LoginPage = () => {
+    
     const dispatch = useDispatch()
     const user = useSelector(store => store.auth.user)
-    const navigate = useNavigate()    
+    const navigate = useNavigate()
     const [form, setValue] = useState({ email: '', password: '' })
     const { email, password } = form;
     const onChange = e => {
         setValue({ ...form, [e.target.name]: e.target.value })
     }
-    const handleClickButtonRegister = () => {
+    const handleSubmit = e => {
+        console.log('submit');
+        e.preventDefault();
         dispatch(login({ email, password }))
-    }    
-    useEffect(() => { 
+    }
+    useEffect(() => {
         if (user) {
-            navigate('/profile')
+            navigate(-1)
         }
     }, [user])
 
     return (
         <main className={styles.LoginPage}>
-            <Form title={'Вход'}>
+            <Form title={'Вход'} onSubmit={handleSubmit}>
                 <EmailInput
                     onChange={onChange}
                     value={email}
@@ -40,7 +43,7 @@ const LoginPage = () => {
                     name={'password'}
                     extraClass="mb-6"
                 />
-                <Button htmlType="button" type="primary" size="medium" extraClass={'mb-20'} onClick={handleClickButtonRegister}>
+                <Button htmlType="submit" type="primary" size="medium" extraClass={'mb-20'}>
                     Войти
                 </Button>
                 <h2 className={`text_type_main-small pb-4`}> Вы - новый пользователь? <Link to={'/register'} className={'pl-2'} style={{ textDecoration: 'none', color: '#4C4CFF' }}>Зарегистрироваться</Link></h2>

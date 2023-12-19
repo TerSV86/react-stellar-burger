@@ -3,6 +3,7 @@ import OrderFeedHeader from "../OrderFeedBlockHeader/OrderFeedBlockHeader"
 import OrderFeedBlockTitle from '../OrderFeedBlockTitle/OrderFeedBlockTitle'
 import OrderFeedBlockIngredientsBurger from '../OrderFeedBlockIngredientsBurger/OrderFeedBlockIngredientsBurger'
 import { Link, useLocation } from 'react-router-dom'
+import React from 'react'
 
 const OrderFeedBlock = ({ ingredients, number, name, date }) => {
     const location = useLocation()
@@ -24,4 +25,4 @@ const OrderFeedBlock = ({ ingredients, number, name, date }) => {
     )
 }
 
-export default OrderFeedBlock
+export default React.memo(OrderFeedBlock)

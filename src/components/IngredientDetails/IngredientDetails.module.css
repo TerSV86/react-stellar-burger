@@ -1,5 +1,4 @@
-.IngredientDetails {
-    border: 1px solid firebrick;
+.IngredientDetails {    
     width: 100%;
     max-width: 520px;
     display: flex;

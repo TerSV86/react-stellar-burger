@@ -38,7 +38,9 @@ export const register = ({ login, password, email }) => (dispatch) => {
         })
 }
 
-export const login = ({ email, password }) => (dispatch) => {
+export const 
+login = ({ email, password }) => (dispatch) => {
+    
     dispatch({ type: LOGIN_SEND });
     return loginApi({ email, password })
         .then((res) => {
@@ -56,7 +58,7 @@ export const login = ({ email, password }) => (dispatch) => {
                 type: LOGIN_ERROR,
                 payload: err
             })
-            fetchWithRefresh('https://norma.nomoreparties.space/api/auth/token')
+            fetchWithRefresh(`${burgerApiConfig.baseUrl}/auth/token`)
             return Promise.reject(err)
         })
 }

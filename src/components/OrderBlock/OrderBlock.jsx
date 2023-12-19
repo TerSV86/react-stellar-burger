@@ -3,7 +3,7 @@ import { orderBlockPropType } from '../../utils/prop-types'
 import styles from './OrderBlock.module.css'
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { openModalOrder, sendOrderBurger } from '../../services/ingredients/action'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { connect } from '../../services/historyorder/actions/wsHistoryOrdersActions'
 
 const OrderBlock = ({ sum }) => {
@@ -13,11 +13,16 @@ const OrderBlock = ({ sum }) => {
     const selectIngredient = useSelector(store => store.ingredientList.selectIngredient)
     const user = useSelector(store => store.auth.user)
     const error = useSelector(store => store.ingredients.error)
-    const idSelectIngredient = selectIngredient.map((ingredient) => ingredient._id)   
+    const idSelectIngredient = selectIngredient.map((ingredient) => ingredient._id)
 
-    const handleClickButtonOrder = () => { 
-        (!user) ? navigate('/login') : dispatch(openModalOrder(/* selectIngredient */idSelectIngredient));
-        /* dispatch(sendOrderBurger(idSelectIngredient)) */
+
+
+    const handleClickButtonOrder = () => {        
+        if (user) {
+            dispatch(openModalOrder(idSelectIngredient));
+        } else {
+            navigate('/login')
+        }
     }
 
     if (error) {
@@ -29,15 +34,20 @@ const OrderBlock = ({ sum }) => {
         <div className={`${styles.OrderBlock} pt-6 pr-4 pb-2`}>
             <p className="text text_type_digits-medium pr-2">{sum}</p>
             <CurrencyIcon type="primary" />
-            <Link
-            state={{background: location}}
-            >
-                <Button disabled={selectIngredient.length === 0} htmlType="button" type="primary" size="large" className={`button button_type_primary button_size_large ml-10`} id='buttonOrder' onClick={(e) => handleClickButtonOrder()}>
-                    Оформить заказ
-                </Button>
-            </Link>
 
-        </div>)
+            <Button
+                disabled={selectIngredient.length === 0}
+                htmlType="button" type="primary" size="large"
+                className={`button button_type_primary button_size_large ml-10`}
+                /* id='buttonOrder'  */
+                onClick={handleClickButtonOrder}>
+                Оформить заказ
+            </Button>
+            {/* <Link // работало, потом вдруг перестало!!!
+                to={(user) ? '/' : '/login'}
+                state={{ background: location }}>    
+            </Link>  */}
+        </div >)
 
 }
 

@@ -46,7 +46,7 @@ const CardProduct = ({ product, index }) => {
             to={`/ingredient/${ingredientId}`}
             state={{ background: location }}
             className={styles.link}
-            >
+        >
             {(!isDrag) && <article className={`${styles.CardProduct} pb-6`} ref={dragRef} onClick={handleClickIngredient}>
                 <ProductImage link={product.image} name={product.name} />
                 <ProductPrice price={product.price} />

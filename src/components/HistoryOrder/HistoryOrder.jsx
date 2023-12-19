@@ -9,19 +9,19 @@ import { Link } from 'react-router-dom';
 
 const wsUrl = 'wss://norma.nomoreparties.space/orders'
 
-const HistoryOrder = () => {    
+const HistoryOrder = () => {
     const userOrders = useSelector(store => store.userOrders.userOrders.orders)
-    
+    const reverseUserOrders = [...userOrders].reverse()
     if (!userOrders) {
         return <h2>Загрузка ...</h2>
     }
     return (
-       
-            <div className={`${styles.HistoryOrder} custom-scroll`}>
-                {(userOrders.length) ? (userOrders.map((order) =>
-                    <HistoryOrderBlock key={order._id} ingredients={order.ingredients} number={order.number} name={order.name} date={order.updatedAt} status={order.status} />)) : (<h2>Заказы отсутствуют</h2>)}
-            </div>
-        
+
+        <div className={`${styles.HistoryOrder} custom-scroll`}>
+            {(userOrders.length) ? (reverseUserOrders.map((order) =>
+                <HistoryOrderBlock key={order._id} ingredients={order.ingredients} number={order.number} name={order.name} date={order.updatedAt} status={order.status} />)) : (<h2>Заказы отсутствуют</h2>)}
+        </div>
+
 
     )
 }

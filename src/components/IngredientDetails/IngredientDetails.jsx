@@ -1,16 +1,14 @@
 import styles from './IngredientDetails.module.css'
 import ProductImage from '../ProductImage/ProductImage'
 import FoodValue from '../FoodValue/FoodValue'
-import { ingredientDetailsPropType } from '../../utils/prop-types';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const IngredientDetails = () => {
-const ingredients = useSelector(store => store.ingredients.ingredients)
-    const location = useLocation()
+const IngredientDetails = () => {    
+    const ingredients = useSelector(store => store.ingredients.ingredients)    
     const idIngredient = useParams()
-    const ingredient = ingredients.find((ingr)=> ingr._id === idIngredient.ingredientId)
-    
+    const ingredient = ingredients.find((ingr) => ingr._id === idIngredient.ingredientId)
+
     return (
         <div className={`${styles.IngredientDetails}`}>
             <ProductImage link={ingredient.image_large} name={ingredient.name} />

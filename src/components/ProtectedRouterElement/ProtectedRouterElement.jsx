@@ -13,49 +13,30 @@ export const ProtectedRouterElement = ({ anonymous = false, element }) => {
     const orders = useSelector(store => store.orders.burgers.orders)
     const status = useSelector(store => store.orders.status)
     const userOrders = useSelector(store => store.userOrders.userOrders.orders)
-    
 
-   
-    /* if (!isAuthChecked) {
-        console.log('Загрузка Protected');
-        return <Navigate to='/login'  />
-    } */
-    if(!user && !anonymous) {
 
-        return <Navigate to='/login' />
+    if (!user && !anonymous) {
+        
+        return <Navigate to='/login' state={{ from: location }} />
     }
 
-   /*  if (user && anonymous) {
-        console.log('/');
-        return <Navigate to='/' />
-    } */
 
     if (!ingredients) {
         return <p>Загрузка ингредиентов ...</p>
     }
 
-    /* if (!user && !anonymous) {
-        console.log('Protected login');
-        return <Navigate to='/login' replace />
-    } */
     if (!orders) {
-        
+
         return <p>Загрузка заказов ...</p>
     }
-    if(!userOrders && user) {
+    if (!userOrders && user) {
         return <p>Загрузка заказов пользователя</p>
     }
-
-    /* if(!userOrders && user ) {
-        console.log("protected");
-      return  <p>Загрузка ингредиентов ...</p>
-    } */
 
     return (element)
 }
 
-export const AnonymousRoute = ({ element }) => {
-
+export const AnonymousRoute = ({ element }) => {    
     return <ProtectedRouterElement anonymous={true} element={element} />
 }
 

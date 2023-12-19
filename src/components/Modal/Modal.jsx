@@ -18,6 +18,7 @@ export default function Modal({ children, title }) {
         function closeByEscape(evt) {
             console.log('Esc');
             if (evt.key === 'Escape') {
+                console.log('If Esc');
                 dispatch(closeModal());
             }
         }

@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { connect } from '../../services/orderfeed/actions/wsActions'
+import { statusOrder } from '../../utils/burger'
 
 const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
 const OrderInfo = () => {
@@ -34,7 +35,7 @@ const OrderInfo = () => {
         console.log('tyt') || <div className={`${styles.OrderInfo}`}>
             <p className='text text_type_digits-default pb-10'>{`#${data.number}`}</p>
             <p className="text text_type_main-medium pb-3">{`${data.name}`}</p>
-            <p className="text text_type_main-default pb-15">{`${data.status}`}</p>
+            <p className="text text_type_main-default pb-15">{statusOrder(`${data.status}`)}</p>
             <p className="text text_type_main-medium pb-6">Состав:</p>
             <OrderIngredientList burgerIngr={data.ingredients} />
             <OrderInfoTimePrice date={data} />
