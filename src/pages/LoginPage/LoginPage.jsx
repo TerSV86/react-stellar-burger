@@ -5,19 +5,23 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, Navigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../services/auth/actions/actions'
+import {useForm} from '../../hooks/useForm'
 
 const LoginPage = () => {
     
     const dispatch = useDispatch()
     const user = useSelector(store => store.auth.user)
     const navigate = useNavigate()
-    const [form, setValue] = useState({ email: '', password: '' })
+    const {values, handleChange, setValues} = useForm({});
+    console.log(values);
+    const {email, password} = values
+  /*   const [form, setValue] = useState({ email: '', password: '' })
     const { email, password } = form;
     const onChange = e => {
         setValue({ ...form, [e.target.name]: e.target.value })
-    }
+    } */
     const handleSubmit = e => {
-        console.log('submit');
+        console.log('submit', values);
         e.preventDefault();
         dispatch(login({ email, password }))
     }
@@ -31,15 +35,15 @@ const LoginPage = () => {
         <main className={styles.LoginPage}>
             <Form title={'Вход'} onSubmit={handleSubmit}>
                 <EmailInput
-                    onChange={onChange}
-                    value={email}
+                    onChange={/* onChange */handleChange}
+                    value={values.email}
                     name={'email'}
                     isIcon={false}
                     extraClass='mb-6'
                 />
                 <PasswordInput
-                    onChange={onChange}
-                    value={password}
+                    onChange={/* onChange */handleChange}
+                    value={values.password}
                     name={'password'}
                     extraClass="mb-6"
                 />

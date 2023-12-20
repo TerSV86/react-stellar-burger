@@ -8,54 +8,62 @@ import { getUser } from '../../services/auth/actions/actions'
 import { getUserApi, userApi, getUserRefresh, fetchWithRefresh, burgerApiConfig } from '../../utils/burger-api'
 import { ButtonsProfile } from '../../components/ButtonsProfile/ButtonsProfile'
 import { Outlet, useLocation, useParams } from 'react-router-dom'
+import { useForm } from '../../hooks/useForm'
 
 
-const ProfilePage = () => {    
+const ProfilePage = () => {
     const location = useLocation()
     const { number } = useParams()
     const [isEditLogin, setEditLogin] = useState(false)
     const [isEditEmail, setEditEmail] = useState(false)
     const [isEditPassword, setEditPassword] = useState(false)
-    const [form, setValue] = useState({name: '', email: '', password: ''})   
+
+    /* const {values, handleChange, setValues} = useForm({});
+    console.log(values);
+    const {login, email, password} = values */
+
+    const [form, setValue] = useState({ name: '', email: '', password: '' })
     const { name, email, password } = form
 
     useEffect(() => {
         getUserApi()
-            .then((res) => {                
+            .then((res) => {
                 setValue({ ...form, name: res.user.name, email: res.user.email })
+                /*  setValues({ ...// form /values, name: res.user.name, email: res.user.email }) */
             })
             .catch((err) => {
                 console.error('Ошибка', err)
-                fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {                    
-                        method: 'GET',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        credentials: 'same-origin',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': localStorage.accessToken
-                        },                        
-                        redirect: 'follow',
-                        referrerPolicy: 'no-referrer'
+                fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': localStorage.accessToken
+                    },
+                    redirect: 'follow',
+                    referrerPolicy: 'no-referrer'
                 })
             })
-            .finally(()=> {
-               console.log("Обработка данных завершина"); 
+            .finally(() => {
+                console.log("Обработка данных завершина");
             })
 
     }, [isEditEmail, isEditLogin, isEditPassword])
 
-    const onChange = e => {        
+    const onChange = e => {
         setValue((prevForm) => ({
             ...prevForm,
             [e.target.name]: e.target.value
         }))
     }
 
-    const handleClickButtonSave = () => {        
+    const handleClickButtonSave = () => {
         setEditLogin(false)
         setEditEmail(false)
         setEditPassword(false)
+        /*  setValues(false) */
     }
 
     const handleClickEdit = (e) => {
@@ -77,7 +85,7 @@ const ProfilePage = () => {
     if (isEditEmail) {
         return <h2>Загрузка </h2>
     }
-    if (location.pathname.includes(`/profile/order/`)) {        
+    if (location.pathname.includes(`/profile/order/`)) {
         return (<Outlet />)
     }
 
@@ -86,21 +94,21 @@ const ProfilePage = () => {
             <ProfileNavigation />
             {location.pathname === '/profile' && <Form >
                 {isEditLogin ? (<Input
-                    onChange={onChange}
+                    onChange={onChange/* handleChange */}
                     value={name}
                     placeholder='Имя'
                     name={'name'}
-                    isIcon={false}
+                    isicon='false'
                     extraClass='mb-6'
                     icon="CloseIcon"
                     onIconClick={(e) => handleClickEdit(e)}
 
                 />) : (<Input
-                    onChange={onChange}
+                    onChange={onChange /* handleChange */}
                     value={name}
                     placeholder='Имя'
                     name={'name'}
-                    isIcon={true}
+                    isicon='true'
                     extraClass='mb-6'
                     icon="EditIcon"
                     onIconClick={(e) => handleClickEdit(e)}
@@ -108,31 +116,31 @@ const ProfilePage = () => {
                 />)}
 
                 {isEditEmail ? (<EmailInput
-                    onChange={onChange}
+                    onChange={onChange/* handleChange */}
                     value={email}
                     name={'email'}
-                    isIcon={false}
+                    isicon='false'
                     icon="CloseIcon"
                     extraClass='mb-6'
                     onIconClick={(e) => handleClickEdit(e)}
                 />) : (<EmailInput
-                    onChange={onChange}
+                    onChange={onChange /* handleChange */}
                     value={email}
                     name={'email'}
-                    isIcon={false}
+                    isicon='false'
                     icon="EditIcon"
                     extraClass='mb-6'
                     onIconClick={(e) => handleClickEdit(e)}
                 />)}
                 {isEditPassword ? (<PasswordInput
-                    onChange={onChange}
+                    onChange={onChange/* handleChange */}
                     value={password}
                     name={'password'}
                     extraClass='mb-6'
                     icon="CloseIcon"
                     onIconClick={(e) => handleClickEdit(e)} />)
                     : (<PasswordInput
-                        onChange={onChange}
+                        onChange={onChange /* handleChange */}
                         value={password}
                         name={'password'}
                         extraClass='mb-6'

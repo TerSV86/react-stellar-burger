@@ -10,12 +10,9 @@ export const burgerApiConfig = {
 }
 
 const getRespons = (res) => {
-
     if (res.ok) {
-
         return res.json();
     }
-
     return res.json().then((err) => Promise.reject((err => console.log('Ошибка: ', err))));
 }
 
@@ -45,7 +42,7 @@ export const getMassegeForRecoveryPassword = (email) => {
         body: JSON.stringify({
             "email": email
         })
-    })
+    }).then(getRespons)
 }
 
 export const resetPassword = (pass, pin) => {
@@ -57,7 +54,7 @@ export const resetPassword = (pass, pin) => {
             "password": pass,
             "token": pin
         })
-    })
+    }).then(getRespons)
 }
 
 export const createUser = () => {
@@ -69,7 +66,7 @@ export const createUser = () => {
             "password": "password",
             "name": "Username"
         })
-    })
+    }).then(getRespons)
 }
 
 export const userRegister = ({ email, password, login }) => {
@@ -88,6 +85,7 @@ export const userRegister = ({ email, password, login }) => {
             "name": login
         })
     }).then(getRespons)
+
 }
 
 export const loginApi = ({ email, password }) => {
@@ -104,6 +102,7 @@ export const loginApi = ({ email, password }) => {
             "email": email
         })
     }).then(getRespons)
+    
 }
 
 export const logoutApi = () => {
@@ -117,7 +116,8 @@ export const logoutApi = () => {
         body: JSON.stringify({
             token: localStorage.getItem('refreshToken')
         })
-    })
+    }).then(getRespons)
+    
 }
 
 export const userApi = (data) => {
@@ -136,12 +136,10 @@ console.log('USERAPI',data);
         referrerPolicy: 'no-referrer'
     })
         .then(getRespons)
-        .catch(getRespons)
+        .catch(getRespons)        
 }
 
 export const getUserApi = () => {
-
-
     return fetch(`${burgerApiConfig.baseUrl}auth/user`, {
         method: 'GET',
         mode: 'cors',
@@ -156,13 +154,10 @@ export const getUserApi = () => {
     })
         .then(getRespons)
         .catch(getRespons)
-
-
 }
 
 
-export const checkReponse = (res) => {
-    
+export const checkReponse = (res) => {    
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
@@ -187,7 +182,6 @@ export const fetchWithRefresh = async (url, options) => {
         const res = await fetch(url, options);
         return await checkReponse(res);
     } catch (err) {
-
         if (err.message === "jwt expired") {
             console.log('tyt');
             const refreshData = await refreshToken(); //обновляем токен

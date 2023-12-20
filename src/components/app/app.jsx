@@ -17,7 +17,6 @@ import ResetPasswordPage from '../../pages/ResetPasswordPage/ResetPasswordPage'
 import ProfilePage from '../../pages/ProfilePage/ProfilePage'
 import { burgerApiConfig } from "../../utils/burger-api";
 import { AnonymousRoute, ProtectedRouter } from "../ProtectedRouterElement/ProtectedRouterElement";
-import IngredientPage from "../../pages/IngredientPage/IngredientPage";
 import HistoryOrder from "../HistoryOrder/HistoryOrder";
 import { checkAutoLogin, getUser, getUser1 } from "../../services/auth/actions/actions";
 import OrderFeedPage from "../../pages/OrderFeedPage/OrderFeedPage";
@@ -54,7 +53,7 @@ function App() {
   useEffect(() => {
     dispatch(loadIngredients())
     dispatch(connect(wsUrl))
-    
+
     if (user) {
       dispatch(connectHistoryOrder(wsUrlHistoryOrders))
     }

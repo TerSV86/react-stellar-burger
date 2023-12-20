@@ -70,6 +70,9 @@ export const logout = () => (dispatch) => {
             })
             localStorage.clear()
         })
+        .catch((err) => {
+            return Promise.reject(err)
+        })
 
 }
 
@@ -82,6 +85,14 @@ export const getUser = (data) => (dispatch) => {
                 type: SET_USER,
                 payload: res.user
             })
+        })
+        .catch((err) => {
+            console.log(err);
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: err
+            })
+            return Promise.reject(err)
         })
 }
 
@@ -97,45 +108,17 @@ export const getUser1 = () => (dispatch) => {
                 payload: res.user
             })
         })
-
-
-    /* .catch((err) => {
-        console.log(err);
-        dispatch({
-            type: LOGIN_ERROR,
-            payload: err
+        .catch((err) => {
+            console.log(err);
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: err
+            })
+            return Promise.reject(err)
         })
-        
-        
-        return Promise.reject(err)
-    }) */
 }
 
-/* export const getUserRefresh = () => (dispatch) => {
-    console.log(localStorage.accessToken);
-    return fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.accessToken //'Bearer ' + getCookie('token') 
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer'
-    })
-        .then((res) => {
-            console.log('userRefresh', res);
-            dispatch({
-                type: SET_USER,
-                payload: res.user
-            })
-        })
-} */
-
 export const checkAutoLogin = () => (dispatch) => {
-    
     const token = localStorage.getItem('accessToken');
     if (!token) {
         return;
@@ -151,16 +134,21 @@ export const checkAutoLogin = () => (dispatch) => {
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
-    }).then((res) => {
-        dispatch({
-            type: LOGIN_SUCCESS,
-            payload: res
-        })        
-    }
-    )
-
-
-
+    })
+        .then((res) => {
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: res
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: err
+            })
+            return Promise.reject(err)
+        })
 }
 
 

@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
 import { getUser } from '../../services/auth/actions/actions'
 
-export const ButtonsProfile = ({data, onClickSave}) => {
-    
+export const ButtonsProfile = ({ data, onClickSave }) => {
+
     const dispatch = useDispatch()
-    const handleClickButtonSave = (e) =>{
+    const handleClickButtonSave = (e) => {
         e.preventDefault()
         console.log(data);
         dispatch(getUser(data))
@@ -17,7 +17,8 @@ export const ButtonsProfile = ({data, onClickSave}) => {
     return (
         <div className={styles.ButtonsProfile}>
             <Link className={`${styles.Link} text text_type_main-default pr-7`}>Отмена</Link>
-            <Button onClick={(e)=>handleClickButtonSave(e)}>Сохранить</Button>
+            <Button htmlType='submit'
+                onClick={(e) => handleClickButtonSave(e)}>Сохранить</Button>
         </div>
     )
 }
