@@ -3,7 +3,7 @@ import { CLOSE_MODAL, OPEN_MODAL, OPEN_MODAL_INGREDIENT, SEND_ORDER_BURGER } fro
 import {INGREDIENTS_LOAD_SUCCESS, LOADING, ERROR, ADD_INGREDIENT, OPEN_MODAL_ORDER_SUCCESS} from './action'
 
 const initialState = {
-    ingredients: [],
+    ingredients: /* [] */null,
     selectIngredient: [],
     error: null,
     loading: false
@@ -14,6 +14,7 @@ export const reducer = (state = initialState, action) => {
     switch (action.type) {
 
         case INGREDIENTS_LOAD_SUCCESS:
+            console.log('INGREDIENTS_LOAD_SUCCESS');
             return {
                 ...state,
                 ingredients: [...action.payload.data],

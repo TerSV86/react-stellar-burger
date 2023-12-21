@@ -20,8 +20,10 @@ const store = configureStore(
         isClickButtonOrder: false,
       },
       openModalIngredient: null,
-      error: null
+      error: null,
+      loading: false
     },
+
   }
 )
 

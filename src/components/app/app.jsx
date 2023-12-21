@@ -30,12 +30,13 @@ const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
 const wsUrlHistoryOrders = 'wss://norma.nomoreparties.space/orders';
 
 function App() {
+  console.log('app');
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
-  const handleModalClose = () => {    
+  const handleModalClose = () => {
     navigate(-1);
   };
 
@@ -45,18 +46,20 @@ function App() {
   const user = useSelector(store => store.auth.user)
 
   useEffect(() => {
+    console.log('dispatch');
     dispatch(checkAutoLogin())
     dispatch(loadIngredients())
-  }, []) 
-
+  }, [])
+  console.log('loading');
   if (loading) {
-    return <h2>Загрузка...</h2>
+    console.log('Загрузка');
+    return <h2 style={{color: 'red'}}>Загрузка...</h2>
   }
 
   if (error && !loading) {
     return <h2>{`Ошибка. Запрос не выполнен: ${error}`}</h2>
   }
-
+  console.log('appConponent');
   return (
     <div className={`${styles.app} pb-10`}>
       <DndProvider backend={HTML5Backend}>
