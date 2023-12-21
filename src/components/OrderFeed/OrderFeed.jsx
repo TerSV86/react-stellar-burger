@@ -14,7 +14,7 @@ const OrderFeed = () => {
 
             <div className={`${styles.OrderFeed} custom-scroll`}>
                 {orders.map((order, index) =>
-                    <OrderFeedBlock key={order._id} ingredients={order.ingredients} number={order.number} name={order.name} date={order.updatedAt} />)
+                    <OrderFeedBlock key={order._id} ingredients={order.ingredients} number={order.number} name={order.name} date={order.updatedAt} order={order} />)
                 }
             </div>
         </div>

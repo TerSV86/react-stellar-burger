@@ -3,6 +3,7 @@ export function useForm(inputValues={}) {
     const [values, setValues] = useState(inputValues);
   
     const handleChange = (event) => {
+      console.log(event.target.value);
       const {value, name} = event.target;
       setValues({...values, [name]: value});
     };

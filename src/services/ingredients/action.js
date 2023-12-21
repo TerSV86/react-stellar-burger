@@ -11,6 +11,7 @@ export const OPEN_MODAL_INGREDIENT = 'OPEN_MODAL_INGREDIENT';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const ERROR = 'ERRORS';
 export const LOADING = 'LOADING';
+export const OPEN_MODAL = 'OPEN_MODAL';
 
 export const SEND_ORDER_BURGER = 'SEND_ORDER_BURGER';
 
@@ -33,6 +34,7 @@ export const addIngredientOther = (element) => ({
 })
 
 export const loadIngredients = () => (dispatch) => {
+    console.log('lod');
     dispatch({
         type: LOADING
     })
@@ -73,6 +75,10 @@ export const openModalOrder = (selectIngredient) => (dispatch) => {
 export const openModalIngredient = (ingredient) => ({
     type: OPEN_MODAL_INGREDIENT,
     payload: ingredient
+})
+
+export const openModal = () => console.log('action click') || ({
+    type: OPEN_MODAL
 })
 
 export const closeModal = () => ({

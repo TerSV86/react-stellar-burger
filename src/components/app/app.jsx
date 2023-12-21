@@ -30,7 +30,7 @@ const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
 const wsUrlHistoryOrders = 'wss://norma.nomoreparties.space/orders';
 
 function App() {
-
+console.log('app');
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -48,18 +48,20 @@ function App() {
 
   useEffect(() => {
     dispatch(checkAutoLogin())
+    dispatch(loadIngredients())
   }, [])
 
   useEffect(() => {
+    console.log('load');
     dispatch(loadIngredients())
-    dispatch(connect(wsUrl))
+    /* dispatch(connect(wsUrl)) */
 
-    if (user) {
+    /* if (user) {
       dispatch(connectHistoryOrder(wsUrlHistoryOrders))
-    }
+    } */
     /* dispatch(getUser1()) */
     /* dispatch(getUserRefresh()) */
-  }, [user])
+  }, [])
 
   if (loading) {
     return <h2>Загрузка...</h2>
@@ -79,7 +81,7 @@ function App() {
           <Route path='/login' element={<AnonymousRoute element={<LoginPage />} />} />
           <Route path='/forgot-password' element={<AnonymousRoute element={<PasswordRecoveryPage />} />} />
           <Route path='/register' element={<AnonymousRoute element={<RegistrationPage />} />} />
-          <Route path='/reset-password' element={<AnonymousRoute element={<LoginPage />} />} />
+          <Route path='/reset-password' element={<AnonymousRoute element={<ResetPasswordPage />} />} />
           <Route path='/profile' element={<ProtectedRouter element={<ProfilePage />} />} >
             <Route path='order' element={<ProtectedRouter element={<HistoryOrder />} />} />
             <Route path='order/:number' element={<ProtectedRouter element={<OrderInfo />} />} />
@@ -90,7 +92,7 @@ function App() {
           <Route path="*" element={<AnonymousRoute element={<NotFound404 />} />} />
         </Routes>
 
-        {background && (
+        {background && isOpen && (
           <Routes>
             <Route
               path='/ingredient/:ingredientId'

@@ -2,19 +2,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import OrderFeedBlock from '../OrderFeedBlock/OrderFeedBlock';
 import styles from './HistoryOrder.module.css'
 import HistoryOrderBlock from '../HistoryOrderBlock/HistoryOrderBlock';
-import { connect } from '../../services/historyorder/actions/wsHistoryOrdersActions'
+import { connectHistoryOrder, disconnect } from '../../services/historyorder/actions/wsHistoryOrdersActions'
 import { useEffect } from 'react'
 import { getCookie } from '../../utils/cookie';
 import { Link } from 'react-router-dom';
 
+
 const wsUrl = 'wss://norma.nomoreparties.space/orders'
 
 const HistoryOrder = () => {
-    const userOrders = useSelector(store => store.userOrders.userOrders.orders)
-    const reverseUserOrders = [...userOrders].reverse()
+    const dispatch = useDispatch();
+    const userOrders = useSelector(store => store.userOrders.userOrders.orders);    
+
+    useEffect(() => {
+        dispatch(connectHistoryOrder(wsUrl))
+        return (() => {
+            dispatch(disconnect())
+        })
+    }, [])
+
     if (!userOrders) {
         return <h2>Загрузка ...</h2>
     }
+    const reverseUserOrders = [...userOrders].reverse();
     return (
 
         <div className={`${styles.HistoryOrder} custom-scroll`}>

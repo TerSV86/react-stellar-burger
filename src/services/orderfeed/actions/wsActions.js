@@ -20,7 +20,7 @@ export const connect = (url) => ({
 export const disconnect = () => (
 console.log('dis'),
     {
-        type: BURGER_JOINT_DISCONNECT,
+        type: BURGER_JOINT_WS_CLOSE/* DISCONNECT */,
     })
 
 

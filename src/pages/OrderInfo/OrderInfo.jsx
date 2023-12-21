@@ -5,7 +5,7 @@ import OrderInfoTimePrice from '../../components/OrderInfoTimePrice/OrderInfoTim
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
-import { connect } from '../../services/orderfeed/actions/wsActions'
+import { connect, disconnect } from '../../services/orderfeed/actions/wsActions'
 import { statusOrder } from '../../utils/burger'
 
 const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
@@ -20,16 +20,20 @@ const OrderInfo = () => {
     const user = useSelector(store => store.auth.user)
     
     useEffect(() => {
-
         dispatch(connect(wsUrl))
+        return () => {
+            dispatch(disconnect())
+        }
     }, [])
-
+    if (!orders) {
+        return <p>Загрузка заказов ...</p>
+    } 
     
     const order =  orders.find((elem) => elem.number === +number);
-    const userOrder = user ? userOrders.find((elem) => console.log('elem',elem)||elem.number === +number) : null
-    
+    const userOrder = user ? userOrders.find((elem) => elem.number === +number) : null
+   
     let data;
-    order ? (data = order) : (data = userOrder)
+    order ? (data = order) : (data = 'userOrder')
     
     return (
         <div className={`${styles.OrderInfo}`}>
