@@ -2,13 +2,12 @@ import styles from './IngredientDetails.module.css'
 import ProductImage from '../ProductImage/ProductImage'
 import FoodValue from '../FoodValue/FoodValue'
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { loadIngredients } from '../../services/ingredients/action';
+import { useSelector } from 'react-redux';
+
 
 const IngredientDetails = () => {
     console.log('ingredientDetails');
-    const dispatch = useDispatch();
+    
     const ingredients = useSelector(store => store.ingredients.ingredients)    
     const idIngredient = useParams();
     

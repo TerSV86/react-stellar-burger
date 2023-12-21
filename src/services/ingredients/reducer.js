@@ -13,7 +13,7 @@ export const reducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case 'INGREDIENTS_LOAD_SUCCESS':
+        case INGREDIENTS_LOAD_SUCCESS:
             return {
                 ...state,
                 ingredients: [...action.payload.data],
@@ -21,7 +21,7 @@ export const reducer = (state = initialState, action) => {
             }
 
         case LOADING:
-            console.log('reduce Loading');
+            
             return {
                 ...state,
                 loading: true,
@@ -34,7 +34,7 @@ export const reducer = (state = initialState, action) => {
             }
         case ADD_INGREDIENT:
             const newStateDelBun = state.selectIngredient.filter(ingredient => ingredient.type !== 'bun')
-            console.log(newStateDelBun);
+            
             return {
                 ...state,
                 selectIngredient: [...newStateDelBun, action.payload]
@@ -69,7 +69,7 @@ export const reducer = (state = initialState, action) => {
 
             }
         case OPEN_MODAL:
-            console.log('reduce click');
+            
             return {
                 ...state,
                 openModalOrder: {

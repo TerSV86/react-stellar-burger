@@ -11,21 +11,18 @@ const PasswordRecoveryPage = () => {
     const navigate = useNavigate()
     const { values, handleChange, setValues } = useForm({ password: '' })
     const { password } = values
-    /*  const [value, setValue] = useState('')
-     const onChange = e => {
-         setValue(e.target.value)
-     } */
+
     const handlerClickButtonRecovery = () => {
-        getMassegeForRecoveryPassword(/* value */password).then(res => console.log(res)); //Как это использовать?
+        getMassegeForRecoveryPassword(password).then(res => console.log(res)); //Как это использовать?
         navigate('/reset-password', { replace: true, state: `${location.pathname}` })
     }
-    
+
     if (location.state && location.state.pathname === '/login') {
         return (
             <main className={styles.PasswordRecoveryPage}>
                 <Form title={'Восстановление пароля'}>
                     <EmailInput
-                        onChange={/* onChange */handleChange}
+                        onChange={handleChange}
                         value={values.password}
                         name={'password'}
                         isIcon={false}

@@ -18,39 +18,9 @@ export const connect = (url) => ({
 });
 
 export const disconnect = () => (
-console.log('dis'),
+
     {
-        type: BURGER_JOINT_WS_CLOSE/* DISCONNECT */,
+        type: BURGER_JOINT_WS_CLOSE,
     })
 
 
-/* export const wsConnectionSuccess = () => {
-    return {
-        type: WS_CONNETION_SUCCESS
-    }
-}
-
-export const wsConnectionError = () => {
-    return {
-        type: WS_CONNETION_ERROR
-    }
-}
-
-export const wsConnectionClosed = () => {
-    return {
-        type: WS_CONNETION_CLOSED
-    }
-}
-
-export const wsGetMessage = () => {
-    return {
-        type: WS_GET_BURGER
-    }
-}
-
-export const wsSendBurger = (burger) => (dispatch) => {
-
-    return {
-        type: WS_SEND_BURGER
-    }
-} */

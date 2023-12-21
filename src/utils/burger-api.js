@@ -2,7 +2,7 @@ import { setCookie, getCookie } from "./cookie";
 
 
 export const burgerApiConfig = {
-       baseUrl: 'https://norma.nomoreparties.space/api/',
+    baseUrl: 'https://norma.nomoreparties.space/api/',
     headers: {
         "Content-Type": "application/json",
         "authorization": localStorage.getItem('accessToken') /* 'Bearer ' + getCookie('token') */,
@@ -24,7 +24,7 @@ export const getProductData = () => {
 
 
 export const getNumberOrder = (selectIngredient) => {
-console.log('getNumber Orders', localStorage.accessToken);
+    console.log('getNumber Orders', localStorage.accessToken);
     return fetch(`${burgerApiConfig.baseUrl}orders`, {
         method: "POST",
         headers: burgerApiConfig.headers,
@@ -102,7 +102,7 @@ export const loginApi = ({ email, password }) => {
             "email": email
         })
     }).then(getRespons)
-    
+
 }
 
 export const logoutApi = () => {
@@ -117,11 +117,11 @@ export const logoutApi = () => {
             token: localStorage.getItem('refreshToken')
         })
     }).then(getRespons)
-    
+
 }
 
 export const userApi = (data) => {
-console.log('USERAPI',data);
+    console.log('USERAPI', data);
     return fetch(`${burgerApiConfig.baseUrl}auth/user`, {
         method: 'PATCH',
         mode: 'cors',
@@ -136,7 +136,7 @@ console.log('USERAPI',data);
         referrerPolicy: 'no-referrer'
     })
         .then(getRespons)
-        .catch(getRespons)        
+        .catch(getRespons)
 }
 
 export const getUserApi = () => {
@@ -157,7 +157,7 @@ export const getUserApi = () => {
 }
 
 
-export const checkReponse = (res) => {    
+export const checkReponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
@@ -172,31 +172,31 @@ export const refreshToken = () => {
             token: localStorage.getItem("refreshToken"),
         })
     })
-    .then(checkReponse)
-    .catch(checkReponse)
+        .then(checkReponse)
+        .catch(checkReponse)
 };
 
 export const fetchWithRefresh = async (url, options) => {
-    console.log('Refresh');
+
     try {
         const res = await fetch(url, options);
         return await checkReponse(res);
     } catch (err) {
         if (err.message === "jwt expired") {
-            console.log('tyt');
+
             const refreshData = await refreshToken(); //обновляем токен
-            console.log('refreshData', refreshData.accessToken);
+
             if (!refreshData.success) {
 
                 return Promise.reject(refreshData);
             }
-            console.log('fetch in refresh',);
+
             localStorage.setItem("refreshToken", refreshData.refreshToken);
             localStorage.setItem("accessToken", refreshData.accessToken);
-            console.log(options);
+
             options.headers.authorization = refreshData.accessToken;
             const res = await fetch(url, options); //повторяем запрос
-            console.log('fetch in refresh');
+
             return await checkReponse(res);
         } else {
             return Promise.reject(err);

@@ -16,7 +16,7 @@ const OrderIngredientList = ({ burgerIngr }) => {
                     counters = 2
                 }
                 return (<>
-                    <OrderIngredient product={ingredient} count={counters} />
+                    <OrderIngredient key={ingredient._id} product={ingredient} count={counters} />
                 </>)
             })}
         </div>

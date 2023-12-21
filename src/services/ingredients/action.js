@@ -34,7 +34,7 @@ export const addIngredientOther = (element) => ({
 })
 
 export const loadIngredients = () => (dispatch) => {
-    console.log('lod');
+    
     dispatch({
         type: LOADING
     })

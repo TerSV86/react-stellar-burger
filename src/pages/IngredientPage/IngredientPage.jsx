@@ -45,4 +45,4 @@ const IngredientPage = () => {
 
 }
 
-export default IngredientPage
+/* export default IngredientPage */

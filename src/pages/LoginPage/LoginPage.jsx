@@ -13,15 +13,11 @@ const LoginPage = () => {
     const user = useSelector(store => store.auth.user)
     const navigate = useNavigate()
     const { values, handleChange, setValues } = useForm({ email: '', password: '' });
-    console.log(values);
+    
     const { email, password } = values;
-    /*   const [form, setValue] = useState({ email: '', password: '' })
-      const { email, password } = form;
-      const onChange = e => {
-          setValue({ ...form, [e.target.name]: e.target.value })
-      } */
+   
     const handleSubmit = e => {
-        console.log('submit', values);
+        
         e.preventDefault();
         dispatch(login({ email, password }))
     }
@@ -35,14 +31,14 @@ const LoginPage = () => {
         <main className={styles.LoginPage}>
             <Form title={'Вход'} onSubmit={handleSubmit}>
                 <EmailInput
-                    onChange={/* onChange */handleChange}
+                    onChange={handleChange}
                     value={email}
                     name={'email'}
                     isIcon={false}
                     extraClass='mb-6'
                 />
                 <PasswordInput
-                    onChange={/* onChange */handleChange}
+                    onChange={handleChange}
                     value={password}
                     name={'password'}
                     extraClass="mb-6"

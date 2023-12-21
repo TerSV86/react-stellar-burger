@@ -5,19 +5,15 @@ import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { register } from '../../services/auth/actions/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import {useForm} from '../../hooks/useForm'
+import { useForm } from '../../hooks/useForm'
 
 const RegistrationPage = () => {
     const user = useSelector(store => store.auth)
     const dispatch = useDispatch();
-    const {values, handleChange, setValues} = useForm({});
+    const { values, handleChange, setValues } = useForm({});
     console.log(values);
-    const {login, email, password} = values
-    /* const [form, setValue] = useState({ login: '', email: '', password: '' })
-    const { login, password, email } = form;
-    const onChange = e => {
-        setValue({ ...form, [e.target.name]: e.target.value })
-    } */
+    const { login, email, password } = values
+
     const handleClickButtonRegister = () => {
         dispatch(register({ login, password, email }))
     }
@@ -25,26 +21,26 @@ const RegistrationPage = () => {
     if (user.user) {
         return <Navigate to='/' replace />
     }
-    
+
     return (
         <main className={styles.RegistrationPage}>
             <Form title={'Регистрация'}>
                 <Input
-                    onChange={/* onChange */handleChange}
+                    onChange={handleChange}
                     value={login}
                     name={'login'}
                     placeholder="Логин"
                     extraClass="mb-6"
                 />
                 <EmailInput
-                    onChange={/* onChange */handleChange}
+                    onChange={handleChange}
                     value={email}
                     name={'email'}
                     isIcon={false}
                     extraClass='mb-6'
                 />
                 <PasswordInput
-                    onChange={/* onChange */handleChange}
+                    onChange={handleChange}
                     value={password}
                     name={'password'}
                     extraClass="mb-6"

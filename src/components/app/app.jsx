@@ -30,14 +30,12 @@ const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
 const wsUrlHistoryOrders = 'wss://norma.nomoreparties.space/orders';
 
 function App() {
-console.log('app');
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
-  const handleModalClose = () => {
-    console.log('tuyt');
+  const handleModalClose = () => {    
     navigate(-1);
   };
 
@@ -49,19 +47,7 @@ console.log('app');
   useEffect(() => {
     dispatch(checkAutoLogin())
     dispatch(loadIngredients())
-  }, [])
-
-  useEffect(() => {
-    console.log('load');
-    dispatch(loadIngredients())
-    /* dispatch(connect(wsUrl)) */
-
-    /* if (user) {
-      dispatch(connectHistoryOrder(wsUrlHistoryOrders))
-    } */
-    /* dispatch(getUser1()) */
-    /* dispatch(getUserRefresh()) */
-  }, [])
+  }, []) 
 
   if (loading) {
     return <h2>Загрузка...</h2>

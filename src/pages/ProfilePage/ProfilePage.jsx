@@ -17,10 +17,7 @@ const ProfilePage = () => {
     const [isEditLogin, setEditLogin] = useState(false)
     const [isEditEmail, setEditEmail] = useState(false)
     const [isEditPassword, setEditPassword] = useState(false)
-
-    /* const {values, handleChange, setValues} = useForm({});
-    console.log(values);
-    const {login, email, password} = values */
+   
 
     const [form, setValue] = useState({ name: '', email: '', password: '' })
     const { name, email, password } = form
@@ -28,8 +25,7 @@ const ProfilePage = () => {
     useEffect(() => {
         getUserApi()
             .then((res) => {
-                setValue({ ...form, name: res.user.name, email: res.user.email })
-                /*  setValues({ ...// form /values, name: res.user.name, email: res.user.email }) */
+                setValue({ ...form, name: res.user.name, email: res.user.email })                
             })
             .catch((err) => {
                 console.error('Ошибка', err)
@@ -62,8 +58,7 @@ const ProfilePage = () => {
     const handleClickButtonSave = () => {
         setEditLogin(false)
         setEditEmail(false)
-        setEditPassword(false)
-        /*  setValues(false) */
+        setEditPassword(false)        
     }
 
     const handleClickEdit = (e) => {
@@ -94,7 +89,7 @@ const ProfilePage = () => {
             <ProfileNavigation />
             {location.pathname === '/profile' && <Form >
                 {isEditLogin ? (<Input
-                    onChange={onChange/* handleChange */}
+                    onChange={onChange}
                     value={name}
                     placeholder='Имя'
                     name={'name'}
@@ -104,7 +99,7 @@ const ProfilePage = () => {
                     onIconClick={(e) => handleClickEdit(e)}
 
                 />) : (<Input
-                    onChange={onChange /* handleChange */}
+                    onChange={onChange }
                     value={name}
                     placeholder='Имя'
                     name={'name'}
@@ -116,7 +111,7 @@ const ProfilePage = () => {
                 />)}
 
                 {isEditEmail ? (<EmailInput
-                    onChange={onChange/* handleChange */}
+                    onChange={onChange}
                     value={email}
                     name={'email'}
                     isicon='false'
@@ -124,7 +119,7 @@ const ProfilePage = () => {
                     extraClass='mb-6'
                     onIconClick={(e) => handleClickEdit(e)}
                 />) : (<EmailInput
-                    onChange={onChange /* handleChange */}
+                    onChange={onChange }
                     value={email}
                     name={'email'}
                     isicon='false'
@@ -133,14 +128,14 @@ const ProfilePage = () => {
                     onIconClick={(e) => handleClickEdit(e)}
                 />)}
                 {isEditPassword ? (<PasswordInput
-                    onChange={onChange/* handleChange */}
+                    onChange={onChange}
                     value={password}
                     name={'password'}
                     extraClass='mb-6'
                     icon="CloseIcon"
                     onIconClick={(e) => handleClickEdit(e)} />)
                     : (<PasswordInput
-                        onChange={onChange /* handleChange */}
+                        onChange={onChange }
                         value={password}
                         name={'password'}
                         extraClass='mb-6'

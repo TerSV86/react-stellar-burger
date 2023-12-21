@@ -7,9 +7,7 @@ import { useEffect, memo } from 'react'
 import { connect, disconnect } from '../../services/orderfeed/actions/wsActions'
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 
-
 const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
-
 
 const OrderFeedPage = () => {
     const orders = useSelector(store => store.orders.burgers.orders) 
@@ -17,8 +15,7 @@ const OrderFeedPage = () => {
     const location = useLocation()
     const { number } = useParams()
 
-    useEffect(() => {
-        console.log('WS');
+    useEffect(() => {        
         dispatch(connect(wsUrl))
         return () => {
             dispatch(disconnect())

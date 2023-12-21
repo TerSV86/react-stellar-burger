@@ -15,5 +15,5 @@ export const connectHistoryOrder = (url) => (
     });
     
     export const disconnect = () => ({
-        type: HISTORY_ORDERS_WS_CLOSE/* DISCONNECT */,
+        type: HISTORY_ORDERS_WS_CLOSE,
     })
