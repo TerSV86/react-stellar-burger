@@ -37,7 +37,7 @@ const CardProduct = ({ product, index }) => {
 
     const handleClickIngredient = () => {
         console.log(product);
-        dispatch(openModalIngredient(product))
+        /* dispatch(openModalIngredient(product)) */
         /* navigate(`/ingredient/${index}`) */
     }
 

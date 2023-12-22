@@ -9,7 +9,7 @@ import { loadIngredients } from "../../services/ingredients/action";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate, useParams } from 'react-router-dom';
 import LoginPage from '../../pages/LoginPage/LoginPage'
 import PasswordRecoveryPage from "../../pages/PasswordRecoveryPage/PasswordRecoveryPage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
@@ -35,15 +35,18 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
+  const params = useParams()
 
-  const handleModalClose = () => {
-    navigate(-1);
-  };
 
   const { isOpen, isClickButtonOrder } = useSelector(store => store.ingredients.openModalOrder)
   const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient)
   const { error, loading } = useSelector(store => store.ingredients)
   const user = useSelector(store => store.auth.user)
+
+  const handleModalClose = () => {
+    // Возвращаемся к предыдущему пути при закрытии модалки
+    navigate(-1);
+  };
 
   useEffect(() => {
     console.log('dispatch');
@@ -53,19 +56,22 @@ function App() {
   console.log('loading');
   if (loading) {
     console.log('Загрузка');
-    return <h2 style={{color: 'red'}}>Загрузка...</h2>
+    return <h2 style={{ color: 'red' }}>Загрузка...</h2>
   }
 
   if (error && !loading) {
     return <h2>{`Ошибка. Запрос не выполнен: ${error}`}</h2>
   }
-  console.log('appConponent');
+  console.log('History', window.history);
+  console.log('appConponent', location, background,);
+  localStorage.setItem('ingredient', location)
+
   return (
     <div className={`${styles.app} pb-10`}>
       <DndProvider backend={HTML5Backend}>
         <AppHeader />
         <Routes location={background || location}>
-          <Route path='/' element={<AnonymousRoute element={<ConstructorPage />} />} />
+          <Route path='/' element={console.log('constrPage') || <AnonymousRoute element={<ConstructorPage />} />} />
           <Route path='/ingredient/:ingredientId' element={<AnonymousRoute element={<IngredientDetails />} />} />
           <Route path='/login' element={<AnonymousRoute element={<LoginPage />} />} />
           <Route path='/forgot-password' element={<AnonymousRoute element={<PasswordRecoveryPage />} />} />
@@ -81,15 +87,15 @@ function App() {
           <Route path="*" element={<AnonymousRoute element={<NotFound404 />} />} />
         </Routes>
 
-        {background && isOpen && (
+        {background && /* isOpen && */ (
           <Routes>
-            <Route
+             <Route
               path='/ingredient/:ingredientId'
               element={
                 <AnonymousRoute
                   element={
-                    <Modal title={"Детали ингредиента"} onClose={handleModalClose}>
-                      <IngredientDetails ingredient={ingredientDetails} />
+                    <Modal title={"Детали ингредиента"} onClose={handleModalClose} >
+                      {<IngredientDetails ingredient={ingredientDetails} />}
                     </Modal>}
                 />}
             />
@@ -114,12 +120,12 @@ function App() {
             />
           </Routes>
         )}
-        {isOpen && (
+        {console.log(isOpen)||isOpen && (
           <Routes>
             <Route
               path='/'
               element={<ProtectedRouter element={
-                <Modal onClose={handleModalClose}>
+                <Modal onClose={handleModalClose} >
                   <OrderDetails />
                 </Modal>
               } />} />

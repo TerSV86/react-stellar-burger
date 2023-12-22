@@ -11,6 +11,7 @@ const OrderIngredientList = ({ burgerIngr }) => {
     return (
         <div className={`${styles.OrderIngredientList} pr-6 mb-10 custom-scroll`}>
             {orderIngredients.map((ingredient) => {
+                
                 let counters = burgerIngr.filter((elem) => elem === ingredient._id).length
                 if (ingredient.type === 'bun') {
                     counters = 2

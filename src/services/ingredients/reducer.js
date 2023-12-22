@@ -51,7 +51,7 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 openModalOrder: {
-                    isOpen: !state.isOpen,
+                    isOpen: true /* !state.isOpen */,
                     numberOrder: action.payload.order.number,
                     isClickButtonOrder: !state.isClickButtonOrder,
                 },

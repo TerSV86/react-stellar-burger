@@ -7,34 +7,49 @@ import { useLocation, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { connect, disconnect } from '../../services/orderfeed/actions/wsActions'
 import { statusOrder } from '../../utils/burger'
+import { connectHistoryOrder } from '../../services/historyorder/actions/wsHistoryOrdersActions'
 
 const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
 const OrderInfo = () => {
-    
+    console.log('OrderInfo');
     const location = useLocation()
     const dispatch = useDispatch()
     const { number } = useParams()
-    
+
     const orders = useSelector(store => store.orders.burgers.orders)
     const userOrders = useSelector(store => store.userOrders.userOrders.orders)
     const user = useSelector(store => store.auth.user)
-    
+
     useEffect(() => {
-        dispatch(connect(wsUrl))
-        return () => {
-            dispatch(disconnect())
+        console.log('orderInfoDispatch');
+        if (location.pathname === `/feed/${number}`) {
+            dispatch(connect(wsUrl))
+            return () => {
+                dispatch(disconnect())
+            }
+        } else if (location.pathname === `/profile/order/${number}`) {
+            dispatch(connectHistoryOrder(wsUrl))
+            return (() => {
+                dispatch(disconnect())
+            })
         }
+
     }, [])
-    if (!orders) {
+
+    console.log('orders ', orders, userOrders);
+    if (!orders && !userOrders) {
+        console.log('ordersFalse');
         return <p>Загрузка заказов ...</p>
-    } 
-    
-    const order =  orders.find((elem) => elem.number === +number);
-    const userOrder = user ? userOrders.find((elem) => elem.number === +number) : null
-   
+    }
+
     let data;
-    order ? (data = order) : (data = 'userOrder')
-    
+    if (location.pathname === `/feed/${number}`) {
+        data = orders.find((elem) => elem.number === +number);
+    } else if (location.pathname === `/profile/order/${number}`) {
+        console.log('orderInfo userorder', userOrders);
+        data = userOrders.find((elem) => elem.number === +number)
+    }
+
     return (
         <div className={`${styles.OrderInfo}`}>
             <p className='text text_type_digits-default pb-10'>{`#${data.number}`}</p>

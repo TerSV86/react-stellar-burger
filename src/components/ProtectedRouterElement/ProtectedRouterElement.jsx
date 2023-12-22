@@ -10,16 +10,15 @@ export const ProtectedRouterElement = ({ anonymous = false, element }) => {
     const user = useSelector(store => store.auth.user)
     const ingredients = useSelector((store) => store.ingredients.ingredients)
     const { loading } = useSelector((store) => store.ingredients)
-    console.log('Rout', ingredients, anonymous, loading);
 
 
 
     if (!user && !anonymous) {
         return <Navigate to='/login' state={{ from: location }} />
     }
-    console.log('Router', (!ingredients.length));
+
     if (!ingredients.length) {
-        console.log("Router");
+
         return <p>Загрузка ингредиентов ...</p>
     }
 
