@@ -34,7 +34,7 @@ export const register = ({ login, password, email }) => (dispatch) => {
                 type: REGISTER_ERROR,
                 payload: err
             })
-            return Promise.reject(err)
+            console.error('Ошибка регистрации:', err)
         })
 }
 
@@ -71,7 +71,7 @@ export const logout = () => (dispatch) => {
             localStorage.clear()
         })
         .catch((err) => {
-            return Promise.reject(err)
+            console.error('Ошибка при выходе:', err)
         })
 
 }
@@ -92,7 +92,7 @@ export const getUser = (data) => (dispatch) => {
                 type: LOGIN_ERROR,
                 payload: err
             })
-            return Promise.reject(err)
+            console.error('Ошибка получения данных о пользователе:', err)
         })
 }
 
@@ -114,7 +114,7 @@ export const getUser1 = () => (dispatch) => {
                 type: LOGIN_ERROR,
                 payload: err
             })
-            return Promise.reject(err)
+            console.error('Ошибка получения данных о пользователе:', err)
         })
 }
 
@@ -130,7 +130,7 @@ export const checkAutoLogin = () => (dispatch) => {
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
-            'authorization': localStorage.accessToken
+            'authorization': localStorage.getItem('accessToken')
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
@@ -147,7 +147,7 @@ export const checkAutoLogin = () => (dispatch) => {
                 type: LOGIN_ERROR,
                 payload: err
             })
-            return Promise.reject(err)
+           console.error('Ошибка при автологировании:', err)
         })
 }
 

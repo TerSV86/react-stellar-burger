@@ -16,9 +16,9 @@ const OrderIngredientList = ({ burgerIngr }) => {
                 if (ingredient.type === 'bun') {
                     counters = 2
                 }
-                return (<>
+                return (
                     <OrderIngredient key={ingredient._id} product={ingredient} count={counters} />
-                </>)
+                )
             })}
         </div>
     )

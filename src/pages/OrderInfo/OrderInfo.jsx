@@ -48,6 +48,7 @@ const OrderInfo = () => {
     } else if (location.pathname === `/profile/order/${number}`) {
         console.log('orderInfo userorder', userOrders);
         data = userOrders.find((elem) => elem.number === +number)
+        console.log('data', data, number);
     }
 
     return (

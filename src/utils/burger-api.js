@@ -47,7 +47,7 @@ export const getMassegeForRecoveryPassword = (email) => {
 
 export const resetPassword = (pass, pin) => {
 
-    return fetch(` https://norma.nomoreparties.space/api/password-reset/reset`, {
+    return fetch(` ${burgerApiConfig.baseUrl}password-reset/reset`, {
         method: "POST",
         headers: burgerApiConfig.headers,
         body: JSON.stringify({
@@ -134,9 +134,8 @@ export const userApi = (data) => {
         body: JSON.stringify(data),
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
-    })
-        .then(getRespons)
-        .catch(getRespons)
+    }).then(getRespons)
+        
 }
 
 export const getUserApi = () => {
@@ -151,9 +150,7 @@ export const getUserApi = () => {
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
-    })
-        .then(getRespons)
-        .catch(getRespons)
+    }).then(getRespons)        
 }
 
 
@@ -171,13 +168,11 @@ export const refreshToken = () => {
         body: JSON.stringify({
             token: localStorage.getItem("refreshToken"),
         })
-    })
-        .then(checkReponse)
-        .catch(checkReponse)
+    }).then(checkReponse)
+        
 };
 
 export const fetchWithRefresh = async (url, options) => {
-
     try {
         const res = await fetch(url, options);
         return await checkReponse(res);
