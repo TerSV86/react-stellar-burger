@@ -15,18 +15,17 @@ const HistoryOrderBlock = ({ ingredients, number, name, date, status }) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const handleClick = () => {
-        console.log('click');
         dispatch(openModal())
-    } 
+    }
 
     return (
         <Link
             key={number}
             to={`${number}`}
-            state={{ background: location }}            
-            className={styles.link} 
-            onClick={handleClick}           
-            >
+            state={{ background: location }}
+            className={styles.link}
+            onClick={handleClick}
+        >
             <article className={`${styles.HistoryOrderBlock} p-6`}>
                 <OrderFeedBlockHeader date={date} number={number} />
                 <OrderFeedBlockTitle name={name} />
@@ -40,4 +39,4 @@ const HistoryOrderBlock = ({ ingredients, number, name, date, status }) => {
 
 HistoryOrderBlock.propTypes = historyOrderBlockPropType;
 
-export default React.memo (HistoryOrderBlock)
+export default React.memo(HistoryOrderBlock)

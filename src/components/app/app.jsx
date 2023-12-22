@@ -30,18 +30,14 @@ const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
 const wsUrlHistoryOrders = 'wss://norma.nomoreparties.space/orders';
 
 function App() {
-  console.log('app');
+
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
-  const params = useParams()
-
-
-  const { isOpen, isClickButtonOrder } = useSelector(store => store.ingredients.openModalOrder)
+  const { isOpen } = useSelector(store => store.ingredients.openModalOrder)
   const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient)
   const { error, loading } = useSelector(store => store.ingredients)
-  const user = useSelector(store => store.auth.user)
 
   const handleModalClose = () => {
     // Возвращаемся к предыдущему пути при закрытии модалки
@@ -49,29 +45,24 @@ function App() {
   };
 
   useEffect(() => {
-    console.log('dispatch');
     dispatch(checkAutoLogin())
     dispatch(loadIngredients())
   }, [])
-  console.log('loading');
+
   if (loading) {
-    console.log('Загрузка');
     return <h2 style={{ color: 'red' }}>Загрузка...</h2>
   }
 
   if (error && !loading) {
     return <h2>{`Ошибка. Запрос не выполнен: ${error}`}</h2>
   }
-  console.log('History', window.history);
-  console.log('appConponent', location, background,);
-  localStorage.setItem('ingredient', location)
 
   return (
     <div className={`${styles.app} pb-10`}>
       <DndProvider backend={HTML5Backend}>
         <AppHeader />
         <Routes location={background || location}>
-          <Route path='/' element={console.log('constrPage') || <AnonymousRoute element={<ConstructorPage />} />} />
+          <Route path='/' element={<AnonymousRoute element={<ConstructorPage />} />} />
           <Route path='/ingredient/:ingredientId' element={<AnonymousRoute element={<IngredientDetails />} />} />
           <Route path='/login' element={<AnonymousRoute element={<LoginPage />} />} />
           <Route path='/forgot-password' element={<AnonymousRoute element={<PasswordRecoveryPage />} />} />
@@ -87,9 +78,9 @@ function App() {
           <Route path="*" element={<AnonymousRoute element={<NotFound404 />} />} />
         </Routes>
 
-        {background && /* isOpen && */ (
+        {background && (
           <Routes>
-             <Route
+            <Route
               path='/ingredient/:ingredientId'
               element={
                 <AnonymousRoute
@@ -120,7 +111,7 @@ function App() {
             />
           </Routes>
         )}
-        {console.log(isOpen)||isOpen && (
+        {isOpen && (
           <Routes>
             <Route
               path='/'

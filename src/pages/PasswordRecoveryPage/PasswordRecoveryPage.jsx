@@ -1,7 +1,6 @@
 import styles from './PasswordRecoveryPage.module.css'
 import Form from '../../components/Form/Form'
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { getMassegeForRecoveryPassword } from '../../utils/burger-api'
 import { useForm } from '../../hooks/useForm'

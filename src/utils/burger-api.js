@@ -24,7 +24,7 @@ export const getProductData = () => {
 
 
 export const getNumberOrder = (selectIngredient) => {
-    console.log('getNumber Orders', localStorage.accessToken);
+    
     return fetch(`${burgerApiConfig.baseUrl}orders`, {
         method: "POST",
         headers: burgerApiConfig.headers,
@@ -121,7 +121,7 @@ export const logoutApi = () => {
 }
 
 export const userApi = (data) => {
-    console.log('USERAPI', data);
+    
     return fetch(`${burgerApiConfig.baseUrl}auth/user`, {
         method: 'PATCH',
         mode: 'cors',
@@ -159,7 +159,7 @@ export const checkReponse = (res) => {
 };
 
 export const refreshToken = () => {
-    console.log('refresh', localStorage.getItem("refreshToken"));
+    
     return fetch(`${burgerApiConfig.baseUrl}auth/token`, {
         method: "POST",
         headers: {

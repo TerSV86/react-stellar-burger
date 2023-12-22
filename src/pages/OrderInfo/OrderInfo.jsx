@@ -1,4 +1,3 @@
-import OrderIngredient from '../../components/OrderIngredient/OrderIngredient'
 import styles from './OrderInfo.module.css'
 import OrderIngredientList from '../../components/OrderIngredientList/OrderIngredientList'
 import OrderInfoTimePrice from '../../components/OrderInfoTimePrice/OrderInfoTimePrice'
@@ -10,8 +9,7 @@ import { statusOrder } from '../../utils/burger'
 import { connectHistoryOrder } from '../../services/historyorder/actions/wsHistoryOrdersActions'
 
 const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
-const OrderInfo = () => {
-    console.log('OrderInfo');
+const OrderInfo = () => {    
     const location = useLocation()
     const dispatch = useDispatch()
     const { number } = useParams()
@@ -20,8 +18,7 @@ const OrderInfo = () => {
     const userOrders = useSelector(store => store.userOrders.userOrders.orders)
     const user = useSelector(store => store.auth.user)
 
-    useEffect(() => {
-        console.log('orderInfoDispatch');
+    useEffect(() => {        
         if (location.pathname === `/feed/${number}`) {
             dispatch(connect(wsUrl))
             return () => {
@@ -36,19 +33,16 @@ const OrderInfo = () => {
 
     }, [])
 
-    console.log('orders ', orders, userOrders);
-    if (!orders && !userOrders) {
-        console.log('ordersFalse');
+   
+    if (!orders && !userOrders) {        
         return <p>Загрузка заказов ...</p>
     }
 
     let data;
     if (location.pathname === `/feed/${number}`) {
         data = orders.find((elem) => elem.number === +number);
-    } else if (location.pathname === `/profile/order/${number}`) {
-        console.log('orderInfo userorder', userOrders);
-        data = userOrders.find((elem) => elem.number === +number)
-        console.log('data', data, number);
+    } else if (location.pathname === `/profile/order/${number}`) {        
+        data = userOrders.find((elem) => elem.number === +number)        
     }
 
     return (

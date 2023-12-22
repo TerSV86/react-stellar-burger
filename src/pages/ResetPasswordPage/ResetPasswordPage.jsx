@@ -22,7 +22,7 @@ const ResetPasswordPage = () => {
             })
 
     }
-    console.log(location);
+    
     if (location.state && location.state === '/forgot-password') {
         return (
             <main className={styles.ResetPasswordPage}>

@@ -1,7 +1,6 @@
 import styles from './RegistrationPage.module.css'
 import Form from '../../components/Form/Form'
 import { EmailInput, PasswordInput, Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { register } from '../../services/auth/actions/actions'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,8 +9,7 @@ import { useForm } from '../../hooks/useForm'
 const RegistrationPage = () => {
     const user = useSelector(store => store.auth)
     const dispatch = useDispatch();
-    const { values, handleChange, setValues } = useForm({});
-    console.log(values);
+    const { values, handleChange, setValues } = useForm({});    
     const { login, email, password } = values
 
     const handleClickButtonRegister = () => {

@@ -77,7 +77,7 @@ export const openModalIngredient = (ingredient) => ({
     payload: ingredient
 })
 
-export const openModal = () => console.log('action click') || ({
+export const openModal = () =>({
     type: OPEN_MODAL
 })
 

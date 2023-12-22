@@ -12,9 +12,7 @@ const initialState = {
 export const reducer = (state = initialState, action) => {
 
     switch (action.type) {
-
-        case INGREDIENTS_LOAD_SUCCESS:
-            console.log('INGREDIENTS_LOAD_SUCCESS');
+        case INGREDIENTS_LOAD_SUCCESS:            
             return {
                 ...state,
                 ingredients: [...action.payload.data],

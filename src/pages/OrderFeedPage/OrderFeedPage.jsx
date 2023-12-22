@@ -22,8 +22,7 @@ const OrderFeedPage = () => {
         }
     }, [])
 
-    if (location.pathname === `/feed/${number}`) {
-        console.log('outlet');
+    if (location.pathname === `/feed/${number}`) {        
         return (
             <Outlet />
         )

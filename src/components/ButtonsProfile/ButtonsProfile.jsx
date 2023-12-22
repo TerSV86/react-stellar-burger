@@ -9,7 +9,6 @@ export const ButtonsProfile = ({ data, onClickSave }) => {
     const dispatch = useDispatch()
     const handleClickButtonSave = (e) => {
         e.preventDefault()
-        console.log(data);
         dispatch(getUser(data))
         onClickSave()// наверно нужно после обновления stor менять иконку
     }

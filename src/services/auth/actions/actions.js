@@ -39,7 +39,6 @@ export const register = ({ login, password, email }) => (dispatch) => {
 }
 
 export const login = ({ email, password }) => (dispatch) => {
-
     dispatch({ type: LOGIN_SEND });
     return loginApi({ email, password })
         .then((res) => {
@@ -77,17 +76,15 @@ export const logout = () => (dispatch) => {
 }
 
 export const getUser = (data) => (dispatch) => {
-    console.log('getUser', data);
+    
     return userApi(data)
-        .then((res) => {
-            console.log(res.user);
+        .then((res) => {            
             dispatch({
                 type: SET_USER,
                 payload: res.user
             })
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((err) => {            
             dispatch({
                 type: LOGIN_ERROR,
                 payload: err
@@ -102,14 +99,14 @@ export const getUser1 = () => (dispatch) => {
 
     return getUserApi()
         .then((res) => {
-            console.log('Получение пользователя ', res);
+            
             dispatch({
                 type: SET_USER,
                 payload: res.user
             })
         })
         .catch((err) => {
-            console.log(err);
+            
             dispatch({
                 type: LOGIN_ERROR,
                 payload: err
@@ -142,7 +139,7 @@ export const checkAutoLogin = () => (dispatch) => {
             })
         })
         .catch((err) => {
-            console.log(err);
+            
             dispatch({
                 type: LOGIN_ERROR,
                 payload: err
