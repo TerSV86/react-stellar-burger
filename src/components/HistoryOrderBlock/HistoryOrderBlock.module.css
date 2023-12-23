@@ -1,0 +1,23 @@
+.HistoryOrderBlock {
+    
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 844px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    box-sizing: border-box;
+    background-color: #1C1C21;
+    border-radius: 40px;
+}
+
+.HistoryOrderBlock> :first-child {
+    margin-bottom: 24px;
+
+}
+
+.link {
+    text-decoration: none;
+    color: #F2F2F3;
+}

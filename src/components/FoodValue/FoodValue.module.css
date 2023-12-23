@@ -1,8 +1,9 @@
-.FoodValue{
+.FoodValue {
     width: 100%;
     max-width: 520px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-between;    
+    text-align: center;
     gap: 20px;
 }

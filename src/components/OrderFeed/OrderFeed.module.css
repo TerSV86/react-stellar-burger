@@ -1,0 +1,11 @@
+.OrderFeed {
+    
+    width: 100%;
+    max-width: 608px;
+    max-height: calc(100vh - 40px - 290px);
+    box-sizing: border-box;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

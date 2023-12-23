@@ -1,39 +1,27 @@
 
 import styles from './AppHeader.module.css'
 import ButtonHeader from '../ButtonHeader/ButtonHeader';
-import { ProfileIcon, BurgerIcon, ListIcon, Logo} from '@ya.praktikum/react-developer-burger-ui-components'
+import { ProfileIcon, BurgerIcon, ListIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
+import { NavLink } from 'react-router-dom';
 
 
 const AppHeader = () => {
-    
+
     return (
         <header className={`${styles.AppHeader} mb-4 mt-4`}>
-            <ButtonHeader 
-            style={{ 
-                maxWidth: 180, 
-                gridColumn: '1', 
-                gridRow: "1", 
-                justifySelf: "start"}} 
-            name={"Конструктор"} 
-            icon={<BurgerIcon type={'secondary'}/>}/>
-
-            <ButtonHeader 
-            style={{ 
-                maxWidth: 200, 
-                gridColumn: '1', 
-                gridRow: "1", 
-                justifySelf: "end" }}
-            name={"Лента заказов"} 
-            icon={<ListIcon type='secondary'/>}/>
-
+            <NavLink to='/' className={`${styles.LinkConstructor} ${styles.Link}`} style={({ isActive }) => ({ color: isActive ? '#F2F2F3' : null })} >
+                {<BurgerIcon type='secondary' />}
+                <span className='text text_type_main-default'>Конструктор</span>
+            </NavLink>
+            <NavLink to='/feed' className={`${styles.Link} ${styles.LinkListOrder}`} style={({ isActive }) => ({ color: isActive ? '#F2F2F3' : null })}>
+                {<ListIcon type='secondary' />}
+                <span className='text text_type_main-default'>Лента заказов</span>
+            </NavLink>
             <Logo />
-
-            <ButtonHeader 
-            style={{ 
-                maxWidth: 208, 
-                justifySelf: "end" }} 
-            name={"Личный кабинет"} 
-            icon={<ProfileIcon type='secondary'/>} />
+            <NavLink to={'/profile'} className={`${styles.Link} ${styles.LinkProfile}`} style={({ isActive }) => ({ color: isActive ? '#F2F2F3' : null })} >
+                {<ProfileIcon type='secondary' />}
+                <span className="text text_type_main-default">Личный кабинет</span>
+            </NavLink>
         </header>
     )
 }

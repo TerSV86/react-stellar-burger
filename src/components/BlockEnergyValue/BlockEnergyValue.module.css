@@ -1,8 +1,10 @@
-.BlockEnergyValue{
-    width: 100%;    
+.BlockEnergyValue {    
+    width: 100%;
+    max-width: 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-content: center;
     align-items: center;
     gap: 8px
 }

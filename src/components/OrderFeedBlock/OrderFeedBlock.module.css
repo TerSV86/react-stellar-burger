@@ -1,0 +1,15 @@
+.OrderFeedBlock {
+    
+    width: 584px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    gap: 24px;
+    background-color: #1C1C21;
+    border-radius: 40px;
+}
+
+.link {
+    text-decoration: none;
+    color:#F2F2F3;
+}

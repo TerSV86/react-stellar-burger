@@ -1,0 +1,18 @@
+.OrderInfo {
+    
+    width: 100%;
+    max-width: 640px;
+    max-height: 1000px;
+    /* transform: translateY(50%); */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.OrderInfo> :first-child {
+    margin: auto;
+}
+
+.OrderInfo> :nth-child(3) {
+    color: #00CCCC;
+}

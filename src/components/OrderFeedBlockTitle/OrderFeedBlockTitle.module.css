@@ -1,0 +1,9 @@
+.OrderFeedBlockTitle {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 844px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
