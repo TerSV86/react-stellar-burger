@@ -1,5 +1,4 @@
 import { productImagePropType } from "../../utils/prop-types"
-import React from 'react'
 
 const ProductImage = ({link, name}) => {
     return (
@@ -9,4 +8,4 @@ const ProductImage = ({link, name}) => {
 
 ProductImage.propTypes = productImagePropType;
 
-export default React.memo(ProductImage)
+export default ProductImage

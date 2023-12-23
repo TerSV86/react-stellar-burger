@@ -1,4 +1,4 @@
-import { getProductData, sendBurgerApi } from "../../utils/burger-api";
+import { getProductData } from "../../utils/burger-api";
 import { getNumberOrder } from "../../utils/burger-api";
 
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
@@ -10,10 +10,7 @@ export const OPEN_MODAL_ORDER_SUCCESS = 'OPEN_MODAL_ORDER_SUCCESS';
 export const OPEN_MODAL_INGREDIENT = 'OPEN_MODAL_INGREDIENT';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const ERROR = 'ERRORS';
-export const LOADING = 'LOADING';
-export const OPEN_MODAL = 'OPEN_MODAL';
-
-export const SEND_ORDER_BURGER = 'SEND_ORDER_BURGER';
+export const LOADING = 'LOADING'
 
 
 
@@ -34,14 +31,13 @@ export const addIngredientOther = (element) => ({
 })
 
 export const loadIngredients = () => (dispatch) => {
-    
-    dispatch({
+    dispatch ({
         type: LOADING
     })
     return getProductData()
         .then(res => {
             res.data.map((element) => {
-                element.board = 'default';
+                element.board = 'default';                
             })
             dispatch({
                 type: INGREDIENTS_LOAD_SUCCESS,
@@ -53,23 +49,22 @@ export const loadIngredients = () => (dispatch) => {
                 type: ERROR,
                 payload: err.message
             })
-        })
+        }) 
 }
 
 export const openModalOrder = (selectIngredient) => (dispatch) => {
-    return getNumberOrder(selectIngredient)
-    .then(res => {
+    return getNumberOrder(selectIngredient).then(res => {
         dispatch({
             type: OPEN_MODAL_ORDER_SUCCESS,
             payload: res
         })
     })
-        .catch(err => {
-            dispatch({
-                type: ERROR,
-                payload: err.message
-            })
+    .catch(err => {
+        dispatch({
+            type: ERROR,
+            payload: err.message
         })
+    })
 }
 
 export const openModalIngredient = (ingredient) => ({
@@ -77,20 +72,10 @@ export const openModalIngredient = (ingredient) => ({
     payload: ingredient
 })
 
-export const openModal = () =>({
-    type: OPEN_MODAL
-})
-
 export const closeModal = () => ({
     type: CLOSE_MODAL
 })
 
-/* export const sendOrderBurger = (ingredient) => (dispatch) => {
-    return sendBurgerApi(ingredient).then(res => {
-        dispatch({
-            type: SEND_ORDER_BURGER,
-            payload: ingredient
-        })
-    })
-} */
 
+ 
+ 

@@ -63,7 +63,3 @@ export const draggableIngredientReducer = (state = initialState, action) => {
             return state;
     }
 }
-
-
-
-
