@@ -5,7 +5,6 @@ import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "./services/store";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 
 
 
@@ -20,9 +19,10 @@ const store = configureStore(
         isClickButtonOrder: false,
       },
       openModalIngredient: null,
-      error: null,
-      loading: false
+      error: null
     },
+    
+
 
   }
 )
@@ -30,9 +30,7 @@ const store = configureStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

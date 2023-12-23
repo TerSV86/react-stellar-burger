@@ -2,9 +2,8 @@ import ProductsContainer from '../ProductsContainer/ProductsContainer'
 import styles from './Products.module.css'
 import TitleTypeProduct from '../TitleTypeProduct/TitleTypeProduct'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useRef, useMemo} from 'react'
+import { useEffect, useRef } from 'react'
 import { SCROLL_INGREDIENTS_BUN, SCROLL_INGREDIENTS_SAUCES, SCROLL_INGREDIENTS_MAIN } from '../../services/scroll/action/scrollIngredients'
-import React from 'react'
 
 const Products = () => {
 
@@ -43,9 +42,9 @@ const Products = () => {
     }, [])
 
 
-    const filtredBuns = useMemo(() => projectIngredients.filter((el) => el.type === 'bun')) 
-    const filtredMains = useMemo(() =>projectIngredients.filter((el) => el.type === 'main'))
-    const filtredSauce = useMemo(() =>projectIngredients.filter((el) => el.type === 'sauce'))
+    const filtredBuns = projectIngredients.filter((el) => el.type === 'bun')
+    const filtredMains = projectIngredients.filter((el) => el.type === 'main')
+    const filtredSauce = projectIngredients.filter((el) => el.type === 'sauce')
 
 
     return (
@@ -68,5 +67,5 @@ const Products = () => {
 
 
 
-export default React.memo(Products)
+export default Products
 

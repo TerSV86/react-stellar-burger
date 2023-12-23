@@ -1,7 +1,7 @@
-.OrderFeedPage {
-       
+.Content {
     width: 100%;
     max-width: 1240px;
     display: flex;
-    flex-direction: column;    
+    justify-content: row;
+    gap: 40px;
 }

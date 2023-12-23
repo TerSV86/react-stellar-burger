@@ -5,22 +5,16 @@ import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import { reactModals } from '../../utils/data'
 import { useEffect } from 'react';
 import { modalPropType } from '../../utils/prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { closeModal } from '../../services/ingredients/action';
-import { useNavigate } from 'react-router-dom';
 
 
-export default function Modal({ children, title }) {
-    
+export default function Modal({  children, title }) {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const isOpen = useSelector(store => store.ingredients.openModalOrder.isOpen)
-    
-    useEffect(() => {
-        function closeByEscape(evt) {            
-            if (evt.key === 'Escape') {                
-                if (!isOpen) navigate(-1)
-                if (isOpen) dispatch(closeModal());
+     useEffect(() => {
+        function closeByEscape(evt) {
+            if (evt.key === 'Escape') {
+                dispatch(closeModal());
             }
         }
         document.addEventListener('keydown', closeByEscape);
@@ -28,8 +22,8 @@ export default function Modal({ children, title }) {
             document.removeEventListener('keydown', closeByEscape);
         }
 
-    }, [])
-
+    }, [])   
+   
     return ReactDOM.createPortal((
         <>
             <ModalOverlay />

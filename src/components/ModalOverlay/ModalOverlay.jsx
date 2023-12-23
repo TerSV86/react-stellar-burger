@@ -1,16 +1,12 @@
 import styles from './ModalOverlay.module.css'
 import { closeModal } from '../../services/ingredients/action';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 
 export default function ModalOverlay() {
-    const isOpen = useSelector(store => store.ingredients.openModalOrder.isOpen)
-    const navigate = useNavigate()
     const dispatch = useDispatch()
-    function handleClickCloseModal() {
-       if(!isOpen) navigate(-1)        
-       if(isOpen) dispatch(closeModal()); 
+    function handleClickCloseModal() {        
+        dispatch(closeModal());
     }
 
     return (

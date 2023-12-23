@@ -1,30 +1,10 @@
 import styles from './IngredientDetails.module.css'
 import ProductImage from '../ProductImage/ProductImage'
 import FoodValue from '../FoodValue/FoodValue'
-import { Navigate, useLocation, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { loadIngredients } from '../../services/ingredients/action';
+import { ingredientDetailsPropType } from '../../utils/prop-types';
 
-
-const IngredientDetails = () => {
-    const dispatch = useDispatch()
-
-    const ingredients = useSelector(store => store.ingredients.ingredients)
-    const location = useLocation()
-    const idIngredient = useParams();
-
+const IngredientDetails = ({ ingredient }) => {
     
-    useEffect(() => {
-        // Загружаем ингредиенты только если их еще нет
-        if (!ingredients) {
-          dispatch(loadIngredients());
-        }
-      }, [dispatch, ingredients]);
-    if (!ingredients) {
-        return <div>Loading...</div>; 
-    }
-    const ingredient = ingredients.find((ingr) => ingr._id === idIngredient.ingredientId)
     return (
         <div className={`${styles.IngredientDetails}`}>
             <ProductImage link={ingredient.image_large} name={ingredient.name} />
@@ -34,5 +14,7 @@ const IngredientDetails = () => {
         </div>
     )
 }
+
+IngredientDetails.propTypes = ingredientDetailsPropType;
 
 export default IngredientDetails
