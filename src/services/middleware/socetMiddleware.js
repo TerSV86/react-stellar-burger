@@ -31,6 +31,27 @@ export const socketMiddleware = (wsActions) => {
                     const parsedData = JSON.parse(data);
                     const { success, ...restParsedData } = parsedData;
 
+                    console.log(parsedData);
+                    if (parsedData.message === 'Invalid or missing token') {
+                        console.log('if');
+                        fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {
+                            method: 'GET',
+                            mode: 'cors',
+                            cache: 'no-cache',
+                            credentials: 'same-origin',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'authorization': localStorage.accessToken
+                            },
+                            redirect: 'follow',
+                            referrerPolicy: 'no-referrer'
+                        })
+                        console.log('dispatch fetchWith');
+                        dispatch({ type: onMessage, payload: restParsedData })
+                    }
+                    console.log('dispatch');
+
+
                     dispatch({ type: onMessage, payload: restParsedData })
                 }
                 socket.onclose = event => {
