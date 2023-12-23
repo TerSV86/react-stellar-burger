@@ -5,7 +5,7 @@ export const socketMiddleware = (wsActions) => {
     return store => {
         let socket = null;
         return next => action => {
-            
+            console.log(wsActions);
             const { dispatch, getState } = store;
             const { type, payload } = action;
             const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
@@ -13,9 +13,8 @@ export const socketMiddleware = (wsActions) => {
             const cookie = getCookie('token')
             
             const token = (localStorage.accessToken) ? localStorage.accessToken.split(' ')[1] : null;
-            if (type === wsInit && auth) {
-                
-                socket = new WebSocket(`${action.payload}?token=${/* cookie */token}`);/* ?token=${user.token} */
+            if (type === wsInit && auth) {                
+                socket = new WebSocket(`${action.payload}?token=${token}`);
             }
             
             if (socket) {
