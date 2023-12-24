@@ -5,7 +5,7 @@ export const burgerApiConfig = {
     baseUrl: 'https://norma.nomoreparties.space/api/',
     headers: {
         "Content-Type": "application/json",
-        "authorization": localStorage.getItem('accessToken') /* 'Bearer ' + getCookie('token') */,
+        "authorization": localStorage.getItem('accessToken'),
     },
 }
 
@@ -120,17 +120,18 @@ export const logoutApi = () => {
 
 }
 
-export const userApi = (data) => {
+export const userApi = (data) => {             //протестировать
     
     return fetch(`${burgerApiConfig.baseUrl}auth/user`, {
         method: 'PATCH',
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        headers: {
+        headers: burgerApiConfig.headers
+        /* {
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + getCookie('token')
-        },
+        } */,
         body: JSON.stringify(data),
         redirect: 'follow',
         referrerPolicy: 'no-referrer'

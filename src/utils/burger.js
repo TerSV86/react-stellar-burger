@@ -34,3 +34,6 @@ export const statusOrder = (data) => {
     }
 }
 
+export const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
+export const wsUrlHistoryOrders = 'wss://norma.nomoreparties.space/orders';
+

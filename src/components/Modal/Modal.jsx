@@ -17,7 +17,8 @@ export default function Modal({ children, title }) {
     const isOpen = useSelector(store => store.ingredients.openModalOrder.isOpen)
     
     useEffect(() => {
-        function closeByEscape(evt) {            
+        function closeByEscape(evt) {   
+            console.log('esc');         
             if (evt.key === 'Escape') {                
                 if (!isOpen) navigate(-1)
                 if (isOpen) dispatch(closeModal());
@@ -33,7 +34,7 @@ export default function Modal({ children, title }) {
     return ReactDOM.createPortal((
         <>
             <ModalOverlay />
-            <div className={`${styles.Modal} `} onClick={(e) => e.stopPropagation()} >
+            <div className={`${styles.Modal} pb-8`} onClick={(e) => e.stopPropagation()} >
                 <ModalHeader >{title}</ModalHeader>
                 {children}
             </div>

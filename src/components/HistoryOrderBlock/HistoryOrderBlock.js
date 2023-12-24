@@ -14,9 +14,9 @@ import { openModal } from '../../services/ingredients/action'
 const HistoryOrderBlock = ({ ingredients, number, name, date, status }) => {
     const dispatch = useDispatch();
     const location = useLocation();
-    const handleClick = () => {
+   /*  const handleClick = () => {
         dispatch(openModal())
-    }
+    } */
 
     return (
         <Link
@@ -24,7 +24,7 @@ const HistoryOrderBlock = ({ ingredients, number, name, date, status }) => {
             to={`${number}`}
             state={{ background: location }}
             className={styles.link}
-            onClick={handleClick}
+            /* onClick={handleClick} */
         >
             <article className={`${styles.HistoryOrderBlock} p-6`}>
                 <OrderFeedBlockHeader date={date} number={number} />

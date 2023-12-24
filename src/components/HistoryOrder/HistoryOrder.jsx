@@ -4,18 +4,23 @@ import styles from './HistoryOrder.module.css'
 import HistoryOrderBlock from '../HistoryOrderBlock/HistoryOrderBlock';
 import { connectHistoryOrder, disconnect } from '../../services/historyorder/actions/wsHistoryOrdersActions'
 import { useEffect } from 'react'
+import { checkAutoLogin } from '../../services/auth/actions/actions';
 import { getCookie } from '../../utils/cookie';
 import { Link } from 'react-router-dom';
+import { wsUrlHistoryOrders } from '../../utils/burger';
 
 
-const wsUrl = 'wss://norma.nomoreparties.space/orders'
+/* const wsUrl = 'wss://norma.nomoreparties.space/orders' */
 
 const HistoryOrder = () => {
     const dispatch = useDispatch();
-    const userOrders = useSelector(store => store.userOrders.userOrders.orders);    
+    const userOrders = useSelector(store => store.userOrders.userOrders.orders);
+    const user = useSelector (store => store.auth.user)    
 
     useEffect(() => {
-        dispatch(connectHistoryOrder(wsUrl))
+        console.log('dispatch');
+        /* dispatch(checkAutoLogin()) */
+        dispatch(connectHistoryOrder(wsUrlHistoryOrders))
         return (() => {
             dispatch(disconnect())
         })

@@ -6,31 +6,34 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, memo } from 'react'
 import { connect, disconnect } from '../../services/orderfeed/actions/wsActions'
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { wsUrl } from '../../utils/burger'
 
-const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
+/* const wsUrl = 'wss://norma.nomoreparties.space/orders/all'; */
 
 const OrderFeedPage = () => {
-    const orders = useSelector(store => store.orders.burgers.orders) 
+    const orders = useSelector(store => store.orders.burgers.orders)
     const dispatch = useDispatch()
     const location = useLocation()
     const { number } = useParams()
 
-    useEffect(() => {        
+    useEffect(() => {
         dispatch(connect(wsUrl))
         return () => {
             dispatch(disconnect())
         }
     }, [])
 
-    if (location.pathname === `/feed/${number}`) {        
+    if (location.pathname === `/feed/${number}`) {
         return (
-            <Outlet />
+            <div className={`${styles.outlet}`}>
+                <Outlet />
+            </div>
         )
     }
     if (!orders) {
         return <p>Загрузка заказов ...</p>
-    } 
-    
+    }
+
     return (
         <main className={`${styles.OrderFeedPage}`}>
             <h1 className='text text_type_main-large pt-10 pb-5'>Лента заказов</h1>

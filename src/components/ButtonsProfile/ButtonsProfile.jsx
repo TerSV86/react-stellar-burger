@@ -4,12 +4,14 @@ import { useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
 import { getUser } from '../../services/auth/actions/actions'
 
+
 export const ButtonsProfile = ({ data, onClickSave }) => {
 
     const dispatch = useDispatch()
     const handleClickButtonSave = (e) => {
         e.preventDefault()
         dispatch(getUser(data))
+       
         onClickSave()// наверно нужно после обновления stor менять иконку
     }
 

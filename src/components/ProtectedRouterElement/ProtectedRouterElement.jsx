@@ -2,54 +2,40 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation, useParams } from "react-router-dom";
 import { loadIngredients } from "../../services/ingredients/action";
 import { useEffect } from 'react'
+import { checkAutoLogin } from "../../services/auth/actions/actions";
 
 
 export const ProtectedRouterElement = ({ anonymous = false, element }) => {
-    const dispatch = useDispatch()
-    const location = useLocation()
-    const user = useSelector(store => store.auth.user)
-    const ingredients = useSelector((store) => store.ingredients.ingredients)
-    const { loading } = useSelector((store) => store.ingredients)
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const user = useSelector(store => store.auth.user)
+  const ingredients = useSelector((store) => store.ingredients.ingredients)
+  const { loading } = useSelector((store) => store.ingredients)
 
-
-
-    if (!user && !anonymous) {
-        return <Navigate to='/login' state={{ from: location }} />
+  useEffect(() => {
+    if (!user) {
+      dispatch(checkAutoLogin())
     }
+  }, [])
 
-    if (!ingredients.length) {
+  if (!user && !anonymous) {
+    console.log('login');
+    return <Navigate to='/login' state={{ from: location }} />
+  }
 
-        return <p>Загрузка ингредиентов ...</p>
-    }
+  if (!ingredients.length) {
+
+    return <p>Загрузка ингредиентов ...</p>
+  }
 
 
-    return (element)
+  return (element)
 }
 
 export const AnonymousRoute = ({ element }) => {
-    return <ProtectedRouterElement anonymous={true} element={element} />
+  return <ProtectedRouterElement anonymous={true} element={element} />
 
 }
 
 export const ProtectedRouter = ProtectedRouterElement;
 
-/* export default function ProtectedRoute({ children, anonymous = false }) {
-    const isLoggedIn = useSelector((store) => store.auth.isAuthChecked);
-  
-    const location = useLocation();
-    const from = location.state?.from || '/';
-    // Если разрешен неавторизованный доступ, а пользователь авторизован...
-    if (anonymous && isLoggedIn) {
-      // ...то отправляем его на предыдущую страницу
-      return <Navigate to={ from } />;
-    }
-  
-    // Если требуется авторизация, а пользователь не авторизован...
-    if (!anonymous && !isLoggedIn) {
-      // ...то отправляем его на страницу логин
-      return <Navigate to="/login" state={{ from: location}}/>;
-    }
-  
-    // Если все ок, то рендерим внутреннее содержимое
-    return children;
-  } */
