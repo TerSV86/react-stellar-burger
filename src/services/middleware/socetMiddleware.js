@@ -13,11 +13,10 @@ export const socketMiddleware = (wsActions) => {
             const { type, payload } = action;
             const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
             const { auth } = getState()
-            /* const cookie = getCookie('token') */
-            /* console.log(payload, type, wsInit); */
+           
             const token = (localStorage.accessToken) ? localStorage.accessToken.split(' ')[1] : null;
             if (type === wsInit && auth) {
-                /* socket = new WebSocket(`${action.payload}?token=${token}`); */
+                
                 socket = new WebSocket(payload);
             }
 
@@ -39,7 +38,7 @@ export const socketMiddleware = (wsActions) => {
                             const { data } = event;
                             const parsedData = JSON.parse(data);
                             const { success, ...restParsedData } = parsedData;
-                            console.log('dispatch fetchWith');
+                            
                             dispatch({ type: onMessage, payload: restParsedData })
                         }
                     } else {
