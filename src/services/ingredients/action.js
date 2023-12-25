@@ -1,5 +1,7 @@
-import { getProductData, sendBurgerApi } from "../../utils/burger-api";
+import { optionsFetchWithRefresh, optionsFetchWithRefreshPostOrders } from "../../utils/burger";
+import { fetchWithRefresh, getProductData, sendBurgerApi } from "../../utils/burger-api";
 import { getNumberOrder } from "../../utils/burger-api";
+import { burgerApiConfig } from "../../utils/burger-api";
 
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const ADD_BUN = 'ADD_BUN';
@@ -34,7 +36,7 @@ export const addIngredientOther = (element) => ({
 })
 
 export const loadIngredients = () => (dispatch) => {
-    
+
     dispatch({
         type: LOADING
     })
@@ -57,18 +59,31 @@ export const loadIngredients = () => (dispatch) => {
 }
 
 export const openModalOrder = (selectIngredient) => (dispatch) => {
+    
     return getNumberOrder(selectIngredient)
-    .then(res => {
-        dispatch({
-            type: OPEN_MODAL_ORDER_SUCCESS,
-            payload: res
+        .then(res => {
+            
+            dispatch({
+                type: OPEN_MODAL_ORDER_SUCCESS,
+                payload: res
+            })
         })
-    })
         .catch(err => {
+           
             dispatch({
                 type: ERROR,
                 payload: err.message
             })
+
+            fetchWithRefresh(`${burgerApiConfig.baseUrl}orders`, optionsFetchWithRefreshPostOrders(selectIngredient))
+                .then((res) => {
+                    dispatch({
+                        type: OPEN_MODAL_ORDER_SUCCESS,
+                        payload: res
+                    })
+                })
+
+
         })
 }
 
@@ -77,7 +92,7 @@ export const openModalIngredient = (ingredient) => ({
     payload: ingredient
 })
 
-export const openModal = () =>({
+export const openModal = () => ({
     type: OPEN_MODAL
 })
 
@@ -94,3 +109,11 @@ export const closeModal = () => ({
     })
 } */
 
+const checkSetUserOrders = (selectIngredient) => (dispatch) => {
+    console.log('checkSetUserOrders');
+    fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, optionsFetchWithRefresh)
+        .then((res) => {
+            console.log('checkSetUserOrders- getNumberOrder-3');
+            getNumberOrder(selectIngredient)
+        })
+}

@@ -5,12 +5,10 @@ import HistoryOrderBlock from '../HistoryOrderBlock/HistoryOrderBlock';
 import { connectHistoryOrder, disconnect } from '../../services/historyorder/actions/wsHistoryOrdersActions'
 import { useEffect } from 'react'
 import { checkAutoLogin } from '../../services/auth/actions/actions';
-import { getCookie } from '../../utils/cookie';
-import { Link } from 'react-router-dom';
 import { wsUrlHistoryOrders } from '../../utils/burger';
 
 
-/* const wsUrl = 'wss://norma.nomoreparties.space/orders' */
+
 
 const HistoryOrder = () => {
     const dispatch = useDispatch();
@@ -18,9 +16,11 @@ const HistoryOrder = () => {
     const user = useSelector (store => store.auth.user)    
 
     useEffect(() => {
-        console.log('dispatch');
+        
         /* dispatch(checkAutoLogin()) */
-        dispatch(connectHistoryOrder(wsUrlHistoryOrders))
+        const wsUrl = wsUrlHistoryOrders + '?token=' + localStorage.accessToken.split(' ')[1]
+        
+        dispatch(connectHistoryOrder(wsUrl))
         return (() => {
             dispatch(disconnect())
         })

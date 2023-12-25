@@ -10,8 +10,7 @@ import { connectHistoryOrder } from '../../services/historyorder/actions/wsHisto
 import { checkAutoLogin } from '../../services/auth/actions/actions'
 import { wsUrl, wsUrlHistoryOrders } from '../../utils/burger'
 
-/* const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
-const wsUrlUser = 'wss://norma.nomoreparties.space/orders'; */
+
 const OrderInfo = () => {    
     const location = useLocation()
     const dispatch = useDispatch()
@@ -46,10 +45,10 @@ const OrderInfo = () => {
     if (location.pathname === `/feed/${number}`) {
         data = orders.find((elem) => elem.number === +number);
     } else if (location.pathname === `/profile/order/${number}`) {
-        console.log(`tyt`, number);        
-        data = userOrders.find((elem) => console.log(elem.number === +number) || elem.number === +number)        
+               
+        data = userOrders.find((elem) => elem.number === +number)        
     }
-console.log(data, userOrders);
+
     return (
         <div className={`${styles.OrderInfo}`}>
             <p className='text text_type_digits-default pb-10'>{`#${data.number}`}</p>

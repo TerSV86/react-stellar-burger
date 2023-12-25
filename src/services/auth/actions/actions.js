@@ -25,7 +25,7 @@ export const register = ({ login, password, email }) => (dispatch) => {
             })
 
             const token = res.accessToken.split('Bearer ')[1]
-            setCookie('token', token)
+            /* setCookie('token', token) */
             localStorage.setItem('accessToken', res.accessToken)
             localStorage.setItem('refreshToken', res.refreshToken)
         })
@@ -47,11 +47,13 @@ export const login = ({ email, password }) => (dispatch) => {
                 payload: res
             })
             const token = res.accessToken.split('Bearer ')[1]
-            setCookie('token', token, { expires: 1000 })
+            /* setCookie('token', token, { expires: 1000 }) */
+            console.log('accessToken: ',res.accessToken, 'refreshToken: ', res.refreshToken);
             localStorage.setItem('accessToken', res.accessToken)
             localStorage.setItem('refreshToken', res.refreshToken)
         })
         .catch((err) => {
+            console.log('login', err);
             dispatch({
                 type: LOGIN_ERROR,
                 payload: err
@@ -133,13 +135,14 @@ export const checkAutoLogin = () => (dispatch) => {
         referrerPolicy: 'no-referrer'
     })
         .then((res) => {
+            
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res
             })
         })
         .catch((err) => {
-            
+            console.log(err);
             dispatch({
                 type: LOGIN_ERROR,
                 payload: err

@@ -1,4 +1,4 @@
-export const setCookie = (name, value, props) => {
+/* export const setCookie = (name, value, props) => {
     
     props = props || {};
     
@@ -44,4 +44,4 @@ export function getCookie(name) {
     );
     
     return matches ? decodeURIComponent(matches[1]) : undefined;
-} 
+}  */

@@ -18,7 +18,7 @@ export default function Modal({ children, title }) {
     
     useEffect(() => {
         function closeByEscape(evt) {   
-            console.log('esc');         
+                   
             if (evt.key === 'Escape') {                
                 if (!isOpen) navigate(-1)
                 if (isOpen) dispatch(closeModal());

@@ -25,32 +25,10 @@ const ProfilePage = () => {
 
     const [form, setValue] = useState({ name: '', email: '', password: '' })
     const { name, email, password } = form
-console.log(user.email);
+
     useEffect(() => {
         setValue({...form, name: user.name, email: user.email})
-        /* getUserApi()
-            .then((res) => {
-                setValue({ ...form, name: res.user.name, email: res.user.email })
-            })
-            .catch((err) => {
-                console.error('Ошибка', err)
-                dispatch(checkAutoLogin())
-                fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {
-                    method: 'GET',
-                    mode: 'cors',
-                    cache: 'no-cache',
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'authorization': localStorage.accessToken
-                    },
-                    redirect: 'follow',
-                    referrerPolicy: 'no-referrer'
-                })
-            })
-            .finally(() => {
-                console.log("Обработка данных завершина");
-            }) */
+        
 
     }, [isEditEmail, isEditLogin, isEditPassword])
 

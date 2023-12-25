@@ -19,7 +19,7 @@ export const ProtectedRouterElement = ({ anonymous = false, element }) => {
   }, [])
 
   if (!user && !anonymous) {
-    console.log('login');
+    
     return <Navigate to='/login' state={{ from: location }} />
   }
 

@@ -8,7 +8,7 @@ import { connect, disconnect } from '../../services/orderfeed/actions/wsActions'
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { wsUrl } from '../../utils/burger'
 
-/* const wsUrl = 'wss://norma.nomoreparties.space/orders/all'; */
+
 
 const OrderFeedPage = () => {
     const orders = useSelector(store => store.orders.burgers.orders)

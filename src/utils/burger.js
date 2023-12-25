@@ -37,3 +37,27 @@ export const statusOrder = (data) => {
 export const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
 export const wsUrlHistoryOrders = 'wss://norma.nomoreparties.space/orders';
 
+export const optionsFetchWithRefresh = {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+        'Content-Type': 'application/json',
+        'authorization': localStorage.getItem('accessToken')
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer'
+}
+
+export const optionsFetchWithRefreshPostOrders = (selectIngredient) => {
+   return ({method: "POST",
+    headers: {
+        'Content-Type': 'application/json',
+        'authorization': localStorage.getItem('accessToken')
+    },
+    body: JSON.stringify({
+        'ingredients': selectIngredient
+    })}) 
+}
+
