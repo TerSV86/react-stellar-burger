@@ -1,5 +1,6 @@
 import { loginApi, userRegister, logoutApi, userApi, getUserApi, fetchWithRefresh, burgerApiConfig } from "../../../utils/burger-api";
 import { getCookie, setCookie } from "../../../utils/cookie";
+import { optionsFetchWithRefresh } from "../../../utils/burger";
 import { refreshToken, checkReponse } from "../../../utils/burger-api";
 
 export const REGISTER_SEND = 'AUTH/REGISTER_SEND'
@@ -24,8 +25,11 @@ export const register = ({ login, password, email }) => (dispatch) => {
                 payload: res
             })
 
-            const token = res.accessToken.split('Bearer ')[1]
-            setCookie('token', token)
+            const token = res.accessToken.split('Bearer ')[1]            
+            setCookie('token', token, { expires: 1200 })
+
+            burgerApiConfig.headers.authorization = 'Bearer ' + getCookie('token')
+                        
             localStorage.setItem('accessToken', res.accessToken)
             localStorage.setItem('refreshToken', res.refreshToken)
         })
@@ -46,12 +50,15 @@ export const login = ({ email, password }) => (dispatch) => {
                 type: LOGIN_SUCCESS,
                 payload: res
             })
-            const token = res.accessToken.split('Bearer ')[1]
-            setCookie('token', token, { expires: 1000 })
+            const token = res.accessToken.split('Bearer ')[1]            
+            setCookie('token', token, { expires: 1200 })
+            burgerApiConfig.headers.authorization = 'Bearer ' + getCookie('token')
+            
             localStorage.setItem('accessToken', res.accessToken)
             localStorage.setItem('refreshToken', res.refreshToken)
         })
         .catch((err) => {
+            
             dispatch({
                 type: LOGIN_ERROR,
                 payload: err
@@ -68,6 +75,7 @@ export const logout = () => (dispatch) => {
                 type: LOGOUT,
             })
             localStorage.clear()
+            setCookie('token', '', { expires: -1 })
         })
         .catch((err) => {
             console.error('Ошибка при выходе:', err)
@@ -116,27 +124,18 @@ export const getUser1 = () => (dispatch) => {
 }
 
 export const checkAutoLogin = () => (dispatch) => {
+    
     const token = localStorage.getItem('accessToken');
     if (!token) {
         return;
     }
-    fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-            'authorization': localStorage.getItem('accessToken')
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer'
-    })
-        .then((res) => {
+    fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, optionsFetchWithRefresh)
+        .then((res) => {            
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res
             })
+                      
         })
         .catch((err) => {
             

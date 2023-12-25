@@ -8,43 +8,27 @@ import { getUser } from '../../services/auth/actions/actions'
 import { getUserApi, userApi, getUserRefresh, fetchWithRefresh, burgerApiConfig } from '../../utils/burger-api'
 import { ButtonsProfile } from '../../components/ButtonsProfile/ButtonsProfile'
 import { Outlet, useLocation, useParams } from 'react-router-dom'
+import { checkAutoLogin } from '../../services/auth/actions/actions'
 import { useForm } from '../../hooks/useForm'
 
 
 const ProfilePage = () => {
+    const dispatch = useDispatch()
     const location = useLocation()
     const { number } = useParams()
     const [isEditLogin, setEditLogin] = useState(false)
     const [isEditEmail, setEditEmail] = useState(false)
     const [isEditPassword, setEditPassword] = useState(false)
-   
+    const user = useSelector(store => store.auth.user.user)
+    //const userOrders = useSelector(store => store.userOrders.userOrders)
+
 
     const [form, setValue] = useState({ name: '', email: '', password: '' })
     const { name, email, password } = form
 
     useEffect(() => {
-        getUserApi()
-            .then((res) => {
-                setValue({ ...form, name: res.user.name, email: res.user.email })                
-            })
-            .catch((err) => {
-                console.error('Ошибка', err)
-                fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, {
-                    method: 'GET',
-                    mode: 'cors',
-                    cache: 'no-cache',
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'authorization': localStorage.accessToken
-                    },
-                    redirect: 'follow',
-                    referrerPolicy: 'no-referrer'
-                })
-            })
-            .finally(() => {
-                console.log("Обработка данных завершина");
-            })
+        setValue({ ...form, name: user.name, email: user.email })
+
 
     }, [isEditEmail, isEditLogin, isEditPassword])
 
@@ -58,7 +42,7 @@ const ProfilePage = () => {
     const handleClickButtonSave = () => {
         setEditLogin(false)
         setEditEmail(false)
-        setEditPassword(false)        
+        setEditPassword(false)
     }
 
     const handleClickEdit = (e) => {
@@ -81,7 +65,9 @@ const ProfilePage = () => {
         return <h2>Загрузка </h2>
     }
     if (location.pathname.includes(`/profile/order/`)) {
-        return (<Outlet />)
+        return (<div className={`${styles.outlet}`}>
+        <Outlet />
+    </div>)
     }
 
     return (
@@ -99,7 +85,7 @@ const ProfilePage = () => {
                     onIconClick={(e) => handleClickEdit(e)}
 
                 />) : (<Input
-                    onChange={onChange }
+                    onChange={onChange}
                     value={name}
                     placeholder='Имя'
                     name={'name'}
@@ -119,7 +105,7 @@ const ProfilePage = () => {
                     extraClass='mb-6'
                     onIconClick={(e) => handleClickEdit(e)}
                 />) : (<EmailInput
-                    onChange={onChange }
+                    onChange={onChange}
                     value={email}
                     name={'email'}
                     isicon='false'
@@ -135,7 +121,7 @@ const ProfilePage = () => {
                     icon="CloseIcon"
                     onIconClick={(e) => handleClickEdit(e)} />)
                     : (<PasswordInput
-                        onChange={onChange }
+                        onChange={onChange}
                         value={password}
                         name={'password'}
                         extraClass='mb-6'
@@ -143,7 +129,7 @@ const ProfilePage = () => {
                         onIconClick={(e) => handleClickEdit(e)} />)}
                 {(isEditLogin || isEditEmail || isEditPassword) ? <ButtonsProfile onClickSave={handleClickButtonSave} data={form} /> : null}
             </Form>}
-            {location.pathname === '/profile/order' && <Outlet />}
+            {location.pathname === '/profile/order' &&  <Outlet />}
         </main>
 
     )

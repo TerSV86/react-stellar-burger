@@ -7,9 +7,11 @@ import { useEffect } from 'react'
 import { connect, disconnect } from '../../services/orderfeed/actions/wsActions'
 import { statusOrder } from '../../utils/burger'
 import { connectHistoryOrder } from '../../services/historyorder/actions/wsHistoryOrdersActions'
+import { checkAutoLogin } from '../../services/auth/actions/actions'
+import { wsUrl, wsUrlHistoryOrders } from '../../utils/burger'
 
-const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
-const OrderInfo = () => {    
+
+const OrderInfo = () => {
     const location = useLocation()
     const dispatch = useDispatch()
     const { number } = useParams()
@@ -18,13 +20,14 @@ const OrderInfo = () => {
     const userOrders = useSelector(store => store.userOrders.userOrders.orders)
     const user = useSelector(store => store.auth.user)
 
-    useEffect(() => {        
+    useEffect(() => {
         if (location.pathname === `/feed/${number}`) {
             dispatch(connect(wsUrl))
             return () => {
                 dispatch(disconnect())
             }
         } else if (location.pathname === `/profile/order/${number}`) {
+            const wsUrl = wsUrlHistoryOrders + '?token=' + localStorage.accessToken.split(' ')[1]
             dispatch(connectHistoryOrder(wsUrl))
             return (() => {
                 dispatch(disconnect())
@@ -33,7 +36,7 @@ const OrderInfo = () => {
 
     }, [])
 
-   
+
     if (!orders && !userOrders) {        
         return <p>Загрузка заказов ...</p>
     }
@@ -41,8 +44,9 @@ const OrderInfo = () => {
     let data;
     if (location.pathname === `/feed/${number}`) {
         data = orders.find((elem) => elem.number === +number);
-    } else if (location.pathname === `/profile/order/${number}`) {        
-        data = userOrders.find((elem) => elem.number === +number)        
+    } else if (location.pathname === `/profile/order/${number}`) {
+
+        data = userOrders.find((elem) => elem.number === +number)
     }
 
     return (

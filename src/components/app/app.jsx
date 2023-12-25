@@ -26,9 +26,6 @@ import { connectHistoryOrder } from '../../services/historyorder/actions/wsHisto
 import { getUserRefresh } from "../../services/auth/actions/actions";
 import NotFound404 from "../NotFound404/NotFound404";
 
-const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
-const wsUrlHistoryOrders = 'wss://norma.nomoreparties.space/orders';
-
 function App() {
 
   const dispatch = useDispatch();
