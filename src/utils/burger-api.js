@@ -5,7 +5,7 @@ export const burgerApiConfig = {
     baseUrl: 'https://norma.nomoreparties.space/api/',
     headers: {
         "Content-Type": "application/json",
-        "authorization": localStorage.getItem('accessToken'),
+        "authorization": /* localStorage.getItem('accessToken') */'Bearer ' + getCookie('token'),
     },
 }
 
@@ -89,16 +89,13 @@ export const userRegister = ({ email, password, login }) => {
 }
 
 export const loginApi = ({ email, password }) => {
+    
     return fetch(`${burgerApiConfig.baseUrl}auth/login`, {
         method: "POST",
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        /* headers: burgerApiConfig.headers, */
-        headers: {
-            "Content-Type": "application/json",
-            /* "authorization": localStorage.getItem('accessToken'), */
-        },
+        headers: burgerApiConfig.headers,
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
         body: JSON.stringify({
@@ -113,10 +110,7 @@ export const logoutApi = () => {
 
     return fetch(`${burgerApiConfig.baseUrl}auth/logout`, {
         method: "POST",
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            authorization: localStorage.getItem('accessToken')
-        },
+        headers: burgerApiConfig.headers,
         body: JSON.stringify({
             token: localStorage.getItem('refreshToken')
         })
@@ -131,11 +125,7 @@ export const userApi = (data) => {
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        headers: burgerApiConfig.headers
-        /* {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + getCookie('token')
-        } */,
+        headers: burgerApiConfig.headers,
         body: JSON.stringify(data),
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
@@ -149,10 +139,7 @@ export const getUserApi = () => {
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.accessToken/* 'Bearer ' + getCookie('token') */
-        },
+        headers: burgerApiConfig.headers,
         redirect: 'follow',
         referrerPolicy: 'no-referrer'
     }).then(getRespons)
@@ -160,12 +147,12 @@ export const getUserApi = () => {
 
 
 export const checkReponse = (res) => {
-    
+
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 export const refreshToken = () => {
-    console.log('refresh', localStorage.getItem("refreshToken"));
+    
     return fetch(`${burgerApiConfig.baseUrl}auth/token`, {
         method: "POST",
         headers: {
@@ -179,24 +166,24 @@ export const refreshToken = () => {
 };
 
 export const fetchWithRefresh = async (url, options) => {
-    
+
     try {
         const res = await fetch(url, options);
         return await checkReponse(res);
     } catch (err) {
-        
+
         if (err.message === "jwt expired") {
-            
+
             const refreshData = await refreshToken(); //обновляем токен
-            
+
             if (!refreshData.success) {
-                console.log('111', Promise.reject(refreshData));
+                
                 return Promise.reject(refreshData);
             }
-            
+
             localStorage.setItem("refreshToken", refreshData.refreshToken);
             localStorage.setItem("accessToken", refreshData.accessToken);
-            
+
             options.headers.authorization = refreshData.accessToken;
             const res = await fetch(url, options); //повторяем запрос
 

@@ -1,3 +1,4 @@
+import { burgerApiConfig } from "./burger-api"
 export const WebSocketStatus = {
     CONNECTING: 'CONNECTING ...',
     ONLINE: 'ONLINE',
@@ -42,20 +43,14 @@ export const optionsFetchWithRefresh = {
     mode: 'cors',
     cache: 'no-cache',
     credentials: 'same-origin',
-    headers: {
-        'Content-Type': 'application/json',
-        'authorization': localStorage.getItem('accessToken')
-    },
+    headers: burgerApiConfig.headers,
     redirect: 'follow',
     referrerPolicy: 'no-referrer'
 }
 
 export const optionsFetchWithRefreshPostOrders = (selectIngredient) => {
    return ({method: "POST",
-    headers: {
-        'Content-Type': 'application/json',
-        'authorization': localStorage.getItem('accessToken')
-    },
+    headers: burgerApiConfig.headers,
     body: JSON.stringify({
         'ingredients': selectIngredient
     })}) 

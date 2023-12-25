@@ -17,7 +17,7 @@ const OrderBlock = ({ sum }) => {
 
 
 
-    const handleClickButtonOrder = () => {        
+    const handleClickButtonOrder = () => {
         if (user) {
             dispatch(openModalOrder(idSelectIngredient));
         } else {
@@ -39,14 +39,9 @@ const OrderBlock = ({ sum }) => {
                 disabled={selectIngredient.length === 0}
                 htmlType="button" type="primary" size="large"
                 className={`button button_type_primary button_size_large ml-10`}
-                /* id='buttonOrder'  */
                 onClick={handleClickButtonOrder}>
                 Оформить заказ
             </Button>
-            {/* <Link // работало, потом вдруг перестало!!!
-                to={(user) ? '/' : '/login'}
-                state={{ background: location }}>    
-            </Link>  */}
         </div >)
 
 }

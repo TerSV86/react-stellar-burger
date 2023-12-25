@@ -110,10 +110,10 @@ export const closeModal = () => ({
 } */
 
 const checkSetUserOrders = (selectIngredient) => (dispatch) => {
-    console.log('checkSetUserOrders');
+    
     fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, optionsFetchWithRefresh)
         .then((res) => {
-            console.log('checkSetUserOrders- getNumberOrder-3');
+            
             getNumberOrder(selectIngredient)
         })
 }

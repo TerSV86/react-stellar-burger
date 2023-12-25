@@ -13,9 +13,9 @@ export const socketMiddleware = (wsActions) => {
             const { type, payload } = action;
             const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
             const { auth } = getState()
-           
-            const token = (localStorage.accessToken) ? localStorage.accessToken.split(' ')[1] : null;
-            if (type === wsInit && auth) {
+
+
+            if (type === wsInit) {
                 
                 socket = new WebSocket(payload);
             }
@@ -37,8 +37,7 @@ export const socketMiddleware = (wsActions) => {
                         socket.onMessage = event => {
                             const { data } = event;
                             const parsedData = JSON.parse(data);
-                            const { success, ...restParsedData } = parsedData;
-                            
+                            const { success, ...restParsedData } = parsedData;                            
                             dispatch({ type: onMessage, payload: restParsedData })
                         }
                     } else {

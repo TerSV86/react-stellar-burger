@@ -27,8 +27,8 @@ const ProfilePage = () => {
     const { name, email, password } = form
 
     useEffect(() => {
-        setValue({...form, name: user.name, email: user.email})
-        
+        setValue({ ...form, name: user.name, email: user.email })
+
 
     }, [isEditEmail, isEditLogin, isEditPassword])
 
@@ -65,7 +65,9 @@ const ProfilePage = () => {
         return <h2>Загрузка </h2>
     }
     if (location.pathname.includes(`/profile/order/`)) {
-        return (<Outlet />)
+        return (<div className={`${styles.outlet}`}>
+        <Outlet />
+    </div>)
     }
 
     return (
@@ -127,7 +129,7 @@ const ProfilePage = () => {
                         onIconClick={(e) => handleClickEdit(e)} />)}
                 {(isEditLogin || isEditEmail || isEditPassword) ? <ButtonsProfile onClickSave={handleClickButtonSave} data={form} /> : null}
             </Form>}
-            {location.pathname === '/profile/order' && <Outlet />}
+            {location.pathname === '/profile/order' &&  <Outlet />}
         </main>
 
     )

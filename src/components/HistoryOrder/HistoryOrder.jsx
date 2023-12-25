@@ -15,9 +15,8 @@ const HistoryOrder = () => {
     const userOrders = useSelector(store => store.userOrders.userOrders.orders);
     const user = useSelector (store => store.auth.user)    
 
-    useEffect(() => {
+    useEffect(() => {        
         
-        /* dispatch(checkAutoLogin()) */
         const wsUrl = wsUrlHistoryOrders + '?token=' + localStorage.accessToken.split(' ')[1]
         
         dispatch(connectHistoryOrder(wsUrl))
