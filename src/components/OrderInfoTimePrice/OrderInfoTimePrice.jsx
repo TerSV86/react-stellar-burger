@@ -10,7 +10,7 @@ const OrderInfoTimePrice = ({date}) => {
     const minutes = dateUTC.getMinutes()
     const zonaUTC = Math.abs(dateUTC.getTimezoneOffset() / 60)
     return (
-        <div className={`${styles.OrderInfoTimePrice}`}>
+        <div className={`${styles.OrderInfoTimePrice} mb-2`}>
             <p className='text text_type_main-default text_color_inactive'>{`${dayOrder}, ${hours}:${minutes} i-GMT+${zonaUTC}`}</p>
             <TotalPrice date = {date} />
         </div>

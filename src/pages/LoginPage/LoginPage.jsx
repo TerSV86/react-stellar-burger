@@ -13,11 +13,11 @@ const LoginPage = () => {
     const user = useSelector(store => store.auth.user)
     const navigate = useNavigate()
     const { values, handleChange, setValues } = useForm({ email: '', password: '' });
-    
+
     const { email, password } = values;
-   
+
     const handleSubmit = e => {
-        
+
         e.preventDefault();
         dispatch(login({ email, password }))
     }
@@ -26,7 +26,7 @@ const LoginPage = () => {
             navigate(-1)
         }
     }, [user])
-    
+
     return (
         <main className={styles.LoginPage}>
             <Form title={'Вход'} onSubmit={handleSubmit}>

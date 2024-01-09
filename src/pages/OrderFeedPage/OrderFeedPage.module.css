@@ -5,3 +5,9 @@
     display: flex;
     flex-direction: column;    
 }
+
+.outlet {
+    padding: 0;
+    margin: 0;
+    margin: auto;
+}
