@@ -1,6 +1,6 @@
 import { DELETE_INGREDIENT } from "../dnd/actions/draggable-ingredient";
 import { CLOSE_MODAL, OPEN_MODAL, OPEN_MODAL_INGREDIENT, SEND_ORDER_BURGER } from "./action";
-import {INGREDIENTS_LOAD_SUCCESS, LOADING, ERROR, ADD_INGREDIENT, OPEN_MODAL_ORDER_SUCCESS} from './action'
+import { INGREDIENTS_LOAD_SUCCESS, LOADING, ERROR, ADD_INGREDIENT, OPEN_MODAL_ORDER_SUCCESS } from './action'
 
 const initialState = {
     ingredients: /* [] */null,
@@ -12,7 +12,7 @@ const initialState = {
 export const reducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case INGREDIENTS_LOAD_SUCCESS:            
+        case INGREDIENTS_LOAD_SUCCESS:
             return {
                 ...state,
                 ingredients: [...action.payload.data],
@@ -20,7 +20,7 @@ export const reducer = (state = initialState, action) => {
             }
 
         case LOADING:
-            
+
             return {
                 ...state,
                 loading: true,
@@ -33,7 +33,7 @@ export const reducer = (state = initialState, action) => {
             }
         case ADD_INGREDIENT:
             const newStateDelBun = state.selectIngredient.filter(ingredient => ingredient.type !== 'bun')
-            
+
             return {
                 ...state,
                 selectIngredient: [...newStateDelBun, action.payload]
@@ -54,7 +54,7 @@ export const reducer = (state = initialState, action) => {
                     isClickButtonOrder: !state.isClickButtonOrder,
                 },
             }
-
+        
 
         case OPEN_MODAL_INGREDIENT:
 
@@ -68,7 +68,7 @@ export const reducer = (state = initialState, action) => {
 
             }
         case OPEN_MODAL:
-            
+
             return {
                 ...state,
                 openModalOrder: {

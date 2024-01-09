@@ -67,7 +67,7 @@ export const openModalOrder = (selectIngredient) => (dispatch) => {
                 type: OPEN_MODAL_ORDER_SUCCESS,
                 payload: res
             })
-        })
+        })        
         .catch(err => {
            
             dispatch({
