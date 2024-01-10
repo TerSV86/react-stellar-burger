@@ -15,17 +15,13 @@
     border: 1px solid red;
 }
 
-.active {
-    border: 5px solid yellow;
-    color: brown;
-}
-
 .LinkConstructor {
     max-width: 180px;
     grid-column: 1;
     grid-row: 1;
     justify-self: start;
 }
+
 
 .LinkProfile {
     max-width: 208px;

@@ -53,7 +53,7 @@ export const login = ({ email, password }) => (dispatch) => {
             const token = res.accessToken.split('Bearer ')[1]            
             setCookie('token', token, { expires: 1200 })
             burgerApiConfig.headers.authorization = 'Bearer ' + getCookie('token')
-            
+            console.log('login cookie', burgerApiConfig.headers.authorization = 'Bearer ' + getCookie('token'));
             localStorage.setItem('accessToken', res.accessToken)
             localStorage.setItem('refreshToken', res.refreshToken)
         })
@@ -126,6 +126,7 @@ export const getUser1 = () => (dispatch) => {
 export const checkAutoLogin = () => (dispatch) => {
     
     const token = localStorage.getItem('accessToken');
+    console.log(token);
     if (!token) {
         return;
     }

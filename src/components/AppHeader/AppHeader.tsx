@@ -1,24 +1,28 @@
 
 import styles from './AppHeader.module.css'
-import ButtonHeader from '../ButtonHeader/ButtonHeader';
 import { ProfileIcon, BurgerIcon, ListIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
 
 
-const AppHeader = () => {
+interface INavLinkProps {
+    isActive: boolean;
+}
 
+const AppHeader: React.FC = () => {
+    const setActive = ({ isActive }:INavLinkProps):React.CSSProperties => ({ color: isActive ? '#F2F2F3' : '' })
     return (
         <header className={`${styles.AppHeader} mb-4 mt-4`}>
-            <NavLink to='/' className={`${styles.LinkConstructor} ${styles.Link}`} style={({ isActive }) => ({ color: isActive ? '#F2F2F3' : null })} >
+            <NavLink to='/' className={`${styles.LinkConstructor} ${styles.Link}`} style={setActive} >
                 {<BurgerIcon type='secondary' />}
                 <span className='text text_type_main-default'>Конструктор</span>
             </NavLink>
-            <NavLink to='/feed' className={`${styles.Link} ${styles.LinkListOrder}`} style={({ isActive }) => ({ color: isActive ? '#F2F2F3' : null })}>
+            <NavLink to='/feed' className={`${styles.Link} ${styles.LinkListOrder}`} style={setActive}>
                 {<ListIcon type='secondary' />}
                 <span className='text text_type_main-default'>Лента заказов</span>
             </NavLink>
             <Logo />
-            <NavLink to={'/profile'} className={`${styles.Link} ${styles.LinkProfile}`} style={({ isActive }) => ({ color: isActive ? '#F2F2F3' : null })} >
+            <NavLink to={'/profile'} className={`${styles.Link} ${styles.LinkProfile}`} style={setActive} >
                 {<ProfileIcon type='secondary' />}
                 <span className="text text_type_main-default">Личный кабинет</span>
             </NavLink>
