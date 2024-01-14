@@ -2,13 +2,15 @@ import { useDrag, useDrop } from 'react-dnd'
 /* import styles from './Ingredient.module.css' */
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ITEM_TYPE } from '../../services/dnd/actions/draggable-ingredient'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { deleteIngredientOther } from '../../services/dnd/actions/draggable-ingredient'
 import React from 'react'
 
 
 const Ingredient = React.memo(({ el, index }) => {
-      const dispatch = useDispatch()
+    const dispatch = useDispatch()
+    const selectIngredient = useSelector(state => state.ingredientList.selectIngredient)
+    console.log('select',selectIngredient);
 
     let dragIndexIngredient;
     let hoverIndexIngredient;
@@ -16,11 +18,11 @@ const Ingredient = React.memo(({ el, index }) => {
     const [, drop] = useDrop({
         accept: 'ingredientSort',
         hover(dragIndex, monitor) {
-            const hoverIndex = index;           
+            const hoverIndex = index;
 
-            if (dragIndex !== index) {               
+            if (dragIndex !== index) {
                 dragIndexIngredient = dragIndex;
-                hoverIndexIngredient = hoverIndex;               
+                hoverIndexIngredient = hoverIndex;
             }
 
             if (dragIndex === index) {
@@ -46,8 +48,11 @@ const Ingredient = React.memo(({ el, index }) => {
         })
     })
 
-    function deleteIngredient() {        
-        dispatch(deleteIngredientOther(el.randomId))
+    function deleteIngredient() {
+        console.log(el.randomId);
+        const newArrayIngredients = selectIngredient.filter((ingr) => console.log('ingr',ingr, ingr.randomId !== el.randomId)|| ingr.randomId !== el.randomId)
+        console.log('newArrayIngredients', newArrayIngredients);
+        dispatch(deleteIngredientOther(/* el.randomId */newArrayIngredients))
     }
 
     return (

@@ -56,8 +56,8 @@ export const draggableIngredientReducer = (state = initialState, action) => {
             
             return {
                 ...state,
-                selectIngredient: state.selectIngredient.filter(ingredient => ingredient.randomId !== action.id),
-                sortIngredient: state.sortIngredient.filter(ingredient => ingredient.randomId !== action.id)
+                selectIngredient: /* state.selectIngredient.filter(ingredient => ingredient.randomId !== action.id) */action.payload,
+                sortIngredient: /* state.sortIngredient.filter(ingredient => ingredient.randomId !== action.id) */action.payload,
             }
         default:
             return state;

@@ -10,7 +10,7 @@ const Products = () => {
 
     const dispatch = useDispatch()
     const projectIngredients = useSelector(store => store.ingredients.ingredients)
-
+console.log(projectIngredients[0]);
     const bunRef = useRef();
     const saucesRef = useRef();
     const mainRef = useRef();

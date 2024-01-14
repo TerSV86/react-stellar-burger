@@ -9,11 +9,11 @@ import { BrowserRouter } from "react-router-dom";
 
 
 
-const store = configureStore(
+export const store = configureStore(
   {
     ingredients: {
       ingredients: [],
-      selectIngredient: [],
+      /* selectIngredient: [], */
       openModalOrder: {
         isOpen: false,
         numberOrder: 0,
@@ -26,6 +26,8 @@ const store = configureStore(
 
   }
 )
+
+
 
 ReactDOM.render(
   <React.StrictMode>

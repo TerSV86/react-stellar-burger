@@ -1,0 +1,19 @@
+.LinkConstructor {
+    max-width: 180px;
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+}
+
+.Link {
+    width: 100%;
+    color: inherit;
+    padding: 16px 20px;
+    border-radius: 40px;
+    display: flex;
+    gap: 8px;
+    box-sizing: border-box;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}

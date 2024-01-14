@@ -23,7 +23,7 @@ import OrderFeedPage from "../../pages/OrderFeedPage/OrderFeedPage";
 import OrderInfo from "../../pages/OrderInfo/OrderInfo";
 import { disconnect, connect } from "../../services/orderfeed/actions/wsActions";
 import { connectHistoryOrder } from '../../services/historyorder/actions/wsHistoryOrdersActions'
-import { getUserRefresh } from "../../services/auth/actions/actions";
+/* import { getUserRefresh } from "../../services/auth/actions/actions"; */
 import NotFound404 from "../NotFound404/NotFound404";
 
 function App() {

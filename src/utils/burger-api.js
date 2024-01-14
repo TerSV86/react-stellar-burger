@@ -5,7 +5,7 @@ export const burgerApiConfig = {
     baseUrl: 'https://norma.nomoreparties.space/api/',
     headers: {
         "Content-Type": "application/json",
-        "authorization": /* localStorage.getItem('accessToken') */'Bearer ' + getCookie('token'),
+        "authorization": localStorage.getItem('accessToken')/* 'Bearer ' + getCookie('token') */,
     },
 }
 

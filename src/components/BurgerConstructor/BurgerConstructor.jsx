@@ -11,6 +11,7 @@ import { addIngredientSort } from '../../services/dnd/actions/draggable-ingredie
 const BurgerConstructor = () => {
     const dispatch = useDispatch()
     const selectIngredient = useSelector(store => store.ingredientList.selectIngredient)
+    console.log(selectIngredient);
     const sum = selectIngredient.reduce((acc, ingr) => acc + ingr.price + ((ingr.type === 'bun') ? ingr.price : 0), 0)
     const board = 'burgerBunIngredient';
 

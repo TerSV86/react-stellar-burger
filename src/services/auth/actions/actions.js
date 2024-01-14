@@ -3,19 +3,19 @@ import { getCookie, setCookie } from "../../../utils/cookie";
 import { optionsFetchWithRefresh } from "../../../utils/burger";
 import { refreshToken, checkReponse } from "../../../utils/burger-api";
 
-export const REGISTER_SEND = 'AUTH/REGISTER_SEND'
-export const REGISTER_SUCCESS = 'AUTH/REGISTER_SUCCESS';
-export const REGISTER_ERROR = 'AUTH/REGISTER_ERROR'
+export const REGISTER_SEND/* :'AUTH/REGISTER_SEND' */ = 'AUTH/REGISTER_SEND'
+export const REGISTER_SUCCESS/* :'AUTH/REGISTER_SUCCESS' */ = 'AUTH/REGISTER_SUCCESS';
+export const REGISTER_ERROR/* :'AUTH/REGISTER_ERROR' */ = 'AUTH/REGISTER_ERROR'
 
-export const LOGIN_SEND = 'AUTH/LOGIN_SEND';
-export const LOGIN_SUCCESS = 'AUTH/LOGIN_SUCCESS';
-export const LOGIN_ERROR = 'AUTH/LOGIN_ERROR'
+export const LOGIN_SEND/* :'AUTH/LOGIN_SEND' */ = 'AUTH/LOGIN_SEND';
+export const LOGIN_SUCCESS/* :'AUTH/LOGIN_SUCCESS' */ = 'AUTH/LOGIN_SUCCESS';
+export const LOGIN_ERROR/* :'AUTH/LOGIN_ERROR' */ = 'AUTH/LOGIN_ERROR'
 
-export const LOGOUT = 'AUTH/LOGOUT'
-export const SET_USER = 'AUTH/GET_USER'
+export const LOGOUT/* :'AUTH/LOGOUT' */ = 'AUTH/LOGOUT'
+export const SET_USER/* :'AUTH/GET_USER' */ = 'AUTH/GET_USER'
 
 
-export const register = ({ login, password, email }) => (dispatch) => {
+export const register = ({ login , password, email }) => (dispatch) => {
 
     dispatch({ type: REGISTER_SEND })
     return userRegister({ login, password, email })
