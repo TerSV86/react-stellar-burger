@@ -5,20 +5,26 @@ export const ITEM_TYPE:'ITEM_TYPE' = 'ITEM_TYPE'
 
 export const DELETE_INGREDIENT:'DELETE_INGREDIENT' = 'DELETE_INGREDIENT';
 
-export const deleteIngredientOther = (/* id:string */ingredients) => ({
+export const UPDATE_TYPE_BUN: 'UPDATE_TYPE_BUN' = 'UPDATE_TYPE_BUN';
+
+export const deleteIngredientOther = (ingredients) => ({
     type: DELETE_INGREDIENT,
-    payload: ingredients
-    /* id */
+    payload: ingredients    
 })
 
-export const addIngredientSort = ( product, board) => (dispatch) => {
+export const addIngredientSort = (newSel, newSor) => (dispatch) => {
     
-    const randomId = uuid4();
-    const updatedProduct = { ...product, randomId, board };
-    product.board = board
     dispatch({
         type: UPDATE_TYPE,        
-        product: updatedProduct,
-        board
+        productSort: newSor,
+        productSelect: newSel,        
+    })
+}
+
+
+export const addIngredientBun = (newArray) => (dispatch) => {
+    dispatch ({
+        type: UPDATE_TYPE_BUN,
+        product: newArray,
     })
 }

@@ -1,4 +1,4 @@
-import { UPDATE_TYPE } from '../actions/draggable-ingredient'
+import { UPDATE_TYPE, UPDATE_TYPE_BUN } from '../actions/draggable-ingredient'
 import { ITEM_TYPE } from '../actions/draggable-ingredient'
 
 const initialState = {
@@ -11,33 +11,26 @@ export const draggableIngredientReducer = (state = initialState, action) => {
 ;
     switch (action.type) {
         case UPDATE_TYPE: {             
-            let newStateSelectIngerdient;            
-            let newSortIngredient;
-            if (action.product.type === 'bun') {
-                newStateSelectIngerdient = state.selectIngredient.filter(ingredient => ingredient.type !== 'bun');
-                newSortIngredient = state.selectIngredient.filter(ingredient => ingredient.type !== 'bun')
-            } else {
-                newStateSelectIngerdient = state.selectIngredient;
-                newSortIngredient = [...state.sortIngredient, action.product];                
-            }
             
             return {
+                ...state,                
+                selectIngredient: [...action.productSelect],                
+                sortIngredient:[ ...action.productSort],
+            }
+        }
+
+        case UPDATE_TYPE_BUN: {
+            return {
                 ...state,
-                ingredients: state.ingredients.filter(ingredient => ingredient._id === action.id ? {
-                    ...ingredient.board = action.board
-                } : ingredient),
-                selectIngredient: [...newStateSelectIngerdient, action.product],
-                sortIngredient: newSortIngredient,
+                selectIngredient: [...action.product],
             }
         }
 
         case ITEM_TYPE: {            
-            const item = state.sortIngredient[action.dragIndexIngredient.index]
-            const newItems = state.sortIngredient.filter((i, idx) => idx !== action.dragIndexIngredient.index);
-            newItems.splice(action.hoverIndexIngredient, 0, item)
+            
             return {
                 ...state,
-                sortIngredient: newItems
+                sortIngredient: action.payload
             }
         }
         case 'INGREDIENTS_LOAD_SUCCESS':

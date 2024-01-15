@@ -4,7 +4,9 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import OrderBlock from '../OrderBlock/OrderBlock'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDrop } from 'react-dnd'
-import { addIngredientSort } from '../../services/dnd/actions/draggable-ingredient'
+import { addIngredientBun, addIngredientSort } from '../../services/dnd/actions/draggable-ingredient'
+
+import {v4 as uuid4} from 'uuid'
 
 
 
@@ -21,7 +23,15 @@ const BurgerConstructor = () => {
             isHover: monitor.isOver(),
         }),
         drop(product) {
-            dispatch(addIngredientSort(product, board))
+            const randomId = uuid4();
+            product.board = board
+            const updatedProduct = { ...product, randomId, board };
+            
+            let newArray;
+            const delBun = selectIngredient.filter(ingredient => ingredient.type !== 'bun');
+            newArray = [...delBun, updatedProduct]
+            dispatch(addIngredientBun(newArray))    
+            /* dispatch(addIngredientSort(product, board)) */
         }
     })
 

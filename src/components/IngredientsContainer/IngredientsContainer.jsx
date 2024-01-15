@@ -5,27 +5,42 @@ import { UPDATE_TYPE, addIngredientSort } from '../../services/dnd/actions/dragg
 import { useDrop } from 'react-dnd'
 import Ingredient from '../Ingredient/Ingredient'
 
+import {v4 as uuid4} from 'uuid'
+
 
 
 
 const IngredientsContainer = () => {
     const board = "burgerIngredient";
     const selectIngredient = useSelector(store => store.ingredientList.sortIngredient)
-    const ingredients = useSelector(store => store.ingredients.ingredients)    
+    const ingredients = useSelector(store => store.ingredients.ingredients)
     const dispatch = useDispatch()
+
+    const arraySelectIngredient = useSelector(store => store.ingredientList.selectIngredient) // добавил
+
+
 
     const [{ isHover }, drop] = useDrop({
         accept: 'ingredient',
         collect: monitor => ({
             isHover: monitor.isOver(),
-        }),       
-        drop(product) {           
-            dispatch(addIngredientSort(product, board))
+        }),
+        drop(product) {
+            const randomId = uuid4();
+            product.board = board
+            const updatedProduct = { ...product, randomId, board };
+            
+            let newStateSelectIngerdient;
+            let newSortIngredient;           
+            newSortIngredient = [...selectIngredient, updatedProduct];
+            newStateSelectIngerdient = [...arraySelectIngredient, updatedProduct]
+            console.log('dnd', newStateSelectIngerdient, newSortIngredient);
+            dispatch(addIngredientSort(newStateSelectIngerdient, newSortIngredient))
         }
-    })    
+    })
 
     const borderColor = isHover ? styles.lightgreen : 'transparent'
-    
+
     return (
         <div className={`${styles.IngredientsContainer} ${borderColor} custom-scroll ml-4`} ref={drop} >
             {selectIngredient

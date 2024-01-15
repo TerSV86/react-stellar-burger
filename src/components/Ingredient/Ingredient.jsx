@@ -12,6 +12,8 @@ const Ingredient = React.memo(({ el, index }) => {
     const selectIngredient = useSelector(state => state.ingredientList.selectIngredient)
     console.log('select',selectIngredient);
 
+    const sortIngredient = useSelector(state => state.ingredientList.sortIngredient)
+
     let dragIndexIngredient;
     let hoverIndexIngredient;
 
@@ -31,10 +33,13 @@ const Ingredient = React.memo(({ el, index }) => {
 
         },
         drop() {
+            const item = sortIngredient[dragIndexIngredient.index]
+            const newItems = sortIngredient.filter((i, idx) => idx !== dragIndexIngredient.index);
+            newItems.splice(hoverIndexIngredient, 0, item)
+
             dispatch({
                 type: ITEM_TYPE,
-                dragIndexIngredient,
-                hoverIndexIngredient
+                payload: newItems               
             })
         }
 
