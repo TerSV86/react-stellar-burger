@@ -1,28 +1,11 @@
 import { DELETE_INGREDIENT } from "../dnd/actions/draggable-ingredient";
 import { CLOSE_MODAL, OPEN_MODAL, OPEN_MODAL_INGREDIENT,/*  SEND_ORDER_BURGER */ } from "./action";
-import { INGREDIENTS_LOAD_SUCCESS, LOADING, ERROR, /* ADD_INGREDIENT,  */OPEN_MODAL_ORDER_SUCCESS, TIngredientActions, TOpenModalOrder } from './action'
-type TIngredient = {
-    board: string,
-    colories: number,
-    carbohydrates: number,
-    fat: number,
-    image: string,
-    image_large: string,
-    image_mobile: string,
-    name: string,
-    prise: number,
-    proteines: number,
-    type: string,
-    __v: number,
-    _id: string
-}
-type TIngredientsState = {
-    ingredients: ReadonlyArray<TIngredient>;
-    /* selectIngredient: ReadonlyArray<TIngredient>; */
-    error: any | null;
-    loading: boolean;
-    openModalOrder: TOpenModalOrder;    
-}
+import { INGREDIENTS_LOAD_SUCCESS, LOADING, ERROR, /* ADD_INGREDIENT,  */OPEN_MODAL_ORDER_SUCCESS } from './action'
+import { TIngredientActions, TIngredientsState, TOpenModalOrder,  } from "../../utils/type";
+
+
+
+
 
 const initialState: TIngredientsState = {
     ingredients: [],

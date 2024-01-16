@@ -7,6 +7,8 @@ import { ThunkAction } from "redux-thunk";
 import { Action, ActionCreator } from "redux";
 import { store } from "../..";
 
+import { AppThunk, AppDispatch, TIngredient, } from "../../utils/type";
+
 export const GET_INGREDIENTS: 'GET_INGREDIENTS' = 'GET_INGREDIENTS';
 /* export const ADD_BUN:'ADD_BUN' = 'ADD_BUN'; */
 /* export const ADD_INGREDIENT: 'ADD_INGREDIENT' = 'ADD_INGREDIENT'; */
@@ -21,133 +23,7 @@ export const OPEN_MODAL: 'OPEN_MODAL' = 'OPEN_MODAL';
 
 /* export const SEND_ORDER_BURGER: 'SEND_ORDER_BURGER' = 'SEND_ORDER_BURGER'; */
 
-type TIngredient = {
-    board: string,
-    colories: number,
-    carbohydrates: number,
-    fat: number,
-    image: string,
-    image_large: string,
-    image_mobile: string,
-    name: string,
-    prise: number,
-    proteines: number,
-    type: string,
-    __v: number,
-    _id: string
-}
 
-export type TOpenModalOrder = {
-    isOpen: boolean,
-    numberOrder: number,
-    isClickButtonOrder: boolean
-}
-type TOwner = {
-    name: string,
-    email: string,
-    createsAt: string,
-    updateAt: string,
-}
-
-type TOrder = {
-    createdAt: string,
-    ingredients: Array<TIngredient>,
-    name: string,
-    number: number,
-    owner: TOwner,
-    price: number,
-    status: string,
-    updatedAt: string,
-    _id: string
-}
-
-type TOrderResponse = {
-    name: string,
-    order: TOrder,
-    success: boolean
-}
-
-type TAction = {
-    success: boolean,
-    data: Array<TIngredient>
-}
-
-export interface IGetIngredientsAction { // есть сомнения о необходимости
-    readonly type: typeof GET_INGREDIENTS;
-}
-
-/* export interface IAddBunAction {
-    readonly type: typeof ADD_BUN;
-    readonly selectIngredient: TIngredient[];
-} */
-
-/* export interface IAddIngredientAction {
-    readonly type: typeof ADD_INGREDIENT;
-    readonly payload: TAction;
-} */
-
-export interface IIngredientsLoadSuccessAction {
-    readonly type: typeof INGREDIENTS_LOAD_SUCCESS;
-    readonly loading: boolean;
-    readonly payload: TAction;
-}
-
-export interface IOpenModalOrderSuccess {
-    readonly type: typeof OPEN_MODAL_ORDER_SUCCESS;
-    readonly payload: TOrderResponse;
-}
-
-export interface IOpenModalIngredient { //возможно не нужен
-    readonly type: typeof OPEN_MODAL_INGREDIENT;
-    readonly openModalOrder: TOpenModalOrder;
-    readonly payload: TIngredient | null;
-}
-
-export interface ICloseModal {
-    readonly type: typeof CLOSE_MODAL;
-    readonly openModalOrder: TOpenModalOrder;
-    readonly openModalIngredient: TIngredient | null;
-}
-
-export interface IError {
-    readonly type: typeof ERROR;
-    readonly payload: TAction;
-}
-
-export interface ILoading {
-    readonly type: typeof LOADING;
-    readonly loading: boolean;
-    readonly error: any;
-}
-
-export interface IOpenModal {
-    readonly type: typeof OPEN_MODAL;
-    readonly openModalOrder: TOpenModalOrder;
-}
-
-/* export interface IDeleteIngredient {
-    readonly type: typeof DELETE_INGREDIENT;
-    readonly payload: Array<TIngredient>; 
-
-} */
-
-export type TIngredientActions =
-    | IGetIngredientsAction
-    /* | IAddIngredientAction */
-    | IIngredientsLoadSuccessAction
-    | IOpenModalOrderSuccess
-    | IOpenModalIngredient
-    | ICloseModal
-    | IError
-    | ILoading
-    | IOpenModal
-    /* | IDeleteIngredient */;
-
-// Типизация Thunk
-type TApplicationActions = TIngredientActions;
-export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>;
-export type AppDispatch = typeof store.dispatch;
 
 
 /* export const addBunIngredient = (element) => ({
@@ -190,7 +66,7 @@ export const loadIngredients: AppThunk = () => (dispatch: AppDispatch) => {
         })
 }
 
-export const openModalOrder:AppThunk = (selectIngredient) => (dispatch: AppDispatch) => {
+export const openModalOrder:AppThunk = (selectIngredient: TIngredient) => (dispatch: AppDispatch) => {
 
     return getNumberOrder(selectIngredient)
         .then(res => {
