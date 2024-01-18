@@ -7,12 +7,12 @@ export const REGISTER_SEND/* :'AUTH/REGISTER_SEND' */ = 'AUTH/REGISTER_SEND'
 export const REGISTER_SUCCESS/* :'AUTH/REGISTER_SUCCESS' */ = 'AUTH/REGISTER_SUCCESS';
 export const REGISTER_ERROR/* :'AUTH/REGISTER_ERROR' */ = 'AUTH/REGISTER_ERROR'
 
-export const LOGIN_SEND/* :'AUTH/LOGIN_SEND' */ = 'AUTH/LOGIN_SEND';
-export const LOGIN_SUCCESS/* :'AUTH/LOGIN_SUCCESS' */ = 'AUTH/LOGIN_SUCCESS';
-export const LOGIN_ERROR/* :'AUTH/LOGIN_ERROR' */ = 'AUTH/LOGIN_ERROR'
+export const LOGIN_SEND:'AUTH/LOGIN_SEND' = 'AUTH/LOGIN_SEND';
+export const LOGIN_SUCCESS:'AUTH/LOGIN_SUCCESS' = 'AUTH/LOGIN_SUCCESS';
+export const LOGIN_ERROR:'AUTH/LOGIN_ERROR' = 'AUTH/LOGIN_ERROR'
 
-export const LOGOUT/* :'AUTH/LOGOUT' */ = 'AUTH/LOGOUT'
-export const SET_USER/* :'AUTH/GET_USER' */ = 'AUTH/GET_USER'
+export const LOGOUT:'AUTH/LOGOUT' = 'AUTH/LOGOUT'
+export const SET_USER:'AUTH/GET_USER' = 'AUTH/GET_USER'
 
 
 export const register = ({ login , password, email }) => (dispatch) => {
@@ -46,6 +46,8 @@ export const login = ({ email, password }) => (dispatch) => {
     dispatch({ type: LOGIN_SEND });
     return loginApi({ email, password })
         .then((res) => {
+            console.log('login', res);
+            
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res
