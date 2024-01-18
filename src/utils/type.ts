@@ -3,6 +3,8 @@ import { ThunkAction } from "redux-thunk"
 import { store } from ".."
 import { GET_INGREDIENTS, INGREDIENTS_LOAD_SUCCESS, OPEN_MODAL_ORDER_SUCCESS, OPEN_MODAL_INGREDIENT, CLOSE_MODAL, ERROR, LOADING, OPEN_MODAL } from "../services/ingredients/action"
 import { DELETE_INGREDIENT, ITEM_TYPE, UPDATE_TYPE, UPDATE_TYPE_BUN } from "../services/dnd/actions/draggable-ingredient"
+import { HISTORY_ORDERS_CONNECT, HISTORY_ORDERS_WS_CLOSE, HISTORY_ORDERS_WS_CONNECTING, HISTORY_ORDERS_WS_ERROR, HISTORY_ORDERS_WS_MESSAGE } from "../services/historyorder/actions/wsHistoryOrdersActions"
+import { RootState } from "../services/store"
 
 export type TIngredient = {
     board: string,
@@ -58,6 +60,9 @@ export type TOrder = {
     _id: string
 }
 
+
+
+
 export type TOrderResponse = {
     name: string,
     order: TOrder,
@@ -85,7 +90,7 @@ export interface IGetIngredientsAction { // есть сомнения о нео�
 
 export interface IIngredientsLoadSuccessAction {
     readonly type: typeof INGREDIENTS_LOAD_SUCCESS;
-    readonly loading: boolean;
+    /* readonly loading: boolean; */
     readonly payload: TAction;
 }
 
@@ -114,7 +119,7 @@ export interface IError {
 export interface ILoading {
     readonly type: typeof LOADING;
     readonly loading: boolean;
-    readonly error: any;
+   /*  readonly error: any; */
 }
 
 export interface IOpenModal {
@@ -140,6 +145,7 @@ export type TIngredientActions =
     | IOpenModal
     /* | IDeleteIngredient */;
 
+//Типизация dnd   
 export interface IDeleteIngredientOther {
     readonly type: typeof DELETE_INGREDIENT;
     readonly payload: Array<TIngredient>
@@ -171,8 +177,7 @@ export type TDraggableIngredientAction =
     | IIngredientsLoadSuccessAction
     | IOpenModalOrderSuccess
 
+//Типизация historyorder
+
 // Типизация Thunk
 export type TApplicationActions = TIngredientActions;
-export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>;
-export type AppDispatch = typeof store.dispatch;

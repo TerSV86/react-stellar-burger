@@ -12,6 +12,7 @@ import { wsUrl } from '../../utils/burger'
 
 const OrderFeedPage = () => {
     const orders = useSelector(store => store.orders.burgers.orders)
+    console.log(orders);
     const dispatch = useDispatch()
     const location = useLocation()
     const { number } = useParams()

@@ -23,7 +23,8 @@ import {
     HISTORY_ORDERS_WS_MESSAGE
 } from './historyorder/actions/wsHistoryOrdersActions'
 
-
+import { store } from ".."
+import { TDraggableIngredientsState, TIngredientActions, TIngredientsState } from "../utils/type"
 
 const wsActions = {
     wsInit: BURGER_JOINT_CONNECT,
@@ -43,6 +44,15 @@ const wsHistoryOrdersActions = {
     onClose: HISTORY_ORDERS_WS_CLOSE,
     onError: HISTORY_ORDERS_WS_ERROR,
     onMessage: HISTORY_ORDERS_WS_MESSAGE
+}
+export type RootState = ReturnType<typeof store.getState>;
+
+interface InitialState {
+    ingredients: TIngredientsState;
+    ingredientList: TDraggableIngredientsState;
+
+    
+    
 }
 
 export const configureStore = (initialState) => {

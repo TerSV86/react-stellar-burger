@@ -3,7 +3,7 @@ import styles from './AppHeader.module.css'
 import { ProfileIcon, BurgerIcon, ListIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ReactNode } from 'react';
 import { NavLink, useLocation, NavLinkProps } from 'react-router-dom';
-import { TIconProps } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
+import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
 
 
 interface INavLinkProps {
@@ -24,7 +24,7 @@ interface IAppHeader {
     BurgerIcon: JSX.Element;
 }
 
-const AppHeader: React.FC<NavLinkProps> = () => {
+const AppHeader = ():ReactNode => {
     const location: ILocation = useLocation()
     console.log(location);
 
@@ -34,12 +34,11 @@ const AppHeader: React.FC<NavLinkProps> = () => {
 
     return (
         <header className={`${styles.AppHeader} mb-4 mt-4`}>
-           
-             <NavLink to='/' className={`${styles.LinkConstructor} ${styles.Link}`} style={setActive} >
+            <NavLink to='/' className={`${styles.LinkConstructor} ${styles.Link}`} style={setActive} >
                 <BurgerIcon type={setType('/')} />
                 <span className='text text_type_main-default'>Конструктор</span>
             </NavLink>
-                       
+
             <NavLink to='/feed' className={`${styles.Link} ${styles.LinkListOrder}`} style={setActive}>
                 {<ListIcon /* type='secondary' */ type={setType('/feed')} />}
                 <span className='text text_type_main-default'>Лента заказов</span>
@@ -48,8 +47,8 @@ const AppHeader: React.FC<NavLinkProps> = () => {
             <NavLink to={'/profile'} className={`${styles.Link} ${styles.LinkProfile}`} style={setActive} >
                 {<ProfileIcon type={setType('/profile')} />}
                 <span className="text text_type_main-default">Личный кабинет</span>
-            </NavLink>  
-           
+            </NavLink>
+
         </header>
     )
 }

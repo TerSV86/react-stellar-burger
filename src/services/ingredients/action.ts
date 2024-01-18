@@ -7,7 +7,9 @@ import { ThunkAction } from "redux-thunk";
 import { Action, ActionCreator } from "redux";
 import { store } from "../..";
 
-import { AppThunk, AppDispatch, TIngredient, } from "../../utils/type";
+import { TIngredient, } from "../../utils/type";
+import { AppDispatch, AppThunk } from "../../utils/typeThunk";
+
 
 export const GET_INGREDIENTS: 'GET_INGREDIENTS' = 'GET_INGREDIENTS';
 /* export const ADD_BUN:'ADD_BUN' = 'ADD_BUN'; */

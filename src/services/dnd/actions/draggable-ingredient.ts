@@ -1,4 +1,5 @@
-import { AppDispatch, AppThunk, TIngredient } from "../../../utils/type";
+import { TIngredient } from "../../../utils/type";
+import { AppDispatch, AppThunk } from "../../../utils/typeThunk";
 
 export const UPDATE_TYPE:'UPDATE_TYPE'  = 'UPDATE_TYPE';
 

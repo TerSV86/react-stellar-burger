@@ -1,13 +1,14 @@
 import { WebSocketStatus } from "../../../utils/burger";
+import { THistoryOrderAction, THistoryOrderState } from "../../../utils/typeOrderFeed";
 import { HISTORY_ORDERS_WS_CLOSE, HISTORY_ORDERS_WS_CONNECTING, HISTORY_ORDERS_WS_ERROR, HISTORY_ORDERS_WS_MESSAGE } from "../actions/wsHistoryOrdersActions";
 
-const initialState = {
+const initialState:THistoryOrderState = {
     status: WebSocketStatus.OFFLINE,
     userOrders: [],
     connectingError: ''
 }
 
-export const wsHistoryOrdersReducer = (state = initialState, action) => {
+export const wsHistoryOrdersReducer = (state = initialState, action: THistoryOrderAction) => {
     
     switch (action.type) {
         case HISTORY_ORDERS_WS_CONNECTING:            

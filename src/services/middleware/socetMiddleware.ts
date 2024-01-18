@@ -2,8 +2,10 @@ import { getCookie } from "../../utils/cookie";
 import { checkAutoLogin } from "../auth/actions/actions";
 import { fetchWithRefresh } from "../../utils/burger-api";
 import { burgerApiConfig } from "../../utils/burger-api";
+import { AppThunk, THistoryOrderAction } from "../../utils/type";
 
-export const socketMiddleware = (wsActions) => {
+
+export const socketMiddleware: AppThunk = (wsActions: THistoryOrderAction) => {
 
     return store => {
         let socket = null;

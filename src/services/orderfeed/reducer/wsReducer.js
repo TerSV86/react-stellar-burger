@@ -13,6 +13,8 @@ const initialState = {
     connectingError: ''
 }
 
+
+
 export const wsReducer = (state = initialState, action) => {
     
     switch (action.type) {
