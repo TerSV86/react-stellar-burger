@@ -1,6 +1,7 @@
+import { TScrollActions, TScrollState } from "../../../utils/typeScroll";
 import { SCROLL_INGREDIENTS_BUN, SCROLL_INGREDIENTS_SAUCES, SCROLL_INGREDIENTS_MAIN } from "../action/scrollIngredients";
 
-const initialState = {
+const initialState: TScrollState = {
     active: {
         bun: true,
         sauces: false,
@@ -8,7 +9,7 @@ const initialState = {
     }
 }
 
-export const scrollIngredientsReducer = (state = initialState, action) => {
+export const scrollIngredientsReducer = (state = initialState, action: TScrollActions) => {
     switch (action.type) {
         case SCROLL_INGREDIENTS_BUN: {
             return {
