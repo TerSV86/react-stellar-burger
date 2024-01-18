@@ -6,8 +6,9 @@ import {
     BURGER_JOINT_WS_MESSAGE,
 } from "../actions/wsActions";
 import { WebSocketStatus } from "../../../utils/burger";
+import { TOrderFeedAction, TOrderFeedState } from "../../../utils/typeOrderFeed";
 
-const initialState = {
+const initialState: TOrderFeedState = {
     status: WebSocketStatus.OFFLINE,
     burgers: [],
     connectingError: ''
@@ -15,7 +16,7 @@ const initialState = {
 
 
 
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (state = initialState, action: TOrderFeedAction) => {
     
     switch (action.type) {
         case BURGER_JOINT_WS_CONNETING:
@@ -44,7 +45,7 @@ export const wsReducer = (state = initialState, action) => {
             
             return {
                 ...state,
-                burgers: action.payload // state.burgers.legth ? [...state.burgers, {...action.payload}]
+                burgers: action.payload 
             }
         default:
             return state;

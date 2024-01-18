@@ -1,5 +1,5 @@
 import { WebSocketStatus } from "../../../utils/burger";
-import { THistoryOrderAction, THistoryOrderState } from "../../../utils/typeOrderFeed";
+import { THistoryOrderAction, THistoryOrderState } from "../../../utils/typeHistoryOrder";
 import { HISTORY_ORDERS_WS_CLOSE, HISTORY_ORDERS_WS_CONNECTING, HISTORY_ORDERS_WS_ERROR, HISTORY_ORDERS_WS_MESSAGE } from "../actions/wsHistoryOrdersActions";
 
 const initialState:THistoryOrderState = {
