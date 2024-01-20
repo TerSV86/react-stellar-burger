@@ -10,7 +10,7 @@ import { TOrderFeedAction, TOrderFeedState } from "../../../utils/typeOrderFeed"
 
 const initialState: TOrderFeedState = {
     status: WebSocketStatus.OFFLINE,
-    burgers: [],
+    burgers: { },
     connectingError: ''
 }
 

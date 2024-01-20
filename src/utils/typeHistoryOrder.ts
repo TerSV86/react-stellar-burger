@@ -15,7 +15,7 @@ export type TWebSocketStatus = {
 
 type TUserBurgerOrder = TBurgerOrder;
 
-type TUserOrders = {
+export type TUserOrders = {
     orders: Array<TUserBurgerOrder>;
     total: number;
     totalToday: number;
@@ -47,7 +47,7 @@ readonly payload: string;
 
 export interface IHistoryOrdersWSMessage {
     readonly type: typeof HISTORY_ORDERS_WS_MESSAGE;
-    readonly payload: Array<TOrderWS>;
+    readonly payload: TUserOrders;
 }
 
 export interface IHistoryOrdersWSConnecting {

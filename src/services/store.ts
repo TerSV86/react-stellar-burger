@@ -25,6 +25,11 @@ import {
 
 import { store } from ".."
 import { TDraggableIngredientsState, TIngredientActions, TIngredientsState } from "../utils/type"
+import { TOrderFeedAction } from "../utils/typeOrderFeed"
+
+export type TWSActions = typeof wsActions
+export type TWSHistoryOrdersActions = typeof wsHistoryOrdersActions
+
 
 const wsActions = {
     wsInit: BURGER_JOINT_CONNECT,
@@ -53,7 +58,7 @@ export const configureStore = (initialState: RootState) => {
     const store = createStore(
         reducer,
         initialState,
-        composeWithDevTools(applyMiddleware(thunkMiddleware, socketMiddleware(wsActions), socketMiddleware(wsHistoryOrdersActions))) //функция обеспечивающая поддержку reduxDevTools
+        composeWithDevTools(applyMiddleware(thunkMiddleware, socketMiddleware(wsActions) as any, socketMiddleware(wsHistoryOrdersActions) as any)) //функция обеспечивающая поддержку reduxDevTools
     )
     return store;
 }
