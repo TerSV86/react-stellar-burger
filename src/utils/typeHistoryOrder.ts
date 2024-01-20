@@ -1,5 +1,6 @@
 import { HISTORY_ORDERS_CONNECT, HISTORY_ORDERS_WS_CLOSE, HISTORY_ORDERS_WS_CONNECTING, HISTORY_ORDERS_WS_ERROR, HISTORY_ORDERS_WS_MESSAGE } from "../services/historyorder/actions/wsHistoryOrdersActions";
 import { TOrder } from "./type";
+import { TBurgerOrder } from "./typeOrderFeed";
 
 
 
@@ -11,16 +12,24 @@ export type TWebSocketStatus = {
     ONLINE: typeof ONLINE;
     OFFLINE: typeof OFFLINE;
 }
+
+type TUserBurgerOrder = TBurgerOrder;
+
+type TUserOrders = {
+    orders: Array<TUserBurgerOrder>;
+    total: number;
+    totalToday: number;
+}
+
+
+export type THistoryOrderState = {
+    status: string; // Почему не работает TWebSocketStatus[keyof TWebSocketStatus] или typeof CONNECTING | typeof ONLINE | typeof OFFLINE;
+    userOrders: TUserOrders | {};
+    connectingError: string;
+}
 export type TOrderWS = Omit<TOrder, 'ingredients' | 'owner' | 'prise'> & {
     ingredients: Array<string>;
 }
-
-export type THistoryOrderState = {
-    status: string // Почему не работает TWebSocketStatus[keyof TWebSocketStatus] или typeof CONNECTING | typeof ONLINE | typeof OFFLINE;
-    userOrders: Array<TOrder>;
-    connectingError: string;
-}
-
 
 export interface IConnectHistoryOrder {
     readonly type: typeof HISTORY_ORDERS_CONNECT;

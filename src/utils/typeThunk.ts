@@ -1,7 +1,7 @@
 import { Action, ActionCreator } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { TApplicationActions } from "./type";
-import { RootState } from "../services/store";
+import { RootState } from "../services/reducer";
 import { store } from "..";
 
 

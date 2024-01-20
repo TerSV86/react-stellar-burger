@@ -4,7 +4,7 @@ import { store } from ".."
 import { GET_INGREDIENTS, INGREDIENTS_LOAD_SUCCESS, OPEN_MODAL_ORDER_SUCCESS, OPEN_MODAL_INGREDIENT, CLOSE_MODAL, ERROR, LOADING, OPEN_MODAL } from "../services/ingredients/action"
 import { DELETE_INGREDIENT, ITEM_TYPE, UPDATE_TYPE, UPDATE_TYPE_BUN } from "../services/dnd/actions/draggable-ingredient"
 import { HISTORY_ORDERS_CONNECT, HISTORY_ORDERS_WS_CLOSE, HISTORY_ORDERS_WS_CONNECTING, HISTORY_ORDERS_WS_ERROR, HISTORY_ORDERS_WS_MESSAGE } from "../services/historyorder/actions/wsHistoryOrdersActions"
-import { RootState } from "../services/store"
+
 
 export type TIngredient = {
     board: string,
@@ -118,7 +118,7 @@ export interface IError {
 
 export interface ILoading {
     readonly type: typeof LOADING;
-    readonly loading: boolean;
+    /* readonly loading: boolean; */
    /*  readonly error: any; */
 }
 

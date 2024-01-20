@@ -2,7 +2,7 @@ import { applyMiddleware, createStore } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
 /* import { customMiddleware } from "./middleware/custom-middleware" */
 import thunkMiddleware from "redux-thunk"
-import { reducer } from './reducer'
+import { RootState, reducer } from './reducer'
 import { socketMiddleware } from "./middleware/socetMiddleware"
 import {
     BURGER_JOINT_CONNECT,
@@ -45,17 +45,11 @@ const wsHistoryOrdersActions = {
     onError: HISTORY_ORDERS_WS_ERROR,
     onMessage: HISTORY_ORDERS_WS_MESSAGE
 }
-export type RootState = ReturnType<typeof store.getState>;
 
-interface InitialState {
-    ingredients: TIngredientsState;
-    ingredientList: TDraggableIngredientsState;
 
-    
-    
-}
 
-export const configureStore = (initialState) => {
+
+export const configureStore = (initialState: RootState) => {
     const store = createStore(
         reducer,
         initialState,

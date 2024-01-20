@@ -46,9 +46,7 @@ export const OPEN_MODAL: 'OPEN_MODAL' = 'OPEN_MODAL';
 
 export const loadIngredients: AppThunk = () => (dispatch: AppDispatch) => {
 
-    dispatch({
-        type: LOADING
-    })
+    dispatch({type: LOADING })
     return getProductData()
         .then(res => {
             res.data.map((element:TIngredient) => {

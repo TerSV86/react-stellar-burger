@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "./services/store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-
+import { RootState } from "./services/reducer";
 import { WebSocketStatus } from "./utils/burger";
 
 
@@ -21,7 +21,7 @@ export const store = configureStore(
         numberOrder: 0,
         isClickButtonOrder: false,
       },
-      openModalIngredient: null,
+      /* openModalIngredient: null, */
       error: null,
       loading: false
     },
@@ -38,13 +38,7 @@ export const store = configureStore(
       }
     },
     auth: {
-      user: null /* {
-        success: false,
-        user: {
-          email: '',
-          name: ''
-        }
-      } */,
+      user: null,
       tokenUpdate: false,
       tokenUpdateSuccess: false,
       registerSending: false,
@@ -54,8 +48,8 @@ export const store = configureStore(
       isAuthChecked: false,
     },
     orders: {
-      status:  WebSocketStatus.OFFLINE ,
-      burgers: [],
+      status: WebSocketStatus.OFFLINE,
+      burgers: {},
       connectingError: ''
     },
     userOrders: {

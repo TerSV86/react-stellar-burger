@@ -6,7 +6,7 @@ import { AppThunk } from "../../utils/typeThunk";
 import { THistoryOrderAction } from "../../utils/typeHistoryOrder"; 
 
 
-export const socketMiddleware: AppThunk = (wsActions: THistoryOrderAction) => {
+export const socketMiddleware:  = (wsActions: THistoryOrderAction) => {
 
     return store => {
         let socket = null;

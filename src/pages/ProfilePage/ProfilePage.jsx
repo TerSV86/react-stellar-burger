@@ -19,7 +19,7 @@ const ProfilePage = () => {
     const [isEditLogin, setEditLogin] = useState(false)
     const [isEditEmail, setEditEmail] = useState(false)
     const [isEditPassword, setEditPassword] = useState(false)
-    const user = useSelector(store => store.auth.user.user)
+    const user = useSelector(store => store.auth.user)
     //const userOrders = useSelector(store => store.userOrders.userOrders)
 
 

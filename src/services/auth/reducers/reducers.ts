@@ -1,5 +1,7 @@
 import { TAuthActions, TAuthState } from "../../../utils/typeAuth";
 import { LOGIN_ERROR, LOGIN_SEND, LOGIN_SUCCESS, LOGOUT, REGISTER_ERROR, REGISTER_SEND, REGISTER_SUCCESS, SET_USER } from "../actions/actions";
+
+
 const initialState: TAuthState = {
     user: null,
     tokenUpdate: false,
@@ -71,10 +73,7 @@ export const authReducer = (state = initialState, action: TAuthActions) => {
 
             return {
                 ...state,
-                user: {
-                    ...state,
-                    user: action.payload,
-                },
+                user: action.payload,
                 isAuthChecked: true, //*
             }
         default:

@@ -2,11 +2,28 @@ import { HISTORY_ORDERS_WS_CONNECTING } from "../services/historyorder/actions/w
 import { BURGER_JOINT_WS_CLOSE, BURGER_JOINT_WS_CONNETING, BURGER_JOINT_WS_ERROR, BURGER_JOINT_WS_MESSAGE, BURGER_JOINT_WS_OPEN } from "../services/orderfeed/actions/wsActions";
 import { TOrderWS } from "./typeHistoryOrder";
 
+type TBurgers = {
+    orders: Array<TOrders>;
+    total: number;
+    totalToday: number;
+}
+
+type TOrders = Array<TBurgerOrder>
+
+export type TBurgerOrder = {
+    _id: string;
+    ingredients: string[];
+    status: string;
+    name: string;
+    createAt: string;
+    updateAt: string;
+    number: number;
+ }
 
 export type TOrderFeedState = {
-    status: String;
-    burgers: Array<string>;
-    connectingError: String;
+    status: string;
+    burgers: TBurgers | {};
+    connectingError: string;
 }
 
 export interface IBurgerJointWSConnecting {

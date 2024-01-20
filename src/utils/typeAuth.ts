@@ -1,18 +1,19 @@
 import { LOGIN_ERROR, LOGIN_SEND, LOGIN_SUCCESS, LOGOUT, REGISTER_ERROR, REGISTER_SEND, REGISTER_SUCCESS, SET_USER } from "../services/auth/actions/actions";
+
 export interface IUser {
     email: string;
     name: string;
 }
 
-export interface ILoginRespons {
+/* export interface ILoginRespons {
     accessToken: string;
     refreshToken: string;
     success: boolean;
     user: IUser;
-}
+} */
 
 export type TAuthState = {
-    user: IUser | null;
+    user: null | IUser;
     tokenUpdate: boolean;
     tokenUpdateSuccess: boolean;
     registerSending: boolean;

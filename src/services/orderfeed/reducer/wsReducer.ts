@@ -23,7 +23,7 @@ export const wsReducer = (state = initialState, action: TOrderFeedAction) => {
             
             return {
                 ...state,
-                status: true
+                status: WebSocketStatus.ONLINE
             }
             case BURGER_JOINT_WS_OPEN:
             return{
@@ -34,12 +34,12 @@ export const wsReducer = (state = initialState, action: TOrderFeedAction) => {
             
             return {
                 ...state,
-                status: false
+                status:  WebSocketStatus.OFFLINE
             }
         case BURGER_JOINT_WS_ERROR:
             return {
                 ...state,
-                status: false
+                status:  WebSocketStatus.OFFLINE
             }
         case BURGER_JOINT_WS_MESSAGE:
             
