@@ -2,10 +2,11 @@ import { loginApi, userRegister, logoutApi, userApi, getUserApi, fetchWithRefres
 import { getCookie, setCookie } from "../../../utils/cookie";
 import { optionsFetchWithRefresh } from "../../../utils/burger";
 import { refreshToken, checkReponse } from "../../../utils/burger-api";
+import { AppDispatch, AppThunk } from "../../../utils/typeThunk";
 
-export const REGISTER_SEND/* :'AUTH/REGISTER_SEND' */ = 'AUTH/REGISTER_SEND'
-export const REGISTER_SUCCESS/* :'AUTH/REGISTER_SUCCESS' */ = 'AUTH/REGISTER_SUCCESS';
-export const REGISTER_ERROR/* :'AUTH/REGISTER_ERROR' */ = 'AUTH/REGISTER_ERROR'
+export const REGISTER_SEND:'AUTH/REGISTER_SEND' = 'AUTH/REGISTER_SEND'
+export const REGISTER_SUCCESS:'AUTH/REGISTER_SUCCESS' = 'AUTH/REGISTER_SUCCESS';
+export const REGISTER_ERROR:'AUTH/REGISTER_ERROR' = 'AUTH/REGISTER_ERROR'
 
 export const LOGIN_SEND:'AUTH/LOGIN_SEND' = 'AUTH/LOGIN_SEND';
 export const LOGIN_SUCCESS:'AUTH/LOGIN_SUCCESS' = 'AUTH/LOGIN_SUCCESS';
@@ -15,7 +16,7 @@ export const LOGOUT:'AUTH/LOGOUT' = 'AUTH/LOGOUT'
 export const SET_USER:'AUTH/GET_USER' = 'AUTH/GET_USER'
 
 
-export const register = ({ login , password, email }) => (dispatch) => {
+export const register: AppThunk = ({ login , password, email }) => (dispatch: AppDispatch) => {
 
     dispatch({ type: REGISTER_SEND })
     return userRegister({ login, password, email })
@@ -42,7 +43,7 @@ export const register = ({ login , password, email }) => (dispatch) => {
         })
 }
 
-export const login = ({ email, password }) => (dispatch) => {
+export const login: AppThunk = ({ email, password }) => (dispatch: AppDispatch) => {
     dispatch({ type: LOGIN_SEND });
     return loginApi({ email, password })
         .then((res) => {
@@ -70,7 +71,7 @@ export const login = ({ email, password }) => (dispatch) => {
         })
 }
 
-export const logout = () => (dispatch) => {
+export const logout: AppThunk = () => (dispatch: AppDispatch) => {
     return logoutApi()
         .then((res) => {
             dispatch({
@@ -85,7 +86,7 @@ export const logout = () => (dispatch) => {
 
 }
 
-export const getUser = (data) => (dispatch) => {
+export const getUser: AppThunk = (data) => (dispatch: AppDispatch) => {
     
     return userApi(data)
         .then((res) => {            
@@ -105,7 +106,7 @@ export const getUser = (data) => (dispatch) => {
 
 
 
-export const getUser1 = () => (dispatch) => {
+export const getUser1: AppThunk = () => (dispatch: AppDispatch) => {
 
     return getUserApi()
         .then((res) => {
@@ -125,7 +126,7 @@ export const getUser1 = () => (dispatch) => {
         })
 }
 
-export const checkAutoLogin = () => (dispatch) => {
+export const checkAutoLogin: AppThunk = () => (dispatch: AppDispatch) => {
     
     const token = localStorage.getItem('accessToken');
     console.log(token);
