@@ -2,7 +2,8 @@ import { getCookie } from "../../utils/cookie";
 import { checkAutoLogin } from "../auth/actions/actions";
 import { fetchWithRefresh } from "../../utils/burger-api";
 import { burgerApiConfig } from "../../utils/burger-api";
-import { AppThunk, THistoryOrderAction } from "../../utils/type";
+import { AppThunk } from "../../utils/typeThunk";
+import { THistoryOrderAction } from "../../utils/typeHistoryOrder"; 
 
 
 export const socketMiddleware: AppThunk = (wsActions: THistoryOrderAction) => {
