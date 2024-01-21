@@ -1,6 +1,6 @@
 import styles from './NavbarProduts.module.css'
 import ButtonProduct from '../ButtonProduct/ButtonProduct'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../hooks/hooks'
 
 const NavbarProduts = () => {
     const active = useSelector(store => store.scrollIngredients.active);

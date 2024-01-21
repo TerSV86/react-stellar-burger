@@ -1,28 +1,10 @@
 
 import styles from './AppHeader.module.css'
 import { ProfileIcon, BurgerIcon, ListIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { NavLink, useLocation, NavLinkProps } from 'react-router-dom';
-import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
+import { ILocation, INavLinkProps, TSetType } from '../../utils/type';
 
-
-interface INavLinkProps {
-    isActive: boolean;
-}
-
-interface ILocation {
-    pathname: string;
-    search: string;
-    hash: string;
-    state: any;
-    key: string;
-}
-
-type TSetType = 'primary' | 'secondary'
-
-interface IAppHeader {
-    BurgerIcon: JSX.Element;
-}
 
 const AppHeader: FC = () => {
     const location: ILocation = useLocation()
@@ -48,7 +30,6 @@ const AppHeader: FC = () => {
                 {<ProfileIcon type={setType('/profile')} />}
                 <span className="text text_type_main-default">Личный кабинет</span>
             </NavLink>
-
         </header>
     )
 }

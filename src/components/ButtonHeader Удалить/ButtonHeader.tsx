@@ -1,6 +1,12 @@
 import styles from './ButtonHeader.module.css'
-import { buttonHeaderPropType } from '../../utils/prop-types'
+/* import { buttonHeaderPropType } from '../../utils/prop-types'
 import { useNavigate, Link } from 'react-router-dom'
+
+type Prop = {
+    style: string,
+    name: string,
+    icon: 
+}
 
 const ButtonHeader = ({ style, name, icon }) => {
     const navigate = useNavigate()
@@ -18,6 +24,6 @@ const ButtonHeader = ({ style, name, icon }) => {
     )
 }
 
-ButtonHeader.propTypes = buttonHeaderPropType;
+ButtonHeader.propTypes = buttonHeaderPropType; */
 
-export default ButtonHeader
+/* export default ButtonHeader */

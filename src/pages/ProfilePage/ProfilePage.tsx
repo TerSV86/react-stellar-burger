@@ -3,7 +3,7 @@ import ProfileNavigation from '../../components/ProfileNavigation/ProfileNavigat
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import Form from '../../components/Form/Form'
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from '../../hooks/hooks'
 import { getUser } from '../../services/auth/actions/actions'
 import { getUserApi, userApi, getUserRefresh, fetchWithRefresh, burgerApiConfig } from '../../utils/burger-api'
 import { ButtonsProfile } from '../../components/ButtonsProfile/ButtonsProfile'
@@ -11,6 +11,12 @@ import { Outlet, useLocation, useParams } from 'react-router-dom'
 import { checkAutoLogin } from '../../services/auth/actions/actions'
 import { useForm } from '../../hooks/useForm'
 
+
+export type Form = {
+    name: string,
+    email: string,
+    password: string
+}
 
 const ProfilePage = () => {
     const dispatch = useDispatch()
@@ -23,7 +29,7 @@ const ProfilePage = () => {
     //const userOrders = useSelector(store => store.userOrders.userOrders)
 
 
-    const [form, setValue] = useState({ name: '', email: '', password: '' })
+    const [form, setValue] = useState<Form>({ name: '', email: '', password: '' })
     const { name, email, password } = form
 
     useEffect(() => {
@@ -66,8 +72,8 @@ const ProfilePage = () => {
     }
     if (location.pathname.includes(`/profile/order/`)) {
         return (<div className={`${styles.outlet}`}>
-        <Outlet />
-    </div>)
+            <Outlet />
+        </div>)
     }
 
     return (
@@ -129,7 +135,7 @@ const ProfilePage = () => {
                         onIconClick={(e) => handleClickEdit(e)} />)}
                 {(isEditLogin || isEditEmail || isEditPassword) ? <ButtonsProfile onClickSave={handleClickButtonSave} data={form} /> : null}
             </Form>}
-            {location.pathname === '/profile/order' &&  <Outlet />}
+            {location.pathname === '/profile/order' && <Outlet />}
         </main>
 
     )

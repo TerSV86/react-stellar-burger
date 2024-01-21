@@ -15,11 +15,12 @@ export type TIngredient = {
     image_large: string,
     image_mobile: string,
     name: string,
-    prise: number,
+    price: number,
     proteines: number,
     type: string,
     __v: number,
-    _id: string
+    _id: string,
+    randomId?:string,
 }
 
 export type TIngredientsState = {
@@ -181,3 +182,21 @@ export type TDraggableIngredientAction =
 
 // Типизация Thunk
 export type TApplicationActions = TIngredientActions;
+
+//Типизация AppHeader
+
+export interface INavLinkProps {
+    isActive: boolean;
+}
+
+export interface ILocation {
+    pathname: string;
+    search: string;
+    hash: string;
+    state: any;
+    key: string;
+}
+
+export type TSetType = 'primary' | 'secondary'
+
+//Типизация BlockEnergyValue

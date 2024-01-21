@@ -2,11 +2,11 @@ import IngredientsContainer from '../IngredientsContainer/IngredientsContainer'
 import styles from './BurgerConstructor.module.css'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderBlock from '../OrderBlock/OrderBlock'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../hooks/hooks'
 import { useDrop } from 'react-dnd'
-import { addIngredientBun, addIngredientSort } from '../../services/dnd/actions/draggable-ingredient'
-
+import { addIngredientBun } from '../../services/dnd/actions/draggable-ingredient'
 import {v4 as uuid4} from 'uuid'
+import { TIngredient } from '../../utils/type'
 
 
 
@@ -22,16 +22,14 @@ const BurgerConstructor = () => {
         collect: monitor => ({
             isHover: monitor.isOver(),
         }),
-        drop(product) {
+        drop(product: TIngredient) {
             const randomId = uuid4();
             product.board = board
-            const updatedProduct = { ...product, randomId, board };
-            
+            const updatedProduct = { ...product, randomId, board };            
             let newArray;
             const delBun = selectIngredient.filter(ingredient => ingredient.type !== 'bun');
             newArray = [...delBun, updatedProduct]
-            dispatch(addIngredientBun(newArray))    
-            /* dispatch(addIngredientSort(product, board)) */
+            dispatch(addIngredientBun(newArray))           
         }
     })
 
@@ -39,7 +37,7 @@ const BurgerConstructor = () => {
 
     return (
         <section className={`${styles.BurgerConstructor}  pt-25 `}  >
-            <div className={`${styles.BurgerConstructorBun} ${borderColor}`} board='burgerBunIngredient' ref={drop}>
+            <div className={`${styles.BurgerConstructorBun} ${borderColor}`} /* board='burgerBunIngredient' */ ref={drop}>
                 {selectIngredient
                     .filter(el => el.board === board)
                     .map((el) => {
