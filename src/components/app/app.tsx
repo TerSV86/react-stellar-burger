@@ -1,12 +1,12 @@
 import styles from "./app.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import ConstructorPage from "../../pages/ConstructorPage/ConstructorPage";
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { loadIngredients } from "../../services/ingredients/action";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/hooks";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Routes, Route, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -26,14 +26,16 @@ import { connectHistoryOrder } from '../../services/historyorder/actions/wsHisto
 /* import { getUserRefresh } from "../../services/auth/actions/actions"; */
 import NotFound404 from "../NotFound404/NotFound404";
 
-function App() {
+function App (): FC {
 
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
   const { isOpen } = useSelector(store => store.ingredients.openModalOrder)
-  const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient)
+ /*  const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient) */
+ /*  console.log("App",ingredientDetails); */
+  
   const { error, loading } = useSelector(store => store.ingredients)
 
   const handleModalClose = () => {
@@ -83,7 +85,7 @@ function App() {
                 <AnonymousRoute
                   element={
                     <Modal title={"Детали ингредиента"} onClose={handleModalClose} >
-                      {<IngredientDetails ingredient={ingredientDetails} />}
+                      {<IngredientDetails /* ingredient={ingredientDetails} */ />}
                     </Modal>}
                 />}
             />

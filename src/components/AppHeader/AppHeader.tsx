@@ -1,7 +1,7 @@
 
 import styles from './AppHeader.module.css'
 import { ProfileIcon, BurgerIcon, ListIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { NavLink, useLocation, NavLinkProps } from 'react-router-dom';
 import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
 
@@ -24,7 +24,7 @@ interface IAppHeader {
     BurgerIcon: JSX.Element;
 }
 
-const AppHeader = ():ReactNode => {
+const AppHeader: FC = () => {
     const location: ILocation = useLocation()
     console.log(location);
 

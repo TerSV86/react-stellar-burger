@@ -24,7 +24,7 @@ export function getRelativeTimeString(date, lang) {
     )
 }
 
-export const statusOrder = (data) => {
+export const statusOrder = (data: string) => {
     switch (data) {
         case 'done':
             return data = 'Выполнен'

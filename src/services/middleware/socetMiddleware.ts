@@ -16,8 +16,7 @@ export const socketMiddleware: Middleware = (wsActions: TWSActions | TWSHistoryO
     return (store: any) => {
         let socket: WebSocket | null = null;
         return (next) => (action: TAction) => {
-            console.log('action', store);
-
+            
             const { dispatch, getState } = store;
             const { type, payload } = action;
             const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
