@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import OrderFeedBlock from '../OrderFeedBlock/OrderFeedBlock';
 import styles from './HistoryOrder.module.css'
 import HistoryOrderBlock from '../HistoryOrderBlock/HistoryOrderBlock';

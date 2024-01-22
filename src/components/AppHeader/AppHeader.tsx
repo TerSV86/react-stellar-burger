@@ -7,7 +7,7 @@ import { ILocation, INavLinkProps, TSetType } from '../../utils/type';
 
 
 const AppHeader: FC = () => {
-    const location: ILocation = useLocation()
+    const location = useLocation<ILocation>()
     console.log(location);
 
     const setActive = ({ isActive }: INavLinkProps): React.CSSProperties => ({ color: isActive ? '#F2F2F3' : '' })

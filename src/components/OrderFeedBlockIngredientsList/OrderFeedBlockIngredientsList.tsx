@@ -1,10 +1,14 @@
 import CountOverlay from '../CountOverlay/CountOverlay';
 import styles from './OrderFeedBlockIngredientsList.module.css'
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
 import { orderFeedBlockIngredientsPropType } from '../../utils/prop-types';
 import React from 'react'
 
-const OrderFeedBlockIngredientsList = ({ ingredients }) => {
+type Prop = {
+    ingredients: string[]
+}
+
+const OrderFeedBlockIngredientsList = ({ ingredients }: Prop) => {
     const products = useSelector(store => store.ingredients.ingredients)
 
     const uniqueIngredientsSet = new Set(ingredients)

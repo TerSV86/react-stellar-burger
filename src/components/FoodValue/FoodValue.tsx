@@ -2,7 +2,14 @@ import { foodValuePropType } from '../../utils/prop-types'
 import BlockEnergyValue from '../BlockEnergyValue/BlockEnergyValue'
 import styles from './FoodValue.module.css'
 
-const FoodValue = ({carbs, cal, fat, proteins}) => {
+type Prop = {
+    carbs: number;
+    cal: number;
+    fat: number;
+    proteins: number;
+}
+
+const FoodValue = ({carbs, cal, fat, proteins}: Prop) => {
     return (
         <div className={`${styles.FoodValue} pb-15`}>
             <BlockEnergyValue name='Калории,ккал' value={cal} />

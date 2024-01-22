@@ -3,7 +3,12 @@ import { getRelativeTimeString } from '../../utils/burger';
 import { orderFeedBlockHeaderPropType } from '../../utils/prop-types';
 import React from 'react'
 
-const OrderFeedBlockHeader = ({ date, number }) => {
+type Prop = {
+    date: string;
+    number: number;
+}
+
+const OrderFeedBlockHeader = ({ date, number }: Prop) => {
     const dayOrder = (getRelativeTimeString(date, 'ru'));   
     const dateUTC = new Date(date)
     const hours = dateUTC.getHours()

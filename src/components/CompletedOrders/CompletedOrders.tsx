@@ -1,7 +1,12 @@
 import { useSelector } from 'react-redux'
 import styles from './CompletedOrders.module.css'
 
-const CompletedOrders = ({title, value}) => {
+type Prop = {
+    title: string;
+    value: number;
+}
+
+const CompletedOrders = ({title, value}: Prop) => {
     
     return (
         <div className={`${styles.CompletedOrders}`}>

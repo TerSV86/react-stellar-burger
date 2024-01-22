@@ -2,8 +2,15 @@ import { useDispatch } from 'react-redux';
 import { formPropType } from '../../utils/prop-types';
 import styles from './Form.module.css';
 import { login } from '../../services/auth/actions/actions';
+import { ReactNode } from 'react';
 
-const Form = ({ title, children , onSubmit }) => {
+type Prop = {
+    title: string;
+    children: ReactNode;
+    onSubmit: ()=> void;
+}
+
+const Form = ({ title, children , onSubmit }: Prop) => {
    
     return (
         <form className={`${styles.Form} pt-2`} onSubmit={onSubmit}>

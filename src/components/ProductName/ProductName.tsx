@@ -1,7 +1,11 @@
 import { productNamePropType } from "../../utils/prop-types"
 import React from 'react'
 
-const ProductName = ({name}) => {
+type Prop = {
+    name: string
+}
+
+const ProductName = ({name}: Prop) => {
     return (
         <h3 className="text text_type_main-default">{name}</h3>
     )

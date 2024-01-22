@@ -1,8 +1,12 @@
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../hooks/hooks'
 import styles from './OrderFeedBlockBurgerPrice.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-const OrderFeedBlockBurgerPrice = ({ ingredients }) => {
+type Prop = {
+    ingredients: string[];
+}
+
+const OrderFeedBlockBurgerPrice = ({ ingredients }: Prop) => {
     /* const burgers = useSelector(store => store.orders.burgers.orders) */
     const product = useSelector(store => store.ingredients.ingredients)
     // проверить ingredients на null. Сейчас просто ингредиент = null отсеивается some. Нижно убрать заказ

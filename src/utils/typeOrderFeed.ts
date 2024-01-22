@@ -3,12 +3,12 @@ import { BURGER_JOINT_WS_CLOSE, BURGER_JOINT_WS_CONNETING, BURGER_JOINT_WS_ERROR
 import { TOrderWS } from "./typeHistoryOrder";
 
 export type TBurgers = {
-    orders: Array<TOrders>;
+    orders: TOrders;
     total: number;
     totalToday: number;
 }
 
-type TOrders = Array<TBurgerOrder>
+export type TOrders = TBurgerOrder[]
 
 export type TBurgerOrder = {
     _id: string;
@@ -22,7 +22,7 @@ export type TBurgerOrder = {
 
 export type TOrderFeedState = {
     status: string;
-    burgers: TBurgers | {};
+    burgers: TBurgers;
     connectingError: string;
 }
 

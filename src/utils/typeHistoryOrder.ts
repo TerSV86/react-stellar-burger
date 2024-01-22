@@ -13,7 +13,7 @@ export type TWebSocketStatus = {
     OFFLINE: typeof OFFLINE;
 }
 
-type TUserBurgerOrder = TBurgerOrder;
+export type TUserBurgerOrder = TBurgerOrder;
 
 export type TUserOrders = {
     orders: Array<TUserBurgerOrder>;
@@ -24,7 +24,7 @@ export type TUserOrders = {
 
 export type THistoryOrderState = {
     status: string; // Почему не работает TWebSocketStatus[keyof TWebSocketStatus] или typeof CONNECTING | typeof ONLINE | typeof OFFLINE;
-    userOrders: TUserOrders | {};
+    userOrders: TUserOrders;
     connectingError: string;
 }
 export type TOrderWS = Omit<TOrder, 'ingredients' | 'owner' | 'prise'> & {

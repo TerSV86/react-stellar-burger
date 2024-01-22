@@ -8,10 +8,17 @@ import { historyOrderBlockPropType } from '../../utils/prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { openModal } from '../../services/ingredients/action'
+import { TUserBurgerOrder } from '../../utils/typeHistoryOrder'
 
+type Prop = {
+    ingredients: string[];
+    number: number;
+    name: string;
+    date: string;
+    status: string
+}
 
-
-const HistoryOrderBlock = ({ ingredients, number, name, date, status }) => {
+const HistoryOrderBlock = ({ ingredients, number, name, date, status }: Prop) => {
     
     const location = useLocation();
    

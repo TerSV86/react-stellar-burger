@@ -1,8 +1,13 @@
 import styles from './DoneOrders.module.css'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../hooks/hooks'
+import { TBurgerOrder } from '../../utils/typeOrderFeed';
+
+
 
 const DoneOrders = () => {
     const orders = useSelector((store) => store.orders.burgers.orders)
+    console.log('orders', orders);
+    
     if (!orders) {
         return <h1>Загрузка ...</h1>
     }
@@ -11,7 +16,7 @@ const DoneOrders = () => {
 
     return (
         <div className={`${styles.DoneOrders}`}>
-            <h2 className='text text_type_main-large pb-6' style={{ color: '##F2F2F3' }}>Готовы:</h2>
+            <h2 className={`text text_type_main-large pb-6`} /* style={{ color: '##F2F2F3' }} */>Готовы:</h2>
             {
                 <div className={`${styles.columnsOrderDone}`}>
                     {lastOrders.map((orderDone, index) => {

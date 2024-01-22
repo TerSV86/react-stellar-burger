@@ -4,7 +4,11 @@ import OrderFeedBlockBurgerPrice from '../OrderFeedBlockBurgerPrice/OrderFeedBlo
 import { orderFeedBlockIngredientsPropType } from '../../utils/prop-types';
 import React from 'react'
 
-const OrderFeedBlockIngredientsBurger = ({ingredients}) => {
+type Prop = {
+    ingredients: string[];
+}
+
+const OrderFeedBlockIngredientsBurger = ({ingredients}: Prop) => {
     
     return (
         <div className={`${styles.OrderFeedBlockIngredientsBurger}`}>

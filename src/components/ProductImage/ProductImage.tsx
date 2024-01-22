@@ -1,7 +1,12 @@
 import { productImagePropType } from "../../utils/prop-types"
 import React from 'react'
 
-const ProductImage = ({link, name}) => {
+type Prop = {
+    link: string;
+    name: string
+}
+
+const ProductImage = ({link, name}: Prop) => {
     return (
         <img src={link} alt = {name} />
     )
