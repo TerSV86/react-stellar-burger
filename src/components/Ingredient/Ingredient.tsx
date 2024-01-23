@@ -1,63 +1,67 @@
-import { useDrag, useDrop } from 'react-dnd'
+import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd'
 /* import styles from './Ingredient.module.css' */
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ITEM_TYPE } from '../../services/dnd/actions/draggable-ingredient'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../hooks/hooks'
 import { deleteIngredientOther } from '../../services/dnd/actions/draggable-ingredient'
 import React from 'react'
+import { TIngredient } from '../../utils/type'
+import { number } from 'prop-types'
+
+type Prop = {
+    el: TIngredient;
+    index: number;
+}
+
+type DragIndex = Record<string, string> & { index: number }
 
 
-const Ingredient = React.memo(({ el, index }) => {
+
+
+const Ingredient = React.memo(({ el, index }: Prop) => {    
     const dispatch = useDispatch()
     const selectIngredient = useSelector(state => state.ingredientList.selectIngredient)
-    console.log('select',selectIngredient);
-
     const sortIngredient = useSelector(state => state.ingredientList.sortIngredient)
 
-    let dragIndexIngredient;
-    let hoverIndexIngredient;
+    let dragIndexIngredient: DragIndex;
+    let hoverIndexIngredient: number;
 
     const [, drop] = useDrop({
         accept: 'ingredientSort',
-        hover(dragIndex, monitor) {
+        hover(dragIndex: DragIndex, monitor: DropTargetMonitor): void {           
             const hoverIndex = index;
-
-            if (dragIndex !== index) {
+            if (dragIndex.index !== index) {
                 dragIndexIngredient = dragIndex;
                 hoverIndexIngredient = hoverIndex;
             }
-
-            if (dragIndex === index) {
+            if (dragIndex.index === index) {
                 return
             }
-
         },
         drop() {
-            const item = sortIngredient[dragIndexIngredient.index]
-            const newItems = sortIngredient.filter((i, idx) => idx !== dragIndexIngredient.index);
-            newItems.splice(hoverIndexIngredient, 0, item)
-
-            dispatch({
-                type: ITEM_TYPE,
-                payload: newItems               
-            })
+            if (dragIndexIngredient && dragIndexIngredient.index !== undefined) {
+                const item = sortIngredient[dragIndexIngredient.index]
+                const newItems = sortIngredient.filter((i, idx) => idx !== dragIndexIngredient.index);
+                newItems.splice(hoverIndexIngredient, 0, item)
+                dispatch({
+                    type: ITEM_TYPE,
+                    payload: newItems
+                })
+            }
         }
-
     })
 
     const [{ isDragging }, drag] = useDrag({
         type: 'ingredientSort',
-        item: { ...el._id, index },
+        item: { el, index },
         collect: monitor => ({
             isDragging: monitor.isDragging()
         })
     })
 
     function deleteIngredient() {
-        console.log(el.randomId);
-        const newArrayIngredients = selectIngredient.filter((ingr) => console.log('ingr',ingr, ingr.randomId !== el.randomId)|| ingr.randomId !== el.randomId)
-        console.log('newArrayIngredients', newArrayIngredients);
-        dispatch(deleteIngredientOther(/* el.randomId */newArrayIngredients))
+        const newArrayIngredients = selectIngredient.filter((ingr) => ingr.randomId !== el.randomId)
+        dispatch(deleteIngredientOther(newArrayIngredients))
     }
 
     return (

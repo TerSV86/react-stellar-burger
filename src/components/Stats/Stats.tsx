@@ -1,7 +1,8 @@
 import styles from './Stats.module.css'
 import OrdersBoard from '../OrdersBoard/OrdersBoard'
 import CompletedOrders from '../CompletedOrders/CompletedOrders'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../hooks/hooks'
+
 
 const Stats = () => {
     const totalOrders = useSelector((store)=> store.orders.burgers.total)

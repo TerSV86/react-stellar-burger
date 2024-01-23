@@ -4,9 +4,16 @@ import OrderFeedBlockTitle from '../OrderFeedBlockTitle/OrderFeedBlockTitle'
 import OrderFeedBlockIngredientsBurger from '../OrderFeedBlockIngredientsBurger/OrderFeedBlockIngredientsBurger'
 import { Link, useLocation } from 'react-router-dom'
 import React from 'react'
+import { TIngredient } from '../../utils/type'
 
+type Prop = {
+    ingredients: string[];
+    number: number;
+    name: string;
+    date: string;
+}
 
-const OrderFeedBlock = ({ ingredients, number, name, date }) => {    
+const OrderFeedBlock = ({ ingredients, number, name, date }: Prop) => {    
     const location = useLocation()
 
     return (

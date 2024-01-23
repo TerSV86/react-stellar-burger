@@ -1,6 +1,6 @@
 import styles from './OrderFeed.module.css'
 import OrderFeedBlock from '../OrderFeedBlock/OrderFeedBlock'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../hooks/hooks'
 
 const OrderFeed = () => {
 

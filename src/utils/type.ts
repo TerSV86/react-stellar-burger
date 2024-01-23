@@ -8,7 +8,7 @@ import { HISTORY_ORDERS_CONNECT, HISTORY_ORDERS_WS_CLOSE, HISTORY_ORDERS_WS_CONN
 
 export type TIngredient = {
     board: string,
-    colories: number,
+    calories: number,
     carbohydrates: number,
     fat: number,
     image: string,
@@ -16,7 +16,7 @@ export type TIngredient = {
     image_mobile: string,
     name: string,
     price: number,
-    proteines: number,
+    proteins: number,
     type: string,
     __v: number,
     _id: string,

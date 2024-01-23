@@ -4,9 +4,14 @@ import styles from './ModalHeader.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { closeModal } from '../../services/ingredients/action'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../hooks/hooks'
+import { ReactNode } from 'react'
 
-const ModalHeader = ({ children }) => {
+type Prop = {
+    children: ReactNode;
+}
+
+const ModalHeader = ({ children }: Prop) => {
     const dispatch = useDispatch()
     const navigation = useNavigate()
     const isOpen = useSelector(store => store.ingredients.openModalOrder.isOpen)

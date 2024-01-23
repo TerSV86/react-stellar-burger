@@ -1,6 +1,6 @@
 import styles from './ModalOverlay.module.css'
 import { closeModal } from '../../services/ingredients/action';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 
 

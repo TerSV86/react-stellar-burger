@@ -2,7 +2,12 @@ import { orderIngredientPricePropType } from '../../utils/prop-types';
 import styles from './OrderIngredientPrice.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-const OrderIngredientPrice = ({ price, count }) => {
+type Prop = {
+    price: number;
+    count: number;
+}
+
+const OrderIngredientPrice = ({ price, count }: Prop) => {
     
     const displayCount = (count>1)? `${count}x`: '';
     return (

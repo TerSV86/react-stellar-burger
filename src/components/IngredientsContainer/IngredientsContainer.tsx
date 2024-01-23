@@ -1,16 +1,17 @@
-
 import styles from './IngredientsContainer.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../hooks/hooks'
 import { UPDATE_TYPE, addIngredientSort } from '../../services/dnd/actions/draggable-ingredient'
 import { useDrop } from 'react-dnd'
 import Ingredient from '../Ingredient/Ingredient'
 
 import {v4 as uuid4} from 'uuid'
+import { TIngredient } from '../../utils/type'
+import { FC } from 'react'
 
 
 
 
-const IngredientsContainer = () => {
+const IngredientsContainer: FC = () => {
     const board = "burgerIngredient";
     const selectIngredient = useSelector(store => store.ingredientList.sortIngredient)
     const ingredients = useSelector(store => store.ingredients.ingredients)
@@ -25,7 +26,7 @@ const IngredientsContainer = () => {
         collect: monitor => ({
             isHover: monitor.isOver(),
         }),
-        drop(product) {
+        drop(product:TIngredient) {
             const randomId = uuid4();
             product.board = board
             const updatedProduct = { ...product, randomId, board };

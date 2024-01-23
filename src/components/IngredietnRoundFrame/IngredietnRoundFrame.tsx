@@ -1,6 +1,11 @@
+import { TIngredient } from '../../utils/type'
 import styles from './IngredietnRoundFrame.module.css'
 
-const IngredietnRoundFrame = ({ product }) => {
+type Prop = {
+    product: TIngredient
+}
+
+const IngredietnRoundFrame = ({ product }: Prop) => {
     
     return (
         <>

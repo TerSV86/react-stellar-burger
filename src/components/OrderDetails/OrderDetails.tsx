@@ -1,7 +1,9 @@
 import styles from './OrderDetails.module.css'
 import doneImage from '../../images/done.svg'
 import { CheckMarkIcon, CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
+
+
 const OrderDetails = () => {
   
   const order = useSelector(store => store.ingredients.openModalOrder.numberOrder);

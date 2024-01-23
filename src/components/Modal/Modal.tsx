@@ -2,23 +2,27 @@ import styles from './Modal.module.css'
 import ReactDOM from 'react-dom'
 import ModalHeader from '../ModalHeader/ModalHeader';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
-import { reactModals } from '../../utils/data'
-import { useEffect } from 'react';
+/* import { reactModals } from '../../utils/data' */
+import { ReactNode, useEffect } from 'react';
 import { modalPropType } from '../../utils/prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import { closeModal } from '../../services/ingredients/action';
 import { useNavigate } from 'react-router-dom';
 
+type Prop = {
+    children: ReactNode;
+    title: string;
+}
 
-export default function Modal({ children, title }) {
-    
+
+export default function Modal({ children, title }: Prop) {
+    const reactModals = document.getElementById('react-modals') as HTMLElement;
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const isOpen = useSelector(store => store.ingredients.openModalOrder.isOpen)
     
     useEffect(() => {
-        function closeByEscape(evt) {   
-                   
+        function closeByEscape(evt: { key: string; }) {                   
             if (evt.key === 'Escape') {                
                 if (!isOpen) navigate(-1)
                 if (isOpen) dispatch(closeModal());

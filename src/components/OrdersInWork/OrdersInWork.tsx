@@ -1,5 +1,6 @@
 import styles from './OrdersInWork.module.css'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../hooks/hooks'
+
 
 const OrdersInWork = () => {
     const orders = useSelector(store => store.orders.burgers.orders)

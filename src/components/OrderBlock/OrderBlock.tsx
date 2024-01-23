@@ -1,12 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../hooks/hooks'
 import { orderBlockPropType } from '../../utils/prop-types'
 import styles from './OrderBlock.module.css'
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { openModalOrder, sendOrderBurger } from '../../services/ingredients/action'
+import { openModalOrder } from '../../services/ingredients/action'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
-import { connect } from '../../services/historyorder/actions/wsHistoryOrdersActions'
 
-const OrderBlock = ({ sum }) => {
+
+type Prop = {
+    sum: number;
+}
+
+const OrderBlock = ({ sum }: Prop) => {
     const location = useLocation();
     const dispatch = useDispatch()
     const navigate = useNavigate()
