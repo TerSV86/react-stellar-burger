@@ -26,19 +26,19 @@ import { connectHistoryOrder } from '../../services/historyorder/actions/wsHisto
 /* import { getUserRefresh } from "../../services/auth/actions/actions"; */
 import NotFound404 from "../NotFound404/NotFound404";
 
-function App (): FC {
+function App (): JSX.Element {
 
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
   const { isOpen } = useSelector(store => store.ingredients.openModalOrder)
- /*  const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient) */
- /*  console.log("App",ingredientDetails); */
-  
+  /*  const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient) */
+  /*  console.log("App",ingredientDetails); */
+
   const { error, loading } = useSelector(store => store.ingredients)
 
-  const handleModalClose = () => {
+  const handleModalClose = (): void => {
     // Возвращаемся к предыдущему пути при закрытии модалки
     navigate(-1);
   };
@@ -49,7 +49,7 @@ function App (): FC {
   }, [])
 
   if (loading) {
-    return <h2 style={{ color: 'red' }}>Загрузка...</h2>
+    return <><h2 style={{ color: 'red' }}>Загрузка...</h2> </>
   }
 
   if (error && !loading) {
@@ -57,6 +57,7 @@ function App (): FC {
   }
 
   return (
+  <>
     <div className={`${styles.app} pb-10`}>
       <DndProvider backend={HTML5Backend}>
         <AppHeader />
@@ -123,6 +124,9 @@ function App (): FC {
         }
       </DndProvider>
     </div >
+
+  </>
+
   );
 }
 

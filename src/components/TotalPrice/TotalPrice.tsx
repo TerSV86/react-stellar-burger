@@ -1,8 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
 import styles from './TotalPrice.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { TBurgerOrder } from '../../utils/typeOrderFeed';
 
-const TotalPrice = ({ date }) => {
+type Prop = {
+    date: TBurgerOrder;
+}
+
+const TotalPrice = ({ date }: Prop) => {
 
     const ingredients = useSelector(store => store.ingredients.ingredients)
     const orderIngredients = ingredients.filter((elem) => date.ingredients.some((element) => element === elem._id))

@@ -48,7 +48,7 @@ export const loadIngredients: AppThunk = () => (dispatch: AppDispatch) => {
 
     dispatch({type: LOADING })
     return getProductData()
-        .then(res => {
+        .then((res) => {
             res.data.map((element:TIngredient) => {
                 element.board = 'default';
             })

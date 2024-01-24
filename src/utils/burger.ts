@@ -1,4 +1,5 @@
 import { burgerApiConfig } from "./burger-api"
+import { TIngredient } from "./type"
 
 
 export const WebSocketStatus = {
@@ -7,15 +8,15 @@ export const WebSocketStatus = {
     OFFLINE: 'OFFLINE'
 }
 
-export function getRelativeTimeString(date, lang) {
-    const timeMs = new Date(date)
+export function getRelativeTimeString(date:string, lang:string):string {
+    const timeMs:number = new Date(date).getTime()
     const deltaSeconds = Math.round((timeMs - Date.now()) / 1000)
     const cutoffs = [86400 * 30, 86400 * 365, Infinity]
-    const units = ['day', 'week', 'month', 'year']
+    const units:['day', 'week', 'month', 'year'] = ['day', 'week', 'month', 'year']
     const unitIndex = cutoffs.findIndex(cutoff => cutoff > Math.abs(deltaSeconds))
     const divisor = unitIndex ? cutoffs[unitIndex - 1] : 86400;
     const rtf = new Intl.RelativeTimeFormat(lang, {
-        numetric: 'auto'
+        numeric: 'auto'
     })
     const day = rtf.format(Math.floor(deltaSeconds / divisor), units[unitIndex])
     return (
@@ -24,7 +25,9 @@ export function getRelativeTimeString(date, lang) {
     )
 }
 
-export const statusOrder = (data: string) => {
+
+
+export const statusOrder = (data:string):string|null  => {
     switch (data) {
         case 'done':
             return data = 'Выполнен'
@@ -50,7 +53,7 @@ export const optionsFetchWithRefresh = {
     referrerPolicy: 'no-referrer'
 }
 
-export const optionsFetchWithRefreshPostOrders = (selectIngredient) => {
+export const optionsFetchWithRefreshPostOrders = (selectIngredient: TIngredient) => {
    return ({method: "POST",
     headers: burgerApiConfig.headers,
     body: JSON.stringify({

@@ -6,7 +6,7 @@ import { NavLink, useLocation, NavLinkProps } from 'react-router-dom';
 import { ILocation, INavLinkProps, TSetType } from '../../utils/type';
 
 
-const AppHeader: FC = () => {
+const AppHeader: FC = ():JSX.Element => {
     const location = useLocation<ILocation>()
     console.log(location);
 
