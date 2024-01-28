@@ -3,10 +3,10 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
 import { getUser } from '../../services/auth/actions/actions'
-import { Form } from '../../pages/ProfilePage/ProfilePage'
+import { TForm } from '../../pages/ProfilePage/ProfilePage'
 
 type Prop = {
-    data: Form;
+    data: TForm;
     onClickSave: () => void;
 }
 export const ButtonsProfile = ({ data, onClickSave }: Prop) => {

@@ -3,7 +3,7 @@ import styles from './CompletedOrders.module.css'
 
 type Prop = {
     title: string;
-    value: number;
+    value: number | null;
 }
 
 const CompletedOrders = ({title, value}: Prop) => {

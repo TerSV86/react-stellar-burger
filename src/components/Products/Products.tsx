@@ -10,9 +10,9 @@ const Products = () => {
 
     const dispatch = useDispatch()
     const projectIngredients = useSelector(store => store.ingredients.ingredients)
-    const bunRef = useRef<HTMLElement>(null);
-    const saucesRef = useRef<HTMLElement>(null);
-    const mainRef = useRef<HTMLElement>(null);
+    const bunRef = useRef<HTMLDivElement>(null);
+    const saucesRef = useRef<HTMLDivElement>(null);
+    const mainRef = useRef<HTMLDivElement>(null);
 
 
     const handleScroll = () => {

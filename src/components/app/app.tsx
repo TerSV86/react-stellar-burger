@@ -85,7 +85,7 @@ function App (): JSX.Element {
               element={
                 <AnonymousRoute
                   element={
-                    <Modal title={"Детали ингредиента"} onClose={handleModalClose} >
+                    <Modal title={"Детали ингредиента"} /* onClose={handleModalClose} */ >
                       {<IngredientDetails /* ingredient={ingredientDetails} */ />}
                     </Modal>}
                 />}
@@ -95,7 +95,7 @@ function App (): JSX.Element {
               element={
                 <AnonymousRoute
                   element={
-                    <Modal onClose={handleModalClose}>
+                    <Modal /* onClose={handleModalClose} */>
                       <OrderInfo />
                     </Modal>}
                 />}
@@ -104,7 +104,7 @@ function App (): JSX.Element {
               path='profile/order/:number'
               element={
                 <ProtectedRouter element={
-                  <Modal onClose={handleModalClose}>
+                  <Modal /* onClose={handleModalClose} */>
                     {<OrderInfo />}
                   </Modal>}
                 />}
@@ -116,7 +116,7 @@ function App (): JSX.Element {
             <Route
               path='/'
               element={<ProtectedRouter element={
-                <Modal onClose={handleModalClose} >
+                <Modal /* onClose={handleModalClose} */ >
                   <OrderDetails />
                 </Modal>
               } />} />
@@ -124,9 +124,7 @@ function App (): JSX.Element {
         }
       </DndProvider>
     </div >
-
   </>
-
   );
 }
 

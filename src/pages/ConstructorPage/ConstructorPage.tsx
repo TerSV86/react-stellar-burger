@@ -2,18 +2,23 @@ import styles from './ConstructorPage.module.css'
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients'
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor'
 import { Outlet, useLocation, useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../hooks/hooks'
 
+/* type TParams = {
+    id: number
+} */
 
 const ConstructorPage = () => {
-    const ingredients = useSelector((store) => store.ingredients.ingredients)
+     /*const ingredients = useSelector((store) => store.ingredients.ingredients)
     const location = useLocation()
-    const { id } = useParams()
+    const { id } = useParams<TParams>()
+    console.log('Id', id);
 
-    if (location.pathname === `/ingredient/${id}`) {
+    if (id && location.pathname === `/ingredient/${id}`) {
+        const element = ingredients[id]
         return (
             <main className={`${styles.ingredientInfoPage}`}>
-                <Outlet context={ingredients[id]} />
+                {(id) ? <Outlet context={element} /> : null}
             </main>
         )
     } else {
@@ -23,7 +28,13 @@ const ConstructorPage = () => {
                 <BurgerConstructor />
             </main>
         )
-    }
+    } */
+    return (
+        <main className={`${styles.ConstructorPage}`}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+        </main>
+    )
 }
 
 export default ConstructorPage

@@ -11,11 +11,16 @@ import { wsUrl } from '../../utils/burger'
 
 
 const OrderFeedPage = () => {
-    const orders = useSelector(store => store.orders.burgers.orders)
-    console.log(orders);
     const dispatch = useDispatch()
     const location = useLocation()
     const { number } = useParams()
+
+    /* const orders = useSelector(store => store.orders.burgers.orders) */
+   /*  if (!orders) {
+        return <p>Загрузка заказов ...</p>
+    } */
+    /* console.log(orders); */
+
 
     useEffect(() => {
         dispatch(connect(wsUrl))
@@ -31,9 +36,7 @@ const OrderFeedPage = () => {
             </div>
         )
     }
-    if (!orders) {
-        return <p>Загрузка заказов ...</p>
-    }
+
 
     return (
         <main className={`${styles.OrderFeedPage}`}>

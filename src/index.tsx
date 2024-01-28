@@ -5,7 +5,8 @@ import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "./services/store";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+/* import { BrowserRouter } from "react-router-dom"; */
+import {BrowserRouter} from 'react-router-dom'
 import { RootState } from "./services/reducer";
 import { WebSocketStatus } from "./utils/burger";
 
@@ -49,12 +50,12 @@ export const store = configureStore(
     },
     orders: {
       status: WebSocketStatus.OFFLINE,
-      burgers: {},
+      burgers: null,
       connectingError: ''
     },
     userOrders: {
       status: WebSocketStatus.OFFLINE,
-      userOrders: [],
+      userOrders: null,
       connectingError: ''
     },
   }

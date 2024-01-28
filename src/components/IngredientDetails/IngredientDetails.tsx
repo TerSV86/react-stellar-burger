@@ -3,38 +3,40 @@ import ProductImage from '../ProductImage/ProductImage'
 import FoodValue from '../FoodValue/FoodValue'
 import { Navigate, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../hooks/hooks';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { loadIngredients } from '../../services/ingredients/action';
 
 
-const IngredientDetails = () => {
+const IngredientDetails: FC = (): JSX.Element => {
     const dispatch = useDispatch()
     const ingredients = useSelector(store => store.ingredients.ingredients)
     const location = useLocation()
     const idIngredient = useParams();
 
-    
+
     useEffect(() => {
         // Загружаем ингредиенты только если их еще нет
         if (!ingredients) {
-          dispatch(loadIngredients());
+            dispatch(loadIngredients());
         }
-      }, [dispatch, ingredients]);
+    }, [dispatch, ingredients]);
     if (!ingredients) {
-        return <div>Loading...</div>; 
+        return <div>Loading...</div>;
     }
     const ingredient = ingredients.find((ingr) => ingr._id === idIngredient.ingredientId)
-    if(ingredient) {
-        return (
+
+    return (
         <div className={`${styles.IngredientDetails}`}>
-            <ProductImage link={ingredient.image_large} name={ingredient.name} />
-            <p className="text text_type_main-medium pt-4 pb-8">{ingredient.name}</p>
-            <FoodValue carbs={ingredient.carbohydrates} cal={ingredient.calories
-            } fat={ingredient.fat} proteins={ingredient.proteins} />
+            {(ingredient) ? (<>
+                <ProductImage link={ingredient.image_large} name={ingredient.name} />
+                <p className="text text_type_main-medium pt-4 pb-8">{ingredient.name}</p>
+                <FoodValue carbs={ingredient.carbohydrates} cal={ingredient.calories
+                } fat={ingredient.fat} proteins={ingredient.proteins} />
+            </>) : null}
         </div>
     )
-    }
-    
+
+
 }
 
 export default IngredientDetails

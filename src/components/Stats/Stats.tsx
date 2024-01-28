@@ -5,15 +5,21 @@ import { useSelector } from '../../hooks/hooks'
 
 
 const Stats = () => {
-    const totalOrders = useSelector((store)=> store.orders.burgers.total)
-    const totalTodayOrders = useSelector((store)=> store.orders.burgers.totalToday)
+    const orders = useSelector((store) => store.orders.burgers);
+    let totalTodayOrders;
+    let totalOrders;
+    if (orders) {
+        totalOrders =  orders.total;
+        totalTodayOrders = orders.totalToday;
+    }
+
     return (
         <div className={`${styles.Stats}`}>
             <OrdersBoard />
-            <CompletedOrders title={'Выполнено за все время'} value={totalOrders}/>
-            <CompletedOrders  title={'Выполнено за сегодня'} value={totalTodayOrders}/>             
+            <CompletedOrders title={'Выполнено за все время'} value={ (totalOrders) ? totalOrders: null} />
+            <CompletedOrders title={'Выполнено за сегодня'} value={(totalTodayOrders) ? totalTodayOrders: null} />
         </div>
-        
+
     )
 }
 

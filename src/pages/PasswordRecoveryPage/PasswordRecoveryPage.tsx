@@ -5,10 +5,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { getMassegeForRecoveryPassword } from '../../utils/burger-api'
 import { useForm } from '../../hooks/useForm'
 
+type TForm = {
+    password: string;
+}
+
+
 const PasswordRecoveryPage = () => {
     const location = useLocation()
     const navigate = useNavigate()
-    const { values, handleChange, setValues } = useForm({ password: '' })
+    const { values, handleChange, setValues } = useForm<TForm>({ password: '' })
     const { password } = values
 
     const handlerClickButtonRecovery = () => {

@@ -189,13 +189,13 @@ export interface INavLinkProps {
     isActive: boolean;
 }
 
-export interface ILocation {
+/* export interface ILocation {
     pathname: string;
     search: string;
     hash: string;
     state: any;
     key: string;
-}
+} */
 
 export type TSetType = 'primary' | 'secondary'
 

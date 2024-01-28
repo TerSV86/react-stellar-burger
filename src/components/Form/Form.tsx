@@ -5,9 +5,9 @@ import { login } from '../../services/auth/actions/actions';
 import { ReactNode } from 'react';
 
 type Prop = {
-    title: string;
+    title?: string;
     children: ReactNode;
-    onSubmit: ()=> void;
+    onSubmit?: (e: React.FormEvent<HTMLFormElement>)=> void;
 }
 
 const Form = ({ title, children , onSubmit }: Prop) => {

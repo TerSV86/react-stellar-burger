@@ -7,7 +7,7 @@ import { statusOrder } from '../../utils/burger'
 import { historyOrderBlockPropType } from '../../utils/prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { openModal } from '../../services/ingredients/action'
+
 import { TUserBurgerOrder } from '../../utils/typeHistoryOrder'
 
 type Prop = {
