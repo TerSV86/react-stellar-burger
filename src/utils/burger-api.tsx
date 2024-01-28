@@ -70,7 +70,7 @@ export const getMassegeForRecoveryPassword = (email: string) => {
     }).then(getRespons)
 }
 
-export const resetPassword = (pass: string, pin: number) => {
+export const resetPassword = (pass: string, pin: string) => {
 
     return fetch(` ${burgerApiConfig.baseUrl}password-reset/reset`, {
         method: "POST",

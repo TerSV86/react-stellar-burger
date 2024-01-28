@@ -3,17 +3,30 @@ import Form from '../../components/Form/Form'
 import { EmailInput, PasswordInput, Button, ShowIcon, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState } from 'react'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
-import { saveNewPassword, createUser, resetPassword } from '../../utils/burger-api'
+import { resetPassword } from '../../utils/burger-api'
 import { useForm } from '../../hooks/useForm'
+
+type TValue = {
+    pin: string;
+    newPassword: string;
+}
 
 const ResetPasswordPage = () => {
 
     const navigate = useNavigate()
     const location = useLocation()
 
-    const { values, handleChange, setValues } = useForm({ pin: '', newPassword: '' });
+    const { values, handleChange, setValues } = useForm<TValue>({ pin: '', newPassword: '' });
     const { pin, newPassword } = values;
-    const handleClickButtonSave = (e) => {
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>)  => {
+        e.preventDefault();
+        resetPassword(newPassword, pin)
+            .then(() => {
+                navigate('/login', { replace: true })
+            })
+    }
+    /* const handleClickButtonSave = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
 
         resetPassword(newPassword, pin)
@@ -21,12 +34,12 @@ const ResetPasswordPage = () => {
                 navigate('/login', { replace: true })
             })
 
-    }
-    
+    } */
+
     if (location.state && location.state === '/forgot-password') {
         return (
             <main className={styles.ResetPasswordPage}>
-                <Form title={'Восстановление пароля  '}>
+                <Form title={'Восстановление пароля '} onSubmit={handleSubmit}>
                     <PasswordInput
                         onChange={handleChange}
                         value={newPassword}
@@ -38,14 +51,14 @@ const ResetPasswordPage = () => {
                         onChange={handleChange}
                         value={pin}
                         name={'pin'}
-                        icon={"undefined"}
+                        icon={undefined}
                         extraClass="mb-6"
                         placeholder="Ввидите код из письма"
                     />
-                    <Button htmlType="submit" type="primary" size="medium" extraClass={'mb-20'} onClick={(e) => handleClickButtonSave(e)}>
+                    <Button htmlType="submit" type="primary" size="medium" extraClass={'mb-20'} /* onClick={(e) => handleClickButtonSave(e)} */>
                         Сохранить
                     </Button>
-                    <h2 className={`text_type_main-small`}>Вспомнили пароль?<Link className={'pl-2'} style={{ textDecoration: 'none', color: '#4C4CFF' }}>Войти</Link></h2>
+                    <h2 className={`text_type_main-small`}>Вспомнили пароль?<Link to={'/login'} className={'pl-2'} style={{ textDecoration: 'none', color: '#4C4CFF' }}>Войти</Link></h2>
                 </Form>
             </main>
         )

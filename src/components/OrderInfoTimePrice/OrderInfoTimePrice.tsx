@@ -4,10 +4,13 @@ import TotalPrice from '../TotalPrice/TotalPrice'
 import styles from './OrderInfoTimePrice.module.css'
 
 type Prop = {
-    date: TBurgerOrder;
+    date?: TBurgerOrder;
 }
 
 const OrderInfoTimePrice = ({ date }: Prop) => {
+    if (date) {
+        
+    }
     const dayOrder = getRelativeTimeString(date.createdAt, 'ru')
     const dateUTC = new Date(date.createdAt)
     const hours = dateUTC.getHours()
