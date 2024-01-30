@@ -1,5 +1,5 @@
 import {
-    BURGER_JOINT_WS_CONNETING,
+    BURGER_JOINT_WS_CONNETIN,
     BURGER_JOINT_WS_OPEN,
     BURGER_JOINT_WS_ERROR,
     BURGER_JOINT_WS_CLOSE,
@@ -19,7 +19,7 @@ const initialState: TOrderFeedState = {
 export const wsReducer = (state = initialState, action: TOrderFeedAction) => {
     
     switch (action.type) {
-        case BURGER_JOINT_WS_CONNETING:
+        case BURGER_JOINT_WS_CONNETIN:
             
             return {
                 ...state,

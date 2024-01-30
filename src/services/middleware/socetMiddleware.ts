@@ -4,31 +4,31 @@ import { fetchWithRefresh } from "../../utils/burger-api";
 import { burgerApiConfig } from "../../utils/burger-api";
 import { AppThunk } from "../../utils/typeThunk";
 import { THistoryOrderAction } from "../../utils/typeHistoryOrder";
-/* import { Middleware } from "./middleware"; */
-import { Middleware } from "redux";
+import { Middleware, MiddlewareAPI } from "redux";
 import { TAction, } from "../../utils/typeStore";
 import { TWSActions, TWSHistoryOrdersActions } from "../store";
 import { Dispatch } from "react";
+import { RootState } from "../reducer";
 
 
-export const socketMiddleware: Middleware = (wsActions: TWSActions | TWSHistoryOrdersActions | any) => {
+export const socketMiddleware = (wsActions: TWSActions | TWSHistoryOrdersActions): Middleware<{}, RootState> => {
 
-    return (store: any) => {
+    return (store: MiddlewareAPI) => {
         let socket: WebSocket | null = null;
-        return (next) => (action: TAction) => {
-            
-            const { dispatch, getState } = store;
+        return (next: any) => (action: TAction) => {
+
+            const { getState, dispatch } = store;
             const { type, payload } = action;
             const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
             const { auth } = getState()
-
-
             if (type === wsInit) {
-                (typeof payload === 'string') ? socket = new WebSocket(payload) : '';
+                if (typeof payload === 'string') {
+                    socket = new WebSocket(payload);
+                } else {
+                    console.error('Invalid WebSocket URL:', payload);                   
+                }
             }
-
             if (socket) {
-
                 socket.onopen = event => {
                     dispatch({ type: onOpen, payload: event });
                 }
@@ -39,24 +39,9 @@ export const socketMiddleware: Middleware = (wsActions: TWSActions | TWSHistoryO
                     const { data } = event;
                     const parsedData = JSON.parse(data);
                     const { success, ...restParsedData } = parsedData;
-                    if (parsedData.message === 'Invalid or missing token') {
-                        dispatch(checkAutoLogin())
-                        if (socket !== null) {
-                            socket.onmessage = event => {
-                                const { data } = event;
-                                const parsedData = JSON.parse(data);
-                                const { success, ...restParsedData } = parsedData;
-                                dispatch({ type: onMessage, payload: restParsedData })
-                            }
-                        }
-
-                    } else {
-                        dispatch({ type: onMessage, payload: restParsedData })
-                    }
-
+                    dispatch({ type: onMessage, payload: restParsedData })
                 }
                 socket.onclose = event => {
-
                     dispatch({ type: onClose, payload: event })
                 }
             }

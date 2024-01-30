@@ -1,4 +1,4 @@
-import { loginApi, userRegister, logoutApi, userApi, getUserApi, fetchWithRefresh, burgerApiConfig } from "../../../utils/burger-api";
+import { loginApi, userRegister, logoutApi, userApi, getUserApi, fetchWithRefresh, burgerApiConfig, headers } from "../../../utils/burger-api";
 import { getCookie, setCookie } from "../../../utils/cookie";
 import { optionsFetchWithRefresh } from "../../../utils/burger";
 import { refreshToken, checkReponse } from "../../../utils/burger-api";
@@ -28,9 +28,9 @@ export const register: AppThunk = ({ login, password, email }) => (dispatch: App
             console.log('regisrt', res.user);
 
             const token = res.accessToken.split('Bearer ')[1]
-            setCookie('token', token, { expires: 1200 })
+            setCookie('token', token, { expires: 1200 });
 
-            burgerApiConfig.headers.authorization = 'Bearer ' + getCookie('token')
+            (burgerApiConfig.headers as Record<string, string>).authorization = 'Bearer ' + getCookie('token')
 
             localStorage.setItem('accessToken', res.accessToken)
             localStorage.setItem('refreshToken', res.refreshToken)
@@ -55,9 +55,8 @@ export const login: AppThunk = ({ email, password }) => (dispatch: AppDispatch) 
                 payload: res.user
             })
             const token = res.accessToken.split('Bearer ')[1]
-            setCookie('token', token, { expires: 1200 })
-            burgerApiConfig.headers.authorization = 'Bearer ' + getCookie('token')
-            console.log('login cookie', burgerApiConfig.headers.authorization = 'Bearer ' + getCookie('token'));
+            setCookie('token', token, { expires: 1200 });
+            (burgerApiConfig.headers as Record<string, string>).authorization = 'Bearer ' + getCookie('token')
             localStorage.setItem('accessToken', res.accessToken)
             localStorage.setItem('refreshToken', res.refreshToken)
         })
@@ -67,7 +66,11 @@ export const login: AppThunk = ({ email, password }) => (dispatch: AppDispatch) 
                 type: LOGIN_ERROR,
                 payload: err
             })
-            fetchWithRefresh(`${burgerApiConfig.baseUrl}/auth/token`)
+            fetchWithRefresh(`${burgerApiConfig.baseUrl}/auth/token`,
+                {
+                    method: 'GET',
+                    headers: headers || ''/* burgerApiConfig.headers */,
+                })
             return Promise.reject(err)
         })
 }
@@ -136,9 +139,11 @@ export const checkAutoLogin: AppThunk = () => (dispatch: AppDispatch) => {
     }
     fetchWithRefresh(`${burgerApiConfig.baseUrl}auth/user`, optionsFetchWithRefresh)
         .then((res) => {
+            console.log('refresh', res);
+
             dispatch({
                 type: LOGIN_SUCCESS,
-                payload: res
+                payload: res.user,
             })
 
         })

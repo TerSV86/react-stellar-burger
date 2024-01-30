@@ -15,7 +15,7 @@ const OrderBlock = ({ sum }: Prop) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const selectIngredient = useSelector(store => store.ingredientList.selectIngredient)
-    const user = useSelector(store => store.auth.user)
+    const user = useSelector(store => store.auth)
     const error = useSelector(store => store.ingredients.error)
     const idSelectIngredient = selectIngredient.map((ingredient) => ingredient._id)
 

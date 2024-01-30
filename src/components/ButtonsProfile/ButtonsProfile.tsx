@@ -3,10 +3,11 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
 import { getUser } from '../../services/auth/actions/actions'
-import { TForm } from '../../pages/ProfilePage/ProfilePage'
+import { TValue } from '../../pages/ProfilePage/ProfilePage'
+/* import { TForm } from '../../pages/ProfilePage/ProfilePage' */
 
 type Prop = {
-    data: TForm;
+    data: TValue;
     onClickSave: () => void;
 }
 export const ButtonsProfile = ({ data, onClickSave }: Prop) => {
@@ -15,8 +16,7 @@ export const ButtonsProfile = ({ data, onClickSave }: Prop) => {
     const handleClickButtonSave = (e: React.SyntheticEvent<Element, Event>) => {
         e.preventDefault()
         dispatch(getUser(data))
-
-        onClickSave()// наверно нужно после обновления stor менять иконку
+        onClickSave()
     }
 
     return (

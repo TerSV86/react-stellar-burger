@@ -4,6 +4,10 @@ import { store } from ".."
 import { GET_INGREDIENTS, INGREDIENTS_LOAD_SUCCESS, OPEN_MODAL_ORDER_SUCCESS, OPEN_MODAL_INGREDIENT, CLOSE_MODAL, ERROR, LOADING, OPEN_MODAL } from "../services/ingredients/action"
 import { DELETE_INGREDIENT, ITEM_TYPE, UPDATE_TYPE, UPDATE_TYPE_BUN } from "../services/dnd/actions/draggable-ingredient"
 import { HISTORY_ORDERS_CONNECT, HISTORY_ORDERS_WS_CLOSE, HISTORY_ORDERS_WS_CONNECTING, HISTORY_ORDERS_WS_ERROR, HISTORY_ORDERS_WS_MESSAGE } from "../services/historyorder/actions/wsHistoryOrdersActions"
+import { TAuthActions } from "./typeAuth"
+import { THistoryOrderAction } from "./typeHistoryOrder"
+import { TOrderFeedAction } from "./typeOrderFeed"
+import { wsActions } from "../services/store"
 
 
 export type TIngredient = {
@@ -200,3 +204,12 @@ export interface INavLinkProps {
 export type TSetType = 'primary' | 'secondary'
 
 //Типизация BlockEnergyValue
+
+
+export type ActionAll = 
+| TDraggableIngredientAction
+| TIngredientActions
+| TAuthActions
+| THistoryOrderAction
+| TOrderFeedAction
+| wsActions

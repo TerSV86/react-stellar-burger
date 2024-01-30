@@ -6,7 +6,7 @@ import { HISTORY_ORDERS_WS_CLOSE, HISTORY_ORDERS_WS_CONNECTING, HISTORY_ORDERS_W
 
 const initialState:THistoryOrderState = {
     status: WebSocketStatus.OFFLINE,
-    userOrders: [],
+    userOrders: null,
     connectingError: ''
 }
 

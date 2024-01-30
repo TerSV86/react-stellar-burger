@@ -13,7 +13,7 @@ import { wsUrlHistoryOrders } from '../../utils/burger';
 const HistoryOrder = () => {
     const dispatch = useDispatch();
     const userOrders = useSelector(store => store.userOrders.userOrders);
-    const user = useSelector (store => store.auth.user)    
+    const user = useSelector (store => store.auth)    
 
     useEffect(() => {    
         

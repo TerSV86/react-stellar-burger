@@ -1,36 +1,40 @@
-import { TForm } from "../pages/ProfilePage/ProfilePage";
+import { TValue } from "../pages/ProfilePage/ProfilePage";
 import { TOptionsFetch } from "./burger";
 import { setCookie, getCookie } from "./cookie";
-import { TIngredient } from "./type";
+import { TIngredient, TOrderResponse } from "./type";
+import { IUser } from "./typeAuth";
 
 type BurgerApiConfig = {
     baseUrl: string;
-    headers: THeaders ;
-     /* {
-        "Content-Type": "application/json";
-        "authorization": string | null;
-    } */
+    headers: HeadersInit;
+    /* {
+       "Content-Type": "application/json";
+       "authorization": string | null;
+   } */
 }
 
-
-export const burgerApiConfig: BurgerApiConfig = {
-    baseUrl: 'https://norma.nomoreparties.space/api/',
-    headers: {
-        "Content-Type": "application/json",
-        "authorization": localStorage.getItem('accessToken')/* 'Bearer ' + getCookie('token') */,
-    },
-}
-
-/* type THeaders = {
+type THeaders = {
     'Content-Type': string;
     'authorization': string | null;
-} */
+}
 
 
-export const headers: HeadersInit = {
+export const headers:HeadersInit = {
     "Content-Type": "application/json",
-    "authorization": burgerApiConfig.headers.authorization || null,
+    "authorization": localStorage.getItem('accessToken') || '' // 'Bearer ' + getCookie('token') ,
 };
+export const burgerApiConfig: BurgerApiConfig = {
+    baseUrl: 'https://norma.nomoreparties.space/api/',
+    headers: headers /* {
+        "Content-Type": "application/json",
+        "authorization": localStorage.getItem('accessToken') || '', // 'Bearer ' + getCookie('token') ,
+    } */,
+}
+
+
+
+
+
 
 const getRespons = (res: Response) => {
     if (res.ok) {
@@ -149,7 +153,7 @@ export const logoutApi = () => {
 
 }
 
-export const userApi = (data: TForm) => {
+export const userApi = (data: TValue) => {
 
     return fetch(`${burgerApiConfig.baseUrl}auth/user`, {
         method: 'PATCH',
@@ -176,8 +180,19 @@ export const getUserApi = () => {
     }).then(getRespons)
 }
 
-
-export const checkReponse = (res) => {
+type TChekResponse = {
+    readonly headers: Headers;
+    readonly ok: boolean;
+    readonly redirected: boolean;
+    readonly status: number;
+    readonly statusText: string;
+    readonly trailer: Promise<Headers>;
+    readonly type: ResponseType;
+    readonly url: string;
+    clone(): Response;
+  }
+export const checkReponse = (res: Response) => {
+console.log('check', res);
 
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
@@ -200,13 +215,28 @@ export const refreshToken = () => {
     url: string;
     options: TOptionsFetch;
 } */
+type TResponseUser = {
+    success: boolean;
+    user: IUser;
+}
 
-export const fetchWithRefresh = async (url, options) => {
+
+type TResponse = TResponseUser & TOrderResponse;
+
+type TOptions = {
+    method: string;
+    /* mode?: string;
+    cache?: string;
+    credentials?: string; */
+    headers: HeadersInit;
+/* redirect: string;
+referrerPolicy: string; */}
+export const fetchWithRefresh = async (url: string, options:TOptions): Promise<TResponse> => {
 
     try {
         const res = await fetch(url, options);
         return await checkReponse(res);
-    } catch (err) {
+    } catch (err: any) {
 
         if (err.message === "jwt expired") {
 
@@ -218,10 +248,17 @@ export const fetchWithRefresh = async (url, options) => {
             }
 
             localStorage.setItem("refreshToken", refreshData.refreshToken);
-            localStorage.setItem("accessToken", refreshData.accessToken);
-
-            options.headers.authorization = refreshData.accessToken;
-            const res = await fetch(url, options); //повторяем запрос
+            localStorage.setItem("accessToken", refreshData.accessToken);            
+            (options.headers as Record<string, string>).authorization = refreshData.accessToken;
+            const res = await fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: headers/* burgerApiConfig.headers */,
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer'
+            }); //повторяем запрос
 
             return await checkReponse(res);
 

@@ -4,7 +4,10 @@ export interface IUser {
     email: string;
     name: string;
 }
-
+/* export interface IAuth {
+    success: boolean;
+    user: IUser
+} */
 /* export interface ILoginRespons {
     accessToken: string;
     refreshToken: string;

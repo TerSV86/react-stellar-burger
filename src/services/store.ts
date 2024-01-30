@@ -7,7 +7,7 @@ import { socketMiddleware } from "./middleware/socetMiddleware"
 import {
     BURGER_JOINT_CONNECT,
     BURGER_JOINT_DISCONNECT,
-    BURGER_JOINT_WS_CONNETING,
+    BURGER_JOINT_WS_CONNETIN,
     BURGER_JOINT_WS_OPEN,
     BURGER_JOINT_WS_ERROR,
     BURGER_JOINT_WS_CLOSE,
@@ -26,15 +26,25 @@ import {
 import { store } from ".."
 import { TDraggableIngredientsState, TIngredientActions, TIngredientsState } from "../utils/type"
 import { TOrderFeedAction } from "../utils/typeOrderFeed"
+import { any } from "prop-types"
 
-export type TWSActions = typeof wsActions
+export type TWSActions = {
+    wsInit: typeof BURGER_JOINT_CONNECT,
+    wsDisconnect: typeof BURGER_JOINT_DISCONNECT,
+    wsConnecting: typeof BURGER_JOINT_WS_CONNETIN,
+    onOpen: typeof BURGER_JOINT_WS_OPEN,
+    onClose: typeof BURGER_JOINT_WS_CLOSE,
+    onError: typeof BURGER_JOINT_WS_ERROR,
+    onMessage: typeof BURGER_JOINT_WS_MESSAGE
+}
 export type TWSHistoryOrdersActions = typeof wsHistoryOrdersActions
 
+export type wsActions = TWSActions | TWSHistoryOrdersActions;
 
 const wsActions = {
     wsInit: BURGER_JOINT_CONNECT,
     wsDisconnect: BURGER_JOINT_DISCONNECT,
-    wsConnecting: BURGER_JOINT_WS_CONNETING,
+    wsConnecting: BURGER_JOINT_WS_CONNETIN,
     onOpen: BURGER_JOINT_WS_OPEN,
     onClose: BURGER_JOINT_WS_CLOSE,
     onError: BURGER_JOINT_WS_ERROR,
@@ -58,7 +68,9 @@ export const configureStore = (initialState: RootState) => {
     const store = createStore(
         reducer,
         initialState,
-        composeWithDevTools(applyMiddleware(thunkMiddleware, socketMiddleware(wsActions) as any, socketMiddleware(wsHistoryOrdersActions) as any)) //функция обеспечивающая поддержку reduxDevTools
+        composeWithDevTools(applyMiddleware(thunkMiddleware,
+            socketMiddleware(wsActions),
+            socketMiddleware(wsHistoryOrdersActions))) //функция обеспечивающая поддержку reduxDevTools
     )
     return store;
 }

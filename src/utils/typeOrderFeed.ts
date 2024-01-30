@@ -1,5 +1,5 @@
 import { HISTORY_ORDERS_WS_CONNECTING } from "../services/historyorder/actions/wsHistoryOrdersActions";
-import { BURGER_JOINT_WS_CLOSE, BURGER_JOINT_WS_CONNETING, BURGER_JOINT_WS_ERROR, BURGER_JOINT_WS_MESSAGE, BURGER_JOINT_WS_OPEN } from "../services/orderfeed/actions/wsActions";
+import { BURGER_JOINT_WS_CLOSE, BURGER_JOINT_WS_CONNETIN, BURGER_JOINT_WS_ERROR, BURGER_JOINT_WS_MESSAGE, BURGER_JOINT_WS_OPEN } from "../services/orderfeed/actions/wsActions";
 import { TOrderWS } from "./typeHistoryOrder";
 
 export type TBurgers = {
@@ -27,7 +27,7 @@ export type TOrderFeedState = {
 }
 
 export interface IBurgerJointWSConnecting {
-    readonly type: typeof BURGER_JOINT_WS_CONNETING;
+    readonly type: typeof BURGER_JOINT_WS_CONNETIN;
     readonly payload: string;
 }
 
@@ -65,3 +65,15 @@ export type TOrderFeedAction =
 |IBurgerJointWSMessage
 |IBurgerJointWSClose
 |IBurgerJointWSOpen
+
+export type TActionOrderFeed = {
+    type: 
+    |typeof BURGER_JOINT_WS_CONNETIN
+    |typeof BURGER_JOINT_WS_CLOSE
+    |typeof BURGER_JOINT_WS_ERROR
+    |typeof BURGER_JOINT_WS_MESSAGE
+    |typeof HISTORY_ORDERS_WS_CONNECTING
+    |typeof BURGER_JOINT_WS_CLOSE
+    |typeof BURGER_JOINT_WS_OPEN;
+    payload?:  string| TBurgers;
+}
