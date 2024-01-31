@@ -24,12 +24,11 @@ export type TIngredient = {
     type: string,
     __v: number,
     _id: string,
-    randomId?:string,
+    randomId?: string,
 }
 
 export type TIngredientsState = {
     ingredients: ReadonlyArray<TIngredient>;
-    /* selectIngredient: ReadonlyArray<TIngredient>; */
     error: any | null;
     loading: boolean;
     openModalOrder: TOpenModalOrder;
@@ -65,9 +64,6 @@ export type TOrder = {
     _id: string
 }
 
-
-
-
 export type TOrderResponse = {
     name: string,
     order: TOrder,
@@ -79,23 +75,13 @@ export type TAction = {
     data: Array<TIngredient>
 }
 
-export interface IGetIngredientsAction { // есть сомнения о необходимости
+export interface IGetIngredientsAction {
     readonly type: typeof GET_INGREDIENTS;
 }
 
-/* export interface IAddBunAction {
-    readonly type: typeof ADD_BUN;
-    readonly selectIngredient: TIngredient[];
-} */
-
-/* export interface IAddIngredientAction {
-    readonly type: typeof ADD_INGREDIENT;
-    readonly payload: TAction;
-} */
 
 export interface IIngredientsLoadSuccessAction {
     readonly type: typeof INGREDIENTS_LOAD_SUCCESS;
-    /* readonly loading: boolean; */
     readonly payload: TAction;
 }
 
@@ -104,7 +90,7 @@ export interface IOpenModalOrderSuccess {
     readonly payload: TOrderResponse;
 }
 
-export interface IOpenModalIngredient { //возможно не нужен
+export interface IOpenModalIngredient { 
     readonly type: typeof OPEN_MODAL_INGREDIENT;
     readonly openModalOrder: TOpenModalOrder;
     readonly payload: TIngredient | null;
@@ -122,9 +108,7 @@ export interface IError {
 }
 
 export interface ILoading {
-    readonly type: typeof LOADING;
-    /* readonly loading: boolean; */
-   /*  readonly error: any; */
+    readonly type: typeof LOADING;    
 }
 
 export interface IOpenModal {
@@ -132,23 +116,15 @@ export interface IOpenModal {
     readonly openModalOrder: TOpenModalOrder;
 }
 
-/* export interface IDeleteIngredient {
-    readonly type: typeof DELETE_INGREDIENT;
-    readonly payload: Array<TIngredient>; 
-
-} */
-
 export type TIngredientActions =
-    | IGetIngredientsAction
-    /* | IAddIngredientAction */
+    | IGetIngredientsAction    
     | IIngredientsLoadSuccessAction
     | IOpenModalOrderSuccess
     | IOpenModalIngredient
     | ICloseModal
     | IError
     | ILoading
-    | IOpenModal
-    /* | IDeleteIngredient */;
+    | IOpenModal;
 
 //Типизация dnd   
 export interface IDeleteIngredientOther {
@@ -172,44 +148,30 @@ export interface IItemType {
     readonly payload: Array<TIngredient>
 }
 
-
-
 export type TDraggableIngredientAction =
     | IDeleteIngredientOther
     | IAddIngredientSort
     | IAddIngredientBun
     | IItemType
     | IIngredientsLoadSuccessAction
-    | IOpenModalOrderSuccess
+    | IOpenModalOrderSuccess;
 
-//Типизация historyorder
 
 // Типизация Thunk
 export type TApplicationActions = TIngredientActions;
 
 //Типизация AppHeader
-
 export interface INavLinkProps {
     isActive: boolean;
 }
 
-/* export interface ILocation {
-    pathname: string;
-    search: string;
-    hash: string;
-    state: any;
-    key: string;
-} */
-
 export type TSetType = 'primary' | 'secondary'
 
 //Типизация BlockEnergyValue
-
-
-export type ActionAll = 
-| TDraggableIngredientAction
-| TIngredientActions
-| TAuthActions
-| THistoryOrderAction
-| TOrderFeedAction
-| wsActions
+export type ActionAll =
+    | TDraggableIngredientAction
+    | TIngredientActions
+    | TAuthActions
+    | THistoryOrderAction
+    | TOrderFeedAction
+    | wsActions

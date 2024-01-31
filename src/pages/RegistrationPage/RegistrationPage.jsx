@@ -9,9 +9,8 @@ import { useForm } from '../../hooks/useForm'
 const RegistrationPage = () => {
     const user = useSelector(store => store.auth)
     const dispatch = useDispatch();
-    const { values, handleChange, setValues } = useForm({});    
+    const { values, handleChange, setValues } = useForm({});
     const { login, email, password } = values
-
     const handleClickButtonRegister = () => {
         dispatch(register({ login, password, email }))
     }
@@ -43,11 +42,22 @@ const RegistrationPage = () => {
                     name={'password'}
                     extraClass="mb-6"
                 />
-                <Button htmlType="button" type="primary" size="medium" extraClass={'mb-20'} onClick={handleClickButtonRegister}>
+                <Button
+                    htmlType="button"
+                    type="primary"
+                    size="medium"
+                    extraClass={'mb-20'}
+                    onClick={handleClickButtonRegister}>
                     Зарегистрироваться
                 </Button>
-
-                <h2 className={`text_type_main-small`}>Уже зарегистрированы?<Link to={'/login'} className={'pl-2'} style={{ textDecoration: 'none', color: '#4C4CFF' }}>Войти</Link></h2>
+                <h2 className={`text_type_main-small`}>
+                    Уже зарегистрированы?
+                    <Link
+                        to={'/login'}
+                        className={'pl-2'}
+                        style={{ textDecoration: 'none', color: '#4C4CFF' }}>
+                        Войти
+                    </Link></h2>
             </Form>
         </main>
     )

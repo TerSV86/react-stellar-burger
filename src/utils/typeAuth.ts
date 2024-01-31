@@ -4,25 +4,15 @@ export interface IUser {
     email: string;
     name: string;
 }
-/* export interface IAuth {
-    success: boolean;
-    user: IUser
-} */
-/* export interface ILoginRespons {
-    accessToken: string;
-    refreshToken: string;
-    success: boolean;
-    user: IUser;
-} */
 
 export type TAuthState = {
     user: null | IUser;
     tokenUpdate: boolean;
     tokenUpdateSuccess: boolean;
     registerSending: boolean;
-    registerError: any; // Поправить
+    registerError: any; 
     loginSending: boolean;
-    loginError: any; //Поправить
+    loginError: any; 
     isAuthChecked: boolean;
 }
 
@@ -37,7 +27,7 @@ export interface IRegistrSuccess {
 
 export interface IRegistrError {
     readonly type: typeof REGISTER_ERROR;
-    readonly payload: any; // Поправить
+    readonly payload: any; 
 }
 
 export interface ILoginSend {
@@ -52,7 +42,7 @@ export interface ILoginSuccess {
 
 export interface ILoginError {
     readonly type: typeof LOGIN_ERROR;
-    readonly payload: any; //Поправить
+    readonly payload: any; 
 }
 
 export interface ILogout {
@@ -72,5 +62,5 @@ export type TAuthActions =
     | ILoginSuccess
     | ILoginError
     | ILogout
-    | ISetUser
+    | ISetUser;
 

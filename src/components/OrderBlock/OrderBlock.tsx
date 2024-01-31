@@ -3,15 +3,14 @@ import { orderBlockPropType } from '../../utils/prop-types'
 import styles from './OrderBlock.module.css'
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { openModalOrder } from '../../services/ingredients/action'
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 type Prop = {
     sum: number;
 }
 
-const OrderBlock = ({ sum }: Prop) => {
-    const location = useLocation();
+const OrderBlock = ({ sum }: Prop) => {    
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const selectIngredient = useSelector(store => store.ingredientList.selectIngredient)
@@ -38,7 +37,6 @@ const OrderBlock = ({ sum }: Prop) => {
         <div className={`${styles.OrderBlock} pt-6 pr-4 pb-2`}>
             <p className="text text_type_digits-medium pr-2">{sum}</p>
             <CurrencyIcon type="primary" />
-
             <Button
                 disabled={selectIngredient.length === 0}
                 htmlType="button" type="primary" size="large"

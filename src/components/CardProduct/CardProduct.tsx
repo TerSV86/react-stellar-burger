@@ -40,9 +40,7 @@ const CardProduct = ({ product }: Prop) => {
         collect: (monitor: DragSourceMonitor) => ({
           isDrag: monitor.isDragging(),
         }),
-      });
-
-    
+      });    
 
     return (
         <Link key={ingredientId}

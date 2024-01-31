@@ -1,13 +1,6 @@
-import { getCookie } from "../../utils/cookie";
-import { checkAutoLogin } from "../auth/actions/actions";
-import { fetchWithRefresh } from "../../utils/burger-api";
-import { burgerApiConfig } from "../../utils/burger-api";
-import { AppThunk } from "../../utils/typeThunk";
-import { THistoryOrderAction } from "../../utils/typeHistoryOrder";
 import { Middleware, MiddlewareAPI } from "redux";
 import { TAction, } from "../../utils/typeStore";
 import { TWSActions, TWSHistoryOrdersActions } from "../store";
-import { Dispatch } from "react";
 import { RootState } from "../reducer";
 
 

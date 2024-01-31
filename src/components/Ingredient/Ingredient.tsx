@@ -1,12 +1,11 @@
 import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd'
-/* import styles from './Ingredient.module.css' */
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ITEM_TYPE } from '../../services/dnd/actions/draggable-ingredient'
 import { useDispatch, useSelector } from '../../hooks/hooks'
 import { deleteIngredientOther } from '../../services/dnd/actions/draggable-ingredient'
 import React from 'react'
 import { TIngredient } from '../../utils/type'
-import { number } from 'prop-types'
+
 
 type Prop = {
     el: TIngredient;
@@ -14,9 +13,6 @@ type Prop = {
 }
 
 type DragIndex = Record<string, string> & { index: number }
-
-
-
 
 const Ingredient = React.memo(({ el, index }: Prop) => {    
     const dispatch = useDispatch()

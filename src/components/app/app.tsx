@@ -1,7 +1,7 @@
 import styles from "./app.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import ConstructorPage from "../../pages/ConstructorPage/ConstructorPage";
-import { FC, useEffect } from 'react'
+import { useEffect } from 'react'
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
@@ -9,39 +9,26 @@ import { loadIngredients } from "../../services/ingredients/action";
 import { useDispatch, useSelector } from "../../hooks/hooks";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Routes, Route, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import LoginPage from '../../pages/LoginPage/LoginPage'
 import PasswordRecoveryPage from "../../pages/PasswordRecoveryPage/PasswordRecoveryPage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
 import ResetPasswordPage from '../../pages/ResetPasswordPage/ResetPasswordPage'
 import ProfilePage from '../../pages/ProfilePage/ProfilePage'
-import { burgerApiConfig } from "../../utils/burger-api";
 import { AnonymousRoute, ProtectedRouter } from "../ProtectedRouterElement/ProtectedRouterElement";
 import HistoryOrder from "../HistoryOrder/HistoryOrder";
-import { checkAutoLogin, getUser, getUser1 } from "../../services/auth/actions/actions";
+import { checkAutoLogin} from "../../services/auth/actions/actions";
 import OrderFeedPage from "../../pages/OrderFeedPage/OrderFeedPage";
 import OrderInfo from "../../pages/OrderInfo/OrderInfo";
-import { disconnect, connect } from "../../services/orderfeed/actions/wsActions";
-import { connectHistoryOrder } from '../../services/historyorder/actions/wsHistoryOrdersActions'
-/* import { getUserRefresh } from "../../services/auth/actions/actions"; */
 import NotFound404 from "../NotFound404/NotFound404";
 
 function App (): JSX.Element {
 
   const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = useLocation();  
   const background = location.state && location.state.background;
   const { isOpen } = useSelector(store => store.ingredients.openModalOrder)
-  /*  const ingredientDetails = useSelector(store => store.ingredients.openModalIngredient) */
-  /*  console.log("App",ingredientDetails); */
-
-  const { error, loading } = useSelector(store => store.ingredients)
-
-  const handleModalClose = (): void => {
-    // Возвращаемся к предыдущему пути при закрытии модалки
-    navigate(-1);
-  };
+  const { error, loading } = useSelector(store => store.ingredients) 
 
   useEffect(() => {
     dispatch(checkAutoLogin())
@@ -85,8 +72,8 @@ function App (): JSX.Element {
               element={
                 <AnonymousRoute
                   element={
-                    <Modal title={"Детали ингредиента"} /* onClose={handleModalClose} */ >
-                      {<IngredientDetails /* ingredient={ingredientDetails} */ />}
+                    <Modal title={"Детали ингредиента"} >
+                      {<IngredientDetails />}
                     </Modal>}
                 />}
             />
@@ -95,7 +82,7 @@ function App (): JSX.Element {
               element={
                 <AnonymousRoute
                   element={
-                    <Modal /* onClose={handleModalClose} */>
+                    <Modal >
                       <OrderInfo />
                     </Modal>}
                 />}
@@ -104,7 +91,7 @@ function App (): JSX.Element {
               path='profile/order/:number'
               element={
                 <ProtectedRouter element={
-                  <Modal /* onClose={handleModalClose} */>
+                  <Modal>
                     {<OrderInfo />}
                   </Modal>}
                 />}
@@ -116,7 +103,7 @@ function App (): JSX.Element {
             <Route
               path='/'
               element={<ProtectedRouter element={
-                <Modal /* onClose={handleModalClose} */ >
+                <Modal>
                   <OrderDetails />
                 </Modal>
               } />} />

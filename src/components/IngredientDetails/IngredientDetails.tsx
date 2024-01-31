@@ -1,7 +1,7 @@
 import styles from './IngredientDetails.module.css'
 import ProductImage from '../ProductImage/ProductImage'
 import FoodValue from '../FoodValue/FoodValue'
-import { Navigate, useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 import { FC, useEffect } from 'react';
 import { loadIngredients } from '../../services/ingredients/action';
@@ -10,7 +10,6 @@ import { loadIngredients } from '../../services/ingredients/action';
 const IngredientDetails: FC = (): JSX.Element => {
     const dispatch = useDispatch()
     const ingredients = useSelector(store => store.ingredients.ingredients)
-    const location = useLocation()
     const idIngredient = useParams();
 
 

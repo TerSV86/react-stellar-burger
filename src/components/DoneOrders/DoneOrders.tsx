@@ -1,24 +1,20 @@
 import styles from './DoneOrders.module.css'
 import { useSelector } from '../../hooks/hooks'
-import { TBurgerOrder } from '../../utils/typeOrderFeed';
-
-
 
 const DoneOrders = () => {
     const orders = useSelector((store) => store.orders.burgers)
-
-    console.log('orders', orders);
     
     if (!orders) {
         return <h1>Загрузка ...</h1>
     }
+    
     const arrOrders = orders.orders;
     const ordersDone = (arrOrders) ? arrOrders.filter(order => order.status === 'done') : null;
     const lastOrders = (ordersDone) ? ordersDone.slice(0, 30): null;
 
     return (
         <div className={`${styles.DoneOrders}`}>
-            <h2 className={`text text_type_main-large pb-6`} /* style={{ color: '##F2F2F3' }} */>Готовы:</h2>
+            <h2 className={`text text_type_main-large pb-6`}>Готовы:</h2>
             {
                 <div className={`${styles.columnsOrderDone}`}>
                     {(lastOrders) ? lastOrders.map((orderDone, index) => {

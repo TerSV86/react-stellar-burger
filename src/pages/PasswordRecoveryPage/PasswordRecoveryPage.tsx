@@ -9,7 +9,6 @@ type TForm = {
     password: string;
 }
 
-
 const PasswordRecoveryPage = () => {
     const location = useLocation()
     const navigate = useNavigate()
@@ -32,10 +31,18 @@ const PasswordRecoveryPage = () => {
                         isIcon={false}
                         extraClass='mb-6'
                     />
-                    <Button onClick={handlerClickButtonRecovery} htmlType="button" type="primary" size="medium" extraClass={'mb-20'}>
+                    <Button onClick={handlerClickButtonRecovery}
+                        htmlType="button"
+                        type="primary"
+                        size="medium"
+                        extraClass={'mb-20'}>
                         Восстановить
                     </Button>
-                    <h2 className={`text_type_main-small pb-4`}> Вспомнил пароль? <Link to={'/login'} className={'pl-2'} style={{ textDecoration: 'none', color: '#4C4CFF' }}>Войти</Link></h2>
+                    <h2 className={`text_type_main-small pb-4`}>
+                        Вспомнил пароль?
+                        <Link to={'/login'} className={'pl-2'} style={{ textDecoration: 'none', color: '#4C4CFF' }}>
+                            Войти
+                        </Link></h2>
                 </Form>
             </main>
         )

@@ -7,7 +7,6 @@ import { useEffect } from 'react'
 import { connect, disconnect } from '../../services/orderfeed/actions/wsActions'
 import { statusOrder } from '../../utils/burger'
 import { connectHistoryOrder } from '../../services/historyorder/actions/wsHistoryOrdersActions'
-import { checkAutoLogin } from '../../services/auth/actions/actions'
 import { wsUrl, wsUrlHistoryOrders } from '../../utils/burger'
 
 
@@ -15,10 +14,8 @@ const OrderInfo = () => {
     const location = useLocation()
     const dispatch = useDispatch()
     const { number } = useParams()
-
     const orders = useSelector(store => store.orders.burgers)
-    const userOrders = useSelector(store => store.userOrders.userOrders)
-    const user = useSelector(store => store.auth.user)
+    const userOrders = useSelector(store => store.userOrders.userOrders)    
     const arrOrders = (orders) ? orders.orders : null;
     const arrUserOrders = (userOrders) ? userOrders.orders : null
     useEffect(() => {
@@ -37,14 +34,12 @@ const OrderInfo = () => {
 
     }, [])
 
-
     if (!orders && !userOrders) {
         return <p>Загрузка заказов ...</p>
     }
 
     let data;
     if (location.pathname === `/feed/${number}`) {
-
         data = arrOrders?.find((elem) => (number) ? elem.number === +(number) : []);
     } else if (location.pathname === `/profile/order/${number}`) {
         data = arrUserOrders?.find((elem) => (number) ? elem.number === +number : []);

@@ -7,17 +7,14 @@ import { SCROLL_INGREDIENTS_BUN, SCROLL_INGREDIENTS_SAUCES, SCROLL_INGREDIENTS_M
 import React from 'react'
 
 const Products = () => {
-
     const dispatch = useDispatch()
     const projectIngredients = useSelector(store => store.ingredients.ingredients)
     const bunRef = useRef<HTMLDivElement>(null);
     const saucesRef = useRef<HTMLDivElement>(null);
     const mainRef = useRef<HTMLDivElement>(null);
 
-
     const handleScroll = () => {
         const container = document.getElementById('id');
-
         const topConteiner = (container) ? container.getBoundingClientRect().top : null;
         const bunsTop = (bunRef.current) ? bunRef.current.getBoundingClientRect().top : null;
         const saucesTop = (saucesRef.current) ? saucesRef.current.getBoundingClientRect().top : null;
@@ -44,11 +41,9 @@ const Products = () => {
         }
     }, [])
 
-
     const filtredBuns = useMemo(() => projectIngredients.filter((el) => el.type === 'bun'), [projectIngredients])
     const filtredMains = useMemo(() => projectIngredients.filter((el) => el.type === 'main'),[projectIngredients])
     const filtredSauce = useMemo(() => projectIngredients.filter((el) => el.type === 'sauce'),[projectIngredients])
-
 
     return (
         <div className={`${styles.Products} custom-scroll`} id='id' >
@@ -67,8 +62,6 @@ const Products = () => {
         </div>
     )
 }
-
-
 
 export default React.memo(Products)
 

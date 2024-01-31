@@ -1,16 +1,13 @@
 import styles from './OrderDetails.module.css'
 import doneImage from '../../images/done.svg'
-import { CheckMarkIcon, CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from '../../hooks/hooks';
 
 
-const OrderDetails = () => {
-  
+const OrderDetails = () => {  
   const order = useSelector(store => store.ingredients.openModalOrder.numberOrder);
   
     return (
-        <div className={`${styles.OrderDetails} pt-4`}>
-            
+        <div className={`${styles.OrderDetails} pt-4`}>            
             <p className="text text_type_digits-large pb-8">{order}</p>
             <p className="text text_type_main-medium pb-15">
               идентификатор заказа

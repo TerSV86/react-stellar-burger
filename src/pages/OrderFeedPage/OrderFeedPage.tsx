@@ -1,11 +1,9 @@
 import styles from './OrderFeedPage.module.css'
-import OrderFeed from '../../components/OrderFeed/OrderFeed'
-import Stats from '../../components/Stats/Stats'
 import OrdersMainBlock from '../../components/OrdersMainBlock/OrdersMainBlock'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch,} from 'react-redux'
 import { useEffect, memo } from 'react'
 import { connect, disconnect } from '../../services/orderfeed/actions/wsActions'
-import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Outlet, useLocation, useParams } from 'react-router-dom'
 import { wsUrl } from '../../utils/burger'
 
 
@@ -13,14 +11,7 @@ import { wsUrl } from '../../utils/burger'
 const OrderFeedPage = () => {
     const dispatch = useDispatch()
     const location = useLocation()
-    const { number } = useParams()
-
-    /* const orders = useSelector(store => store.orders.burgers.orders) */
-   /*  if (!orders) {
-        return <p>Загрузка заказов ...</p>
-    } */
-    /* console.log(orders); */
-
+    const { number } = useParams() 
 
     useEffect(() => {
         dispatch(connect(wsUrl))
@@ -36,8 +27,7 @@ const OrderFeedPage = () => {
             </div>
         )
     }
-
-
+    
     return (
         <main className={`${styles.OrderFeedPage}`}>
             <h1 className='text text_type_main-large pt-10 pb-5'>Лента заказов</h1>

@@ -43,7 +43,6 @@ export const authReducer = (state = initialState, action: TAuthActions) => {
                 loginError: false
             }
         case LOGIN_SUCCESS:
-
             return {
                 ...state,
                 loginSending: false,
@@ -58,7 +57,6 @@ export const authReducer = (state = initialState, action: TAuthActions) => {
                 loginError: action.payload
             }
         case LOGOUT:
-
             return {
                 ...state,
                 user: null,
@@ -70,7 +68,6 @@ export const authReducer = (state = initialState, action: TAuthActions) => {
                 loginError: null
             }
         case SET_USER:
-
             return {
                 ...state,
                 user: action.payload,

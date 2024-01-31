@@ -2,7 +2,6 @@ import styles from './Modal.module.css'
 import ReactDOM from 'react-dom'
 import ModalHeader from '../ModalHeader/ModalHeader';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
-/* import { reactModals } from '../../utils/data' */
 import { ReactNode, useEffect } from 'react';
 import { modalPropType } from '../../utils/prop-types';
 import { useDispatch, useSelector } from '../../hooks/hooks';
@@ -13,7 +12,6 @@ type Prop = {
     children: ReactNode;
     title?: string;
 }
-
 
 export default function Modal({ children, title }: Prop) {
     const reactModals = document.getElementById('react-modals') as HTMLElement;

@@ -25,8 +25,6 @@ export function getRelativeTimeString(date: string, lang: string): string {
     )
 }
 
-
-
 export const statusOrder = (data: string): string | null => {
     switch (data) {
         case 'done':
@@ -45,29 +43,19 @@ export const wsUrlHistoryOrders = 'wss://norma.nomoreparties.space/orders';
 
 
 export type TOptionsFetch = {
-    method: 'GET' | 'POST';
-    /* mode?: string;
-    cache?: string;
-    credentials?: string; */
-    headers: {[key: string]: string | null;};
-    /* redirect: string;
-    referrerPolicy: string; */
+    method: 'GET' | 'POST';   
+    headers: {[key: string]: string | null;};    
 }
 
 export const optionsFetchWithRefresh = {
-    method: 'GET',
-    /* mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin', */
-    headers: headers/* burgerApiConfig.headers */,
-   /*  redirect: 'follow',
-    referrerPolicy: 'no-referrer' */
+    method: 'GET',    
+    headers: headers,   
 }
 
 export const optionsFetchWithRefreshPostOrders = (selectIngredient: TIngredient) => {
     return ({
         method: "POST",
-        headers: headers /* burgerApiConfig.headers */,
+        headers: headers,
         body: JSON.stringify({
             'ingredients': selectIngredient
         })

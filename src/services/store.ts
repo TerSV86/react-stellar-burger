@@ -23,10 +23,6 @@ import {
     HISTORY_ORDERS_WS_MESSAGE
 } from './historyorder/actions/wsHistoryOrdersActions'
 
-import { store } from ".."
-import { TDraggableIngredientsState, TIngredientActions, TIngredientsState } from "../utils/type"
-import { TOrderFeedAction } from "../utils/typeOrderFeed"
-import { any } from "prop-types"
 
 export type TWSActions = {
     wsInit: typeof BURGER_JOINT_CONNECT,

@@ -7,9 +7,9 @@ type Prop = {
     count: number;
 }
 
-const OrderIngredientPrice = ({ price, count }: Prop) => {
-    
+const OrderIngredientPrice = ({ price, count }: Prop) => {    
     const displayCount = (count>1)? `${count}x`: '';
+    
     return (
         <div className={`${styles.OrderIngredientPrice}`}>
             <p className="text text_type_digits-default"> {`${displayCount}${price}`} </p>

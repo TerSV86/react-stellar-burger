@@ -7,13 +7,11 @@ type Prop = {
 }
 
 const OrderFeedBlockBurgerPrice = ({ ingredients }: Prop) => {
-    /* const burgers = useSelector(store => store.orders.burgers.orders) */
     const product = useSelector(store => store.ingredients.ingredients)
     // проверить ingredients на null. Сейчас просто ингредиент = null отсеивается some. Нижно убрать заказ
-    const ingredientList = product.filter((elem) =>  ingredients.some((element) =>
-       element === elem._id))
-        
-    const price = ingredientList.reduce((acc, elem) => acc + elem.price, 0)     
+    const ingredientList = product.filter((elem) => ingredients.some((element) =>
+        element === elem._id))
+    const price = ingredientList.reduce((acc, elem) => acc + elem.price, 0)
 
     return (
         <div className={`${styles.OrderFeedBlockBurgerPrice}`}>

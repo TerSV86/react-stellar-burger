@@ -14,8 +14,6 @@ const initialState: TOrderFeedState = {
     connectingError: ''
 }
 
-
-
 export const wsReducer = (state = initialState, action: TOrderFeedAction) => {
     
     switch (action.type) {

@@ -4,7 +4,7 @@ import OrdersInWork from '../OrdersInWork/OrdersInWork'
 
 
 const OrdersBoard = () => {
-    
+        
     return (
         <div className={`${styles.OrdersBoard}`}>
             <DoneOrders />

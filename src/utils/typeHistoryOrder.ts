@@ -2,8 +2,6 @@ import { HISTORY_ORDERS_CONNECT, HISTORY_ORDERS_WS_CLOSE, HISTORY_ORDERS_WS_CONN
 import { TOrder } from "./type";
 import { TBurgerOrder } from "./typeOrderFeed";
 
-
-
 export const CONNECTING: 'CONNECTING ...' = 'CONNECTING ...';
 export const ONLINE: 'ONLINE' = 'ONLINE';
 export const OFFLINE: 'OFFLINE' = 'OFFLINE';
@@ -12,18 +10,15 @@ export type TWebSocketStatus = {
     ONLINE: typeof ONLINE;
     OFFLINE: typeof OFFLINE;
 }
-
 export type TUserBurgerOrder = TBurgerOrder;
-
 export type TUserOrders = {
     orders?: Array<TUserBurgerOrder>;
     total: number;
     totalToday: number;
 }
 
-
 export type THistoryOrderState = {
-    status: string; // Почему не работает TWebSocketStatus[keyof TWebSocketStatus] или typeof CONNECTING | typeof ONLINE | typeof OFFLINE;
+    status: string;
     userOrders: TUserOrders | null;
     connectingError: string;
 }
@@ -64,5 +59,5 @@ export type THistoryOrderAction =
 |IHistoryOrdersWSMessage
 |IHistoryOrdersWSError
 |IHistoryOrdersWSConnecting
-|IHustoryOrdersWSClose
+|IHustoryOrdersWSClose;
 

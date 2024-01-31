@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import styles from './CompletedOrders.module.css'
 
 type Prop = {

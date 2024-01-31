@@ -8,10 +8,8 @@ type Prop = {
 }
 
 const TotalPrice = ({ date }: Prop) => {
-
     const ingredients = useSelector(store => store.ingredients.ingredients)
     const orderIngredients = ingredients.filter((elem) => date?.ingredients.some((element) => element === elem._id))
-
     const sum = orderIngredients.reduce((acc, ingr) => acc + ingr.price + ((ingr.type === 'bun') ? ingr.price : 0), 0)
 
     return (

@@ -10,7 +10,6 @@ type Prop = {
 
 const OrderFeedBlockIngredientsList = ({ ingredients }: Prop) => {
     const products = useSelector(store => store.ingredients.ingredients)
-
     const uniqueIngredientsSet = new Set(ingredients)
     const uniqueIngredientsArr = [...uniqueIngredientsSet]
 

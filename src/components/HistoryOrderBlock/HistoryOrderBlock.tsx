@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import OrderFeedBlockHeader from '../OrderFeedBlockHeader/OrderFeedBlockHeader'
 import OrderFeedBlockIngredientsBurger from '../OrderFeedBlockIngredientsBurger/OrderFeedBlockIngredientsBurger'
 import OrderFeedBlockTitle from '../OrderFeedBlockTitle/OrderFeedBlockTitle'
@@ -6,9 +6,6 @@ import styles from './HistoryOrderBlock.module.css'
 import { statusOrder } from '../../utils/burger'
 import { historyOrderBlockPropType } from '../../utils/prop-types'
 import React from 'react'
-import { useDispatch } from 'react-redux'
-
-import { TUserBurgerOrder } from '../../utils/typeHistoryOrder'
 
 type Prop = {
     ingredients: string[];
@@ -20,17 +17,14 @@ type Prop = {
 
 const HistoryOrderBlock = ({ ingredients, number, name, date, status }: Prop) => {
     
-    const location = useLocation();
-   
+    const location = useLocation();   
 
     return (
         <Link
             key={number}
             to={`${number}`}
             state={{ background: location }}
-            className={styles.link}
-            
-        >
+            className={styles.link} >
             <article className={`${styles.HistoryOrderBlock} p-6`}>
                 <OrderFeedBlockHeader date={date} number={number} />
                 <OrderFeedBlockTitle name={name} />

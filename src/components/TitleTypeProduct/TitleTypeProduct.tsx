@@ -1,4 +1,3 @@
-
 type Prop = {
     type: string;
 }

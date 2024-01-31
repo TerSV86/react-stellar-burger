@@ -5,7 +5,7 @@ import OrderBlock from '../OrderBlock/OrderBlock'
 import { useDispatch, useSelector } from '../../hooks/hooks'
 import { useDrop } from 'react-dnd'
 import { addIngredientBun } from '../../services/dnd/actions/draggable-ingredient'
-import {v4 as uuid4} from 'uuid'
+import { v4 as uuid4 } from 'uuid'
 import { TIngredient } from '../../utils/type'
 
 
@@ -13,7 +13,6 @@ import { TIngredient } from '../../utils/type'
 const BurgerConstructor = () => {
     const dispatch = useDispatch()
     const selectIngredient = useSelector(store => store.ingredientList.selectIngredient)
-    console.log(selectIngredient);
     const sum = selectIngredient.reduce((acc, ingr) => acc + ingr.price + ((ingr.type === 'bun') ? ingr.price : 0), 0)
     const board = 'burgerBunIngredient';
 
@@ -25,11 +24,11 @@ const BurgerConstructor = () => {
         drop(product: TIngredient) {
             const randomId = uuid4();
             product.board = board
-            const updatedProduct = { ...product, randomId, board };            
+            const updatedProduct = { ...product, randomId, board };
             let newArray;
             const delBun = selectIngredient.filter(ingredient => ingredient.type !== 'bun');
             newArray = [...delBun, updatedProduct]
-            dispatch(addIngredientBun(newArray))           
+            dispatch(addIngredientBun(newArray))
         }
     })
 
@@ -37,7 +36,7 @@ const BurgerConstructor = () => {
 
     return (
         <section className={`${styles.BurgerConstructor}  pt-25 `}  >
-            <div className={`${styles.BurgerConstructorBun} ${borderColor}`} /* board='burgerBunIngredient' */ ref={drop}>
+            <div className={`${styles.BurgerConstructorBun} ${borderColor}`} ref={drop}>
                 {selectIngredient
                     .filter(el => el.board === board)
                     .map((el) => {
@@ -60,16 +59,16 @@ const BurgerConstructor = () => {
                 .filter(el => el.board === board)
                 .map((el) => {
                     if (el.type === 'bun') {
-                        return (<div key={el.randomId}><ConstructorElement
-
-                            type="bottom"
-                            isLocked={true}
-                            text={`${el.name} (низ)`}
-                            price={el.price}
-                            thumbnail={el.image}
-                            extraClass='ml-9'
-
-                        /></div>);
+                        return (
+                            <div key={el.randomId}>
+                                <ConstructorElement
+                                    type="bottom"
+                                    isLocked={true}
+                                    text={`${el.name} (низ)`}
+                                    price={el.price}
+                                    thumbnail={el.image}
+                                    extraClass='ml-9' />
+                            </div>);
                     }
                 })}
             <OrderBlock sum={sum} />

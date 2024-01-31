@@ -10,8 +10,7 @@ type Prop = {
     onSubmit?: (e: React.FormEvent<HTMLFormElement>)=> void;
 }
 
-const Form = ({ title, children , onSubmit }: Prop) => {
-   
+const Form = ({ title, children , onSubmit }: Prop) => {   
     return (
         <form className={`${styles.Form} pt-2`} onSubmit={onSubmit}>
             {title ? (<h1 className={`text_type_main-medium pb-8`}>{title}</h1>) : null}

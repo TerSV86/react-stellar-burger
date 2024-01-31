@@ -1,15 +1,10 @@
 import { DELETE_INGREDIENT } from "../dnd/actions/draggable-ingredient";
-import { CLOSE_MODAL, OPEN_MODAL, OPEN_MODAL_INGREDIENT,/*  SEND_ORDER_BURGER */ } from "./action";
-import { INGREDIENTS_LOAD_SUCCESS, LOADING, ERROR, /* ADD_INGREDIENT,  */OPEN_MODAL_ORDER_SUCCESS } from './action'
-import { TIngredientActions, TIngredientsState, TOpenModalOrder,  } from "../../utils/type";
-
-
-
-
+import { CLOSE_MODAL, OPEN_MODAL, OPEN_MODAL_INGREDIENT } from "./action";
+import { INGREDIENTS_LOAD_SUCCESS, LOADING, ERROR, OPEN_MODAL_ORDER_SUCCESS } from './action'
+import { TIngredientActions, TIngredientsState, TOpenModalOrder, } from "../../utils/type";
 
 const initialState: TIngredientsState = {
     ingredients: [],
-    /* selectIngredient: [], */
     error: null,
     loading: false,
     openModalOrder: {
@@ -19,16 +14,13 @@ const initialState: TIngredientsState = {
     },
 };
 
-export const reducer = (state = initialState, action:TIngredientActions) => {
-
+export const reducer = (state = initialState, action: TIngredientActions) => {
     switch (action.type) {
         case INGREDIENTS_LOAD_SUCCESS:
-            console.log('action', action);
-            
             return {
                 ...state,
                 ingredients: [...action.payload.data],
-                loading: false //*
+                loading: false 
             }
 
         case LOADING:
@@ -42,61 +34,23 @@ export const reducer = (state = initialState, action:TIngredientActions) => {
             return {
                 ...state,
                 error: action.payload,
-            }
-        /* case ADD_INGREDIENT:
-            const newStateDelBun = state.selectIngredient.filter(ingredient => ingredient.type !== 'bun')
+            }        
 
-            return {
-                ...state,
-                selectIngredient: [...newStateDelBun, action.payload]
-            }
-        case DELETE_INGREDIENT:
-            //const newProduct = state.selectIngredient.filter((ingr) => ingr.id !== action.id) 
-            console.log('DelIngr',action.payload);
-            
-            return {
-                ...state,
-                selectIngredient: action.payload//[...newProduct]
-            } */
-
-        case OPEN_MODAL_ORDER_SUCCESS:
-            console.log('openModalOrder', action.payload);
-            
+        case OPEN_MODAL_ORDER_SUCCESS:       
             return {
                 ...state,
                 openModalOrder: {
-                    isOpen: true /* !state.isOpen */,
+                    isOpen: true ,
                     numberOrder: action.payload.order.number,
-                    isClickButtonOrder: /* !state.isClickButtonOrder */true,
+                    isClickButtonOrder: true,
                 },
             }
-        
 
-        /* case OPEN_MODAL_INGREDIENT:
-
-            return {
-                ...state,
-                openModalOrder: {
-                    ...state,
-                    isOpen: true
-                },
-                openModalIngredient: action.payload
-
-            } */
-        /* case OPEN_MODAL:
-
-            return {
-                ...state,
-                openModalOrder: {
-                    ...state.openModalOrder,
-                    isOpen: !state.isOpen
-                },
-            } */
         case CLOSE_MODAL:
             return {
                 ...state,
                 openModalOrder: {
-                    ...state/* .openModalOrder */,
+                    ...state.openModalOrder,
                     isOpen: false,
                     numberOrder: 0,
                     isClickButtonOrder: false

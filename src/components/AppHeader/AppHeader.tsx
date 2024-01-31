@@ -2,13 +2,12 @@
 import styles from './AppHeader.module.css'
 import { ProfileIcon, BurgerIcon, ListIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 import { FC } from 'react';
-import { NavLink, useLocation, NavLinkProps } from 'react-router-dom';
-import { /* ILocation, */ INavLinkProps, TSetType } from '../../utils/type';
+import { NavLink, useLocation} from 'react-router-dom';
+import { INavLinkProps, TSetType } from '../../utils/type';
 
 
 const AppHeader: FC = ():JSX.Element => {
-    const location = useLocation()
-    console.log(location);
+    const location = useLocation()   
 
     const setActive = ({ isActive }: INavLinkProps): React.CSSProperties => ({ color: isActive ? '#F2F2F3' : '' })
     const setType = (to: string): TSetType => ((to === location.pathname) ? 'primary' : 'secondary');
@@ -20,9 +19,8 @@ const AppHeader: FC = ():JSX.Element => {
                 <BurgerIcon type={setType('/')} />
                 <span className='text text_type_main-default'>Конструктор</span>
             </NavLink>
-
             <NavLink to='/feed' className={`${styles.Link} ${styles.LinkListOrder}`} style={setActive}>
-                {<ListIcon /* type='secondary' */ type={setType('/feed')} />}
+                {<ListIcon type={setType('/feed')} />}
                 <span className='text text_type_main-default'>Лента заказов</span>
             </NavLink>
             <Logo />

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
 import { getUser } from '../../services/auth/actions/actions'
 import { TValue } from '../../pages/ProfilePage/ProfilePage'
-/* import { TForm } from '../../pages/ProfilePage/ProfilePage' */
+
 
 type Prop = {
     data: TValue;

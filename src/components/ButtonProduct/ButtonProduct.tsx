@@ -8,7 +8,9 @@ type Prop = {
 }
 
 const ButtonProduct = ({name, active}: Prop) => {
-    const scrollClassName = active ? `${styles.ButtonProduct} ${styles.active} text text_type_main-default` : `${styles.ButtonProduct} text text_type_main-default`
+    const scrollClassName = active ? 
+    `${styles.ButtonProduct} ${styles.active} text text_type_main-default`
+    :`${styles.ButtonProduct} text text_type_main-default`
     return (
         <a href='#' className={scrollClassName}>{name}</a>
     )
