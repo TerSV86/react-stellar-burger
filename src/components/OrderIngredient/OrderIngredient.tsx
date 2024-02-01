@@ -6,7 +6,7 @@ import styles from './OrderIngredient.module.css'
 
 type Prop = {
     product:  TIngredient;
-    count: number;
+    count?: number;
 }
 
 const OrderIngredient = ({ product, count }: Prop) => {
@@ -15,7 +15,7 @@ const OrderIngredient = ({ product, count }: Prop) => {
         <div className={`${styles.OrderIngredient} mr-6`}>
             <IngredietnRoundFrame product={product} />
             <ProductName name={product.name} />
-            <OrderIngredientPrice price={product.price} count={count} />
+            <OrderIngredientPrice price={product.price} count={(count)? count : undefined} />
         </div>
     )
 }

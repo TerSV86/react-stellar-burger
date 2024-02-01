@@ -1,6 +1,6 @@
 import styles from './ButtonsProfile.module.css'
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
-import { useDispatch } from 'react-redux'
+import { useDispatch } from '../../hooks/hooks'
 import { Link } from "react-router-dom"
 import { getUser } from '../../services/auth/actions/actions'
 import { TValue } from '../../pages/ProfilePage/ProfilePage'

@@ -8,7 +8,7 @@ export const socketMiddleware = (wsActions: TWSActions | TWSHistoryOrdersActions
 
     return (store: MiddlewareAPI) => {
         let socket: WebSocket | null = null;
-        return (next: any) => (action: TAction) => {
+        return (next) => (action: TAction) => {
 
             const { getState, dispatch } = store;
             const { type, payload } = action;

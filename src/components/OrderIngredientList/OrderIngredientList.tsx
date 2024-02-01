@@ -5,22 +5,23 @@ import { useSelector } from '../../hooks/hooks';
 import { TIngredient } from '../../utils/type';
 
 type Prop = {
-    burgerIngr: string[];
+    burgerIngr?: string[];
 }
 
-const OrderIngredientList = ({ burgerIngr }: Prop) => {
+const OrderIngredientList = ({ burgerIngr }: Prop) => {   
+    
     const ingredients = useSelector(store => store.ingredients.ingredients)
-    const orderIngredients = ingredients.filter((elem) => burgerIngr.some((id) => id === elem._id))
+    const orderIngredients = ingredients.filter((elem) => burgerIngr?.some((id) => id === elem._id))
 
     return (
         <div className={`${styles.OrderIngredientList} pr-6 mb-10 custom-scroll`}>
             {orderIngredients.map((ingredient) => {                
-                let counters = burgerIngr.filter((elem) => elem === ingredient._id).length
+                let counters = burgerIngr?.filter((elem) => elem === ingredient._id).length
                 if (ingredient.type === 'bun') {
                     counters = 2
                 }
                 return (
-                    <OrderIngredient key={ingredient._id} product={ingredient} count={counters} />
+                    <OrderIngredient key={ingredient._id} product={ingredient} count={(counters)? counters: undefined} />
                 )
             })}
         </div>

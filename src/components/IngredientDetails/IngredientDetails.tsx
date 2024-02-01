@@ -12,13 +12,7 @@ const IngredientDetails: FC = (): JSX.Element => {
     const ingredients = useSelector(store => store.ingredients.ingredients)
     const idIngredient = useParams();
 
-
-    useEffect(() => {
-        // Загружаем ингредиенты только если их еще нет
-        if (!ingredients) {
-            dispatch(loadIngredients());
-        }
-    }, [dispatch, ingredients]);
+    
     if (!ingredients) {
         return <div>Loading...</div>;
     }

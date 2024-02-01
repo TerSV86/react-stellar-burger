@@ -59,7 +59,7 @@ const ProfilePage = () => {
                 break;
         }
         activeElement?.addEventListener('blur', () => {
-            console.log('noFocus');
+            
             switch (nameActiveElement) {
                 case 'name':
                     setEditLogin(false);

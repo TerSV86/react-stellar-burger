@@ -20,7 +20,7 @@ export default function Modal({ children, title }: Prop) {
     const isOpen = useSelector(store => store.ingredients.openModalOrder.isOpen)
     
     useEffect(() => {
-        function closeByEscape(evt: { key: string; }) {                   
+        function closeByEscape(evt: KeyboardEvent) {                   
             if (evt.key === 'Escape') {                
                 if (!isOpen) navigate(-1)
                 if (isOpen) dispatch(closeModal());

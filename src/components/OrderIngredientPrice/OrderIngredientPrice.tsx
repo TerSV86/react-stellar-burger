@@ -4,11 +4,11 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 
 type Prop = {
     price: number;
-    count: number;
+    count?: number;
 }
 
 const OrderIngredientPrice = ({ price, count }: Prop) => {    
-    const displayCount = (count>1)? `${count}x`: '';
+    const displayCount = (count) ?( (count>1)? `${count}x`: '') : undefined;
     
     return (
         <div className={`${styles.OrderIngredientPrice}`}>

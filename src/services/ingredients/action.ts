@@ -3,7 +3,7 @@ import { fetchWithRefresh, getProductData } from "../../utils/burger-api";
 import { getNumberOrder } from "../../utils/burger-api";
 import { burgerApiConfig } from "../../utils/burger-api";
 import { TIngredient, } from "../../utils/type";
-import { AppDispatch, AppThunk } from "../../utils/typeThunk";
+import { AppThunk } from "../../utils/typeThunk";
 
 
 export const GET_INGREDIENTS: 'GET_INGREDIENTS' = 'GET_INGREDIENTS';
@@ -16,7 +16,7 @@ export const LOADING: 'LOADING' = 'LOADING';
 export const OPEN_MODAL: 'OPEN_MODAL' = 'OPEN_MODAL';
 
 
-export const loadIngredients: AppThunk = () => (dispatch: AppDispatch) => {
+export const loadIngredients: AppThunk = () => (dispatch) => {
     dispatch({type: LOADING })
     return getProductData()
         .then((res) => {
@@ -37,7 +37,7 @@ export const loadIngredients: AppThunk = () => (dispatch: AppDispatch) => {
         })
 }
 
-export const openModalOrder:AppThunk = (selectIngredient: TIngredient) => (dispatch: AppDispatch) => {
+export const openModalOrder:AppThunk = (selectIngredient: TIngredient) => (dispatch) => {
     return getNumberOrder(selectIngredient)
         .then(res => {
             dispatch({

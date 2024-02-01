@@ -29,7 +29,7 @@ const IngredientsContainer: FC = () => {
             let newSortIngredient;           
             newSortIngredient = [...selectIngredient, updatedProduct];
             newStateSelectIngerdient = [...arraySelectIngredient, updatedProduct]
-            console.log('dnd', newStateSelectIngerdient, newSortIngredient);
+            
             dispatch(addIngredientSort(newStateSelectIngerdient, newSortIngredient))
         }
     })
