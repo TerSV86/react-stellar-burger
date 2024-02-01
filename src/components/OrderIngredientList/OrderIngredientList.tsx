@@ -1,9 +1,14 @@
 import { orderIngredientListPropType } from '../../utils/prop-types';
 import OrderIngredient from '../OrderIngredient/OrderIngredient'
 import styles from './OrderIngredientList.module.css'
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
+import { TIngredient } from '../../utils/type';
 
-const OrderIngredientList = ({ burgerIngr }) => {
+type Prop = {
+    burgerIngr: string[];
+}
+
+const OrderIngredientList = ({ burgerIngr }: Prop) => {
     const ingredients = useSelector(store => store.ingredients.ingredients)
     const orderIngredients = ingredients.filter((elem) => burgerIngr.some((id) => id === elem._id))
 

@@ -3,13 +3,19 @@ import Form from '../../components/Form/Form'
 import { EmailInput, PasswordInput, Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Navigate } from 'react-router-dom'
 import { register } from '../../services/auth/actions/actions'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../hooks/hooks'
 import { useForm } from '../../hooks/useForm'
+
+export type TValue = {
+    login?: string;
+    email?: string;
+    password?: string
+}
 
 const RegistrationPage = () => {
     const user = useSelector(store => store.auth)
     const dispatch = useDispatch();
-    const { values, handleChange, setValues } = useForm({});
+    const { values, handleChange, setValues } = useForm<TValue>({});
     const { login, email, password } = values
     const handleClickButtonRegister = () => {
         dispatch(register({ login, password, email }))
@@ -24,21 +30,21 @@ const RegistrationPage = () => {
             <Form title={'Регистрация'}>
                 <Input
                     onChange={handleChange}
-                    value={login}
+                    value={(login)? login : ''}
                     name={'login'}
                     placeholder="Логин"
                     extraClass="mb-6"
                 />
                 <EmailInput
                     onChange={handleChange}
-                    value={email}
+                    value={(email) ? email : ""}
                     name={'email'}
                     isIcon={false}
                     extraClass='mb-6'
                 />
                 <PasswordInput
                     onChange={handleChange}
-                    value={password}
+                    value={(password) ? password : ''}
                     name={'password'}
                     extraClass="mb-6"
                 />
