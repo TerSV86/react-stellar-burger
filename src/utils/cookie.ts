@@ -1,4 +1,9 @@
-export const setCookie = (name, value, props) => {
+type TSetCookieProps = {
+    expires?: number | Date | string;
+    [key: string]: string | number | Date | boolean | undefined;
+}
+
+export const setCookie = (name: string, value: string, props: TSetCookieProps) => {
     
     props = props || {};
     
@@ -13,7 +18,7 @@ export const setCookie = (name, value, props) => {
         exp = props.expires = d
        
     }
-    if (exp && exp.toUTCString) {
+    if (exp && exp instanceof Date && exp.toUTCString) {
         props.expires = exp.toUTCString()
         
     }
@@ -36,7 +41,7 @@ export const setCookie = (name, value, props) => {
     document.cookie = updatedCookie;
 }
 
-export function getCookie(name) {
+export function getCookie(name: string) {
     
     const matches = document.cookie.match(
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
