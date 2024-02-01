@@ -7,17 +7,7 @@
     align-items: center;
     justify-items: center;
     box-sizing: border-box;
-
-}
-
-.ActiveLink {
-    color: #f2f2f3;
-    border: 1px solid red;
-}
-
-.active {
-    border: 5px solid yellow;
-    color: brown;
+    color: #8585AD;
 }
 
 .LinkConstructor {
@@ -26,6 +16,7 @@
     grid-row: 1;
     justify-self: start;
 }
+
 
 .LinkProfile {
     max-width: 208px;
@@ -41,9 +32,7 @@
 
 .Link {
     width: 100%;
-    /* background-color: #131316; */
-
-    color: #8585AD;
+    color: inherit;
     padding: 16px 20px;
     border-radius: 40px;
     display: flex;

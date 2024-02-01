@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { ingredientPropType } from "./types";
+import { ingredientPropType } from "./types.ts";
 
 
 export const buttonHeaderPropType = {
